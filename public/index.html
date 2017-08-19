@@ -214,7 +214,6 @@
 
 
 
-
   
     <article id="post-2017-05-07" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -271,7 +270,6 @@
     </div>
   </div>
 </article>
-
 
 
 
@@ -352,7 +350,6 @@
 
 
 
-
   
     <article id="post-2017-04-10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -409,7 +406,6 @@
     </div>
   </div>
 </article>
-
 
 
 
@@ -483,7 +479,6 @@
 
 
 
-
   
     <article id="post-ajax" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -506,7 +501,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。</p>
-<h5 id="使用jQuery的-ajax-发起ajax请求的JavaScript代码如下："><a href="#使用jQuery的-ajax-发起ajax请求的JavaScript代码如下：" class="headerlink" title="使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下："></a>使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line"><span class="attr">url</span>: <span class="string">'/oauth/respond'</span>,</div><div class="line"><span class="attr">type</span>: <span class="string">'post'</span>,</div><div class="line"><span class="attr">data</span>: data,</div><div class="line"><span class="attr">complete</span>: <span class="function"><span class="keyword">function</span>(<span class="params">jqXHR</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(jqXHR.status);</div><div class="line">&#125;,</div><div class="line"><span class="attr">error</span>: <span class="function"><span class="keyword">function</span> (<span class="params">xhr</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(xhr.status);</div><div class="line">&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h5 id="使用jQuery的-ajax-发起ajax请求的JavaScript代码如下："><a href="#使用jQuery的-ajax-发起ajax请求的JavaScript代码如下：" class="headerlink" title="使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下："></a>使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">url: <span class="string">'/oauth/respond'</span>,</div><div class="line">type: <span class="string">'post'</span>,</div><div class="line">data: data,</div><div class="line">complete: <span class="function"><span class="keyword">function</span>(<span class="params">jqXHR</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(jqXHR.status);</div><div class="line">&#125;,</div><div class="line">error: <span class="function"><span class="keyword">function</span> (<span class="params">xhr</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(xhr.status);</div><div class="line">&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
         
       
 
@@ -558,7 +553,6 @@
     </div>
   </div>
 </article>
-
 
 
 

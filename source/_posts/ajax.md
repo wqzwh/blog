@@ -1,5 +1,6 @@
 ---
 title: ajax如何截取302响应
+comments: true
 categories: "javascript"
 tags: 
     - 'javascript'

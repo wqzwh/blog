@@ -17,7 +17,7 @@
 <meta property="og:description" content="在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。 使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：1234567891011$.ajax(&amp;#123;url: &apos;/oauth/respond&apos;,type: &apos;">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.iwangqi.com/ajax/111.png">
-<meta property="og:updated_time" content="2017-04-23T07:38:37.000Z">
+<meta property="og:updated_time" content="2017-08-19T13:21:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ajax如何截取302响应">
 <meta name="twitter:description" content="在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。 使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：1234567891011$.ajax(&amp;#123;url: &apos;/oauth/respond&apos;,type: &apos;">
@@ -172,7 +172,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。</p>
-<h5 id="使用jQuery的-ajax-发起ajax请求的JavaScript代码如下："><a href="#使用jQuery的-ajax-发起ajax请求的JavaScript代码如下：" class="headerlink" title="使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下："></a>使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line"><span class="attr">url</span>: <span class="string">'/oauth/respond'</span>,</div><div class="line"><span class="attr">type</span>: <span class="string">'post'</span>,</div><div class="line"><span class="attr">data</span>: data,</div><div class="line"><span class="attr">complete</span>: <span class="function"><span class="keyword">function</span>(<span class="params">jqXHR</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(jqXHR.status);</div><div class="line">&#125;,</div><div class="line"><span class="attr">error</span>: <span class="function"><span class="keyword">function</span> (<span class="params">xhr</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(xhr.status);</div><div class="line">&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h5 id="使用jQuery的-ajax-发起ajax请求的JavaScript代码如下："><a href="#使用jQuery的-ajax-发起ajax请求的JavaScript代码如下：" class="headerlink" title="使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下："></a>使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">url: <span class="string">'/oauth/respond'</span>,</div><div class="line">type: <span class="string">'post'</span>,</div><div class="line">data: data,</div><div class="line">complete: <span class="function"><span class="keyword">function</span>(<span class="params">jqXHR</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(jqXHR.status);</div><div class="line">&#125;,</div><div class="line">error: <span class="function"><span class="keyword">function</span> (<span class="params">xhr</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(xhr.status);</div><div class="line">&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <h5 id="当服务器端返回302-Found的响应时，浏览器中的运行结果如下："><a href="#当服务器端返回302-Found的响应时，浏览器中的运行结果如下：" class="headerlink" title="当服务器端返回302 Found的响应时，浏览器中的运行结果如下："></a>当服务器端返回302 Found的响应时，浏览器中的运行结果如下：</h5><p><img src="/ajax/111.png" alt="111"></p>
 <p>在ajax的complete()与error()回调函数中得到的状态码都是404，而不是302。<br>为什么呢？在stackoverflow上找到了答案：</p>
@@ -181,7 +181,7 @@
 <p>而在我们的测试程序中，由于302返回的重定向URL在服务器上没有相应的处理程序，所以在ajax回调函数中得到的是404状态码；如果存在对应的URL，得到的状态码就是200。</p>
 <p>所以，如果你想在ajax请求中根据302响应通过location.href进行重定向是不可行的。</p>
 <h4 id="如何解决？"><a href="#如何解决？" class="headerlink" title="如何解决？"></a>如何解决？</h4><h4 id="【方法一】"><a href="#【方法一】" class="headerlink" title="【方法一】"></a>【方法一】</h4><p>继续用ajax，修改服务器端代码，将原来的302响应改为json响应，比如下面的ASP.NET MVC示例代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> Json(<span class="keyword">new</span> &#123; status = <span class="number">302</span>, location = <span class="string">"/oauth/respond"</span> &#125;);</div><div class="line"></div><div class="line">ajax代码稍作修改即可：</div><div class="line"></div><div class="line">$.ajax(&#123;</div><div class="line">    <span class="attr">url</span>: <span class="string">'/oauth/respond'</span>,</div><div class="line">    <span class="attr">type</span>: <span class="string">'post'</span>,</div><div class="line">    <span class="attr">data</span>: data,</div><div class="line">    <span class="attr">dataType</span>: <span class="string">'json'</span>,</div><div class="line">    <span class="attr">success</span>: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (data.status == <span class="number">302</span>) &#123;</div><div class="line">            location.href = data.location;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> Json(<span class="keyword">new</span> &#123; status = <span class="number">302</span>, location = <span class="string">"/oauth/respond"</span> &#125;);</div><div class="line"></div><div class="line">ajax代码稍作修改即可：</div><div class="line"></div><div class="line">$.ajax(&#123;</div><div class="line">    url: <span class="string">'/oauth/respond'</span>,</div><div class="line">    type: <span class="string">'post'</span>,</div><div class="line">    data: data,</div><div class="line">    dataType: <span class="string">'json'</span>,</div><div class="line">    success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (data.status == <span class="number">302</span>) &#123;</div><div class="line">            location.href = data.location;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <h4 id="【方法二】"><a href="#【方法二】" class="headerlink" title="【方法二】"></a>【方法二】</h4><p>不用ajax，改用form。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;form method=<span class="string">"post"</span> action=<span class="string">"/oauth/respond"</span>&gt;&lt;/form&gt;</div></pre></td></tr></table></figure>
 
@@ -308,7 +308,24 @@
   
 
 
-
+  <section id="comments">
+<div id="SOHUCS" sid="ajax如何截取302响应" style="padding: 0px 30px 0px 46px;"></div>
+<script>
+  (function(){
+    var appid = 'cytaIcbYU',
+    conf = 'ebd898f01c4500525d43d880c4075984';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>
+  </section>
+  
 
           </div>
         </div>
