@@ -8,24 +8,23 @@
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
   <title>nodejs的process.nextTick方法理解和使用 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。
-Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中使用一个事件队列，在每个时间点上，系统只会处理一个事件，即使">
+  <meta name="description" content="今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。 Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中使用一个事件队列，在每个时间点上，系统只会处理一个事件，即使">
+<meta name="keywords" content="javascript,node">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nodejs的process.nextTick方法理解和使用">
 <meta property="og:url" content="http://www.iwangqi.com/2017-04-04/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。
-Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中使用一个事件队列，在每个时间点上，系统只会处理一个事件，即使">
+<meta property="og:description" content="今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。 Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中使用一个事件队列，在每个时间点上，系统只会处理一个事件，即使">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-04-11T14:40:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nodejs的process.nextTick方法理解和使用">
-<meta name="twitter:description" content="今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。
-Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中使用一个事件队列，在每个时间点上，系统只会处理一个事件，即使">
+<meta name="twitter:description" content="今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。 Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中使用一个事件队列，在每个时间点上，系统只会处理一个事件，即使">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.234bc0.css">
   <style type="text/css">
@@ -62,8 +61,6 @@ Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中�
 			<ul>
 			
 				<li><a href="/">主页</a></li>
-	        
-				<li><a href="/tags/随笔/">随笔</a></li>
 	        
 			</ul>
 		</nav>
@@ -119,8 +116,6 @@ Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中�
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
@@ -139,9 +134,7 @@ Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中�
 				<ul style="width: 50%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
-		        
-					<li style="width: 50%"><a href="/tags/随笔/">随笔</a></li>
+					<li style="width: 100%"><a href="/">主页</a></li>
 		        
 				</ul>
 			</nav>
@@ -450,6 +443,10 @@ stream.on(<span class="string">'data'</span>, <span class="function"><span class
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">302</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
             
             <div class="clearfix"></div>

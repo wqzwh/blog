@@ -8,45 +8,23 @@
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
   <title>详解javascript对象方法Object.assign()痛点 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="函数原型首先看一下函数的定义：函数参数为一个目标对象（该对象作为最终的返回值）,源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。
-Object.assign(target, …sources)
-这里我们需要强调的三点是：
-
-可被枚举的属性
-自有属性
-string或者Symbol类型是可以被直接分配的
-
-拷贝过程中将调用源对象的getter方法，并在targ">
+  <meta name="description" content="函数原型首先看一下函数的定义：函数参数为一个目标对象（该对象作为最终的返回值）,源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。 Object.assign(target, …sources) 这里我们需要强调的三点是：  可被枚举的属性 自有属性 string或者Symbol类型是可以被直接分配的  拷贝过程中将调用源对象的getter方法，并在targ">
+<meta name="keywords" content="javascript,es6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="详解javascript对象方法Object.assign()痛点">
 <meta property="og:url" content="http://www.iwangqi.com/2017-04-11/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="函数原型首先看一下函数的定义：函数参数为一个目标对象（该对象作为最终的返回值）,源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。
-Object.assign(target, …sources)
-这里我们需要强调的三点是：
-
-可被枚举的属性
-自有属性
-string或者Symbol类型是可以被直接分配的
-
-拷贝过程中将调用源对象的getter方法，并在targ">
+<meta property="og:description" content="函数原型首先看一下函数的定义：函数参数为一个目标对象（该对象作为最终的返回值）,源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。 Object.assign(target, …sources) 这里我们需要强调的三点是：  可被枚举的属性 自有属性 string或者Symbol类型是可以被直接分配的  拷贝过程中将调用源对象的getter方法，并在targ">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2017-04-23T07:19:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="详解javascript对象方法Object.assign()痛点">
-<meta name="twitter:description" content="函数原型首先看一下函数的定义：函数参数为一个目标对象（该对象作为最终的返回值）,源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。
-Object.assign(target, …sources)
-这里我们需要强调的三点是：
-
-可被枚举的属性
-自有属性
-string或者Symbol类型是可以被直接分配的
-
-拷贝过程中将调用源对象的getter方法，并在targ">
+<meta name="twitter:description" content="函数原型首先看一下函数的定义：函数参数为一个目标对象（该对象作为最终的返回值）,源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。 Object.assign(target, …sources) 这里我们需要强调的三点是：  可被枚举的属性 自有属性 string或者Symbol类型是可以被直接分配的  拷贝过程中将调用源对象的getter方法，并在targ">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.234bc0.css">
   <style type="text/css">
@@ -83,8 +61,6 @@ string或者Symbol类型是可以被直接分配的
 			<ul>
 			
 				<li><a href="/">主页</a></li>
-	        
-				<li><a href="/tags/随笔/">随笔</a></li>
 	        
 			</ul>
 		</nav>
@@ -140,8 +116,6 @@ string或者Symbol类型是可以被直接分配的
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
@@ -160,9 +134,7 @@ string或者Symbol类型是可以被直接分配的
 				<ul style="width: 50%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
-		        
-					<li style="width: 50%"><a href="/tags/随笔/">随笔</a></li>
+					<li style="width: 100%"><a href="/">主页</a></li>
 		        
 				</ul>
 			</nav>
@@ -445,6 +417,10 @@ string或者Symbol类型是可以被直接分配的
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">302</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
             
             <div class="clearfix"></div>

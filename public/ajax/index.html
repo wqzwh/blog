@@ -8,26 +8,25 @@
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
   <title>ajax如何截取302响应 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。
-使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：1234567891011$.ajax(&amp;#123;url: &apos;/oauth/respond&apos;,type: &apos;">
+  <meta name="description" content="在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。 使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：1234567891011$.ajax(&amp;#123;url: &apos;/oauth/respond&apos;,type: &apos;">
+<meta name="keywords" content="javascript,ajax,302">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ajax如何截取302响应">
 <meta property="og:url" content="http://www.iwangqi.com/ajax/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。
-使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：1234567891011$.ajax(&amp;#123;url: &apos;/oauth/respond&apos;,type: &apos;">
+<meta property="og:description" content="在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。 使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：1234567891011$.ajax(&amp;#123;url: &apos;/oauth/respond&apos;,type: &apos;">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.iwangqi.com/ajax/111.png">
 <meta property="og:updated_time" content="2017-04-23T07:38:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ajax如何截取302响应">
-<meta name="twitter:description" content="在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。
-使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：1234567891011$.ajax(&amp;#123;url: &apos;/oauth/respond&apos;,type: &apos;">
+<meta name="twitter:description" content="在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。 使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：1234567891011$.ajax(&amp;#123;url: &apos;/oauth/respond&apos;,type: &apos;">
 <meta name="twitter:image" content="http://www.iwangqi.com/ajax/111.png">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.234bc0.css">
   <style type="text/css">
@@ -64,8 +63,6 @@
 			<ul>
 			
 				<li><a href="/">主页</a></li>
-	        
-				<li><a href="/tags/随笔/">随笔</a></li>
 	        
 			</ul>
 		</nav>
@@ -121,8 +118,6 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
@@ -141,9 +136,7 @@
 				<ul style="width: 50%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
-		        
-					<li style="width: 50%"><a href="/tags/随笔/">随笔</a></li>
+					<li style="width: 100%"><a href="/">主页</a></li>
 		        
 				</ul>
 			</nav>
@@ -419,6 +412,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">302</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
             
             <div class="clearfix"></div>

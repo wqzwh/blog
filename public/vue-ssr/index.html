@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>王奇技术博客</title>
+  <title>如何使用vue-ssr做服务端渲染初体验(-) | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="专注前端开发／全栈开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="王奇技术博客">
-<meta property="og:url" content="http://www.iwangqi.com/index.html">
+  <meta name="description" content="1、前言服务端渲染实现原理机制：在服务端拿数据进行解析渲染，直接生成html片段返回给前端。然后前端可以通过解析后端返回的html片段到前端页面，大致有以下两种形式： 1、服务器通过模版引擎直接渲染整个页面，例如java后端的vm模版引擎，php后端的smarty模版引擎。2、服务渲染生成html代码块, 前端通过AJAX获取然后使用js动态添加。">
+<meta name="keywords" content="javascript,vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用vue-ssr做服务端渲染初体验(-)">
+<meta property="og:url" content="http://www.iwangqi.com/vue-ssr/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="专注前端开发／全栈开发">
+<meta property="og:description" content="1、前言服务端渲染实现原理机制：在服务端拿数据进行解析渲染，直接生成html片段返回给前端。然后前端可以通过解析后端返回的html片段到前端页面，大致有以下两种形式： 1、服务器通过模版引擎直接渲染整个页面，例如java后端的vm模版引擎，php后端的smarty模版引擎。2、服务渲染生成html代码块, 前端通过AJAX获取然后使用js动态添加。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.iwangqi.com/vue-ssr/11.png">
+<meta property="og:image" content="http://www.iwangqi.com/vue-ssr/22.jpeg">
+<meta property="og:updated_time" content="2017-08-19T12:18:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="王奇技术博客">
-<meta name="twitter:description" content="专注前端开发／全栈开发">
+<meta name="twitter:title" content="如何使用vue-ssr做服务端渲染初体验(-)">
+<meta name="twitter:description" content="1、前言服务端渲染实现原理机制：在服务端拿数据进行解析渲染，直接生成html片段返回给前端。然后前端可以通过解析后端返回的html片段到前端页面，大致有以下两种形式： 1、服务器通过模版引擎直接渲染整个页面，例如java后端的vm模版引擎，php后端的smarty模版引擎。2、服务渲染生成html代码块, 前端通过AJAX获取然后使用js动态添加。">
+<meta name="twitter:image" content="http://www.iwangqi.com/vue-ssr/11.png">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
@@ -147,16 +152,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-vue-ssr" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-vue-ssr" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/vue-ssr/">如何使用vue-ssr做服务端渲染初体验(-)</a>
+    <h1 class="article-title" itemprop="name">
+      如何使用vue-ssr做服务端渲染初体验(-)
     </h1>
   
 
@@ -171,7 +174,27 @@
       
         <h3 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h3><p>服务端渲染实现原理机制：在服务端拿数据进行解析渲染，直接生成html片段返回给前端。然后前端可以通过解析后端返回的html片段到前端页面，大致有以下两种形式：</p>
 <p>1、服务器通过模版引擎直接渲染整个页面，例如java后端的vm模版引擎，php后端的smarty模版引擎。<br>2、服务渲染生成html代码块, 前端通过AJAX获取然后使用js动态添加。</p>
-        
+<a id="more"></a>    
+<h3 id="2、服务端渲染的优劣"><a href="#2、服务端渲染的优劣" class="headerlink" title="2、服务端渲染的优劣"></a>2、服务端渲染的优劣</h3><p>服务端渲染能够解决两大问题：</p>
+<p>1、seo问题，有利于搜索引擎蜘蛛抓取网站内容，利于网站的收录和排名。<br>2、首屏加载过慢问题，例如现在成熟的SPA项目中，打开首页需要加载很多资源，通过服务端渲染可以加速首屏渲染。</p>
+<p>同样服务端渲染也会有弊端，主要是根据自己的业务场景来选择适合方式，由于服务端渲染前端页面，必将会给服务器增加压力。</p>
+<h3 id="3、SSR的实现原理"><a href="#3、SSR的实现原理" class="headerlink" title="3、SSR的实现原理"></a>3、SSR的实现原理</h3><p>客户端请求服务器，服务器根据请求地址获得匹配的组件，在调用匹配到的组件返回 Promise (官方是preFetch方法)来将需要的数据拿到。最后再通过</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;<span class="built_in">window</span>.__initial_state=data&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure> 
+<p>将其写入网页，最后将服务端渲染好的网页返回回去。</p>
+<p>接下来客户端会将vuex将写入的 <strong>initial_state</strong> 替换为当前的全局状态树，再用这个状态树去检查服务端渲染好的数据有没有问题。遇到没被服务端渲染的组件，再去发异步请求拿数据。说白了就是一个类似React的 shouldComponentUpdate 的Diff操作。</p>
+<p>Vue2使用的是单向数据流，用了它，就可以通过 SSR 返回唯一一个全局状态， 并确认某个组件是否已经SSR过了。</p>
+<h3 id="4、vue后端渲染主要插件：vue-server-renderer"><a href="#4、vue后端渲染主要插件：vue-server-renderer" class="headerlink" title="4、vue后端渲染主要插件：vue-server-renderer"></a>4、vue后端渲染主要插件：vue-server-renderer</h3><p>由于virtual dom的引入，使得vue的服务端渲染成为了可能，下面是官方 vue-server-renderer提供的渲染流程图:</p>
+<p><img src="/vue-ssr/11.png" alt="官方流程图"></p>
+<p>可以看出vue的后端渲染分三个部分组成：页面的源码（source），node层的渲染部分和浏览器端的渲染部分。</p>
+<p>source分为两种entry point,一个是前端页面的入口client entry,主要是实例化Vue对象，将其挂载到页面中；另外一个是后端渲染服务入口server entry,主要是控服务端渲染模块回调，返回一个Promise对象，最终返回一个Vue对象（经过测试，直接返回Vue对象也是可以的）;</p>
+<p>前面的source部分就是业务开发的代码，开发完成之后通过 webpack 进行构建，生成对应的bundle，这里不再赘述client bundle,就是一个可在浏览器端执行的打包文件；这里说下server bundle, vue2提供 vue-server-renderer模块，模块可以提供两种render: rendererer/bundleRenderer ,下面分别介绍下这两种render。</p>
+<p>renderer接收一个vue对象 ，然后进行渲染，这种对于简单的vue对象,可以这么去做，但是对于复杂的项目，如果使用这种直接require一个vue对象，这个对于服务端代码的结构和逻辑都不太友好，首先模块的状态会一直延续在每个请求渲染请求，我们需要去管理和避免这次渲染请求的状态影响到后面的请求,因此vue-server-renderer提供了另外一种渲染模式，通过一个 bundleRenderer去做渲染。</p>
+<p>bundleRenderer是较为复杂项目进行服务端渲染官方推荐的方式，通过webpack以server entry按照一定的要求打包生成一个 server-bundle,它相当于一个可以给服务端用的app的打包压缩文件，每一次调用都会重新初始化 vue对象，保证了每次请求都是独立的，对于开发者来说，只需要专注于当前业务就可以，不用为服务端渲染开发更多的逻辑代码。<br>renderer生成完成之后，都存在两个接口，分别是renderToString和renderToStream，一个是一次性将页面渲染成字符串文件，另外一个是流式渲染，适用于支持流的web服务器，可以是请求服务的速度更快。</p>
+<h3 id="5、项目基本结构如下"><a href="#5、项目基本结构如下" class="headerlink" title="5、项目基本结构如下"></a>5、项目基本结构如下</h3><p><img src="/vue-ssr/22.jpeg" alt="项目结构图"></p>
+<blockquote>
+<p>如何从零开始搭建适合自己的vue后端渲染框架？</p>
+</blockquote>
+
       
 
       
@@ -197,18 +220,74 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/vue-ssr/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/vue-ssr/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017-05-07/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅谈webworker的使用场景</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -216,358 +295,10 @@
 
 
   
-    <article id="post-2017-05-07" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017-05-07/">浅谈webworker的使用场景</a>
-    </h1>
+    <div class="duoshuo"></div>
   
 
-        
-        <a href="/2017-05-07/" class="archive-article-date">
-  	<time datetime="2017-05-07T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="一、webWorker之初体验"><a href="#一、webWorker之初体验" class="headerlink" title="一、webWorker之初体验"></a>一、webWorker之初体验</h3><p>在”setTimeout那些事儿”中，说到JavaScript是单线程。也就是同一时间只能做同一事情。</p>
-<p>也好理解，作为浏览器脚本语言，如果JavaScript不是单线程，那么就有点棘手了。比如，与用户交互或者对DOM进行操作时，在一个线程上修改某个DOM，另外的线程删除DOM，这时浏览器该如何抉择呢?</p>
-<p>所以，JavaScript是单线程也是有背景的。</p>
-        
-      
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017-05-07/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-2017-04-11" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017-04-11/">详解javascript对象方法Object.assign()痛点</a>
-    </h1>
-  
-
-        
-        <a href="/2017-04-11/" class="archive-article-date">
-  	<time datetime="2017-04-11T13:55:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h2><p>首先看一下函数的定义：<br>函数参数为一个目标对象（该对象作为最终的返回值）,源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。</p>
-<p>Object.assign(target, …sources)</p>
-<p>这里我们需要强调的三点是：</p>
-<ol>
-<li>可被枚举的属性</li>
-<li>自有属性</li>
-<li>string或者Symbol类型是可以被直接分配的</li>
-</ol>
-<p>拷贝过程中将调用源对象的getter方法，并在target对象上使用setter方法实现目标对象的拷贝。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017-04-11/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-2017-04-10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017-04-10/">理解JavaScript函数式编程</a>
-    </h1>
-  
-
-        
-        <a href="/2017-04-10/" class="archive-article-date">
-  	<time datetime="2017-04-10T14:14:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>JavaScript 函数式编程是一个存在了很久的话题，但似乎从 2016 年开始，它变得越来越火热。这可能是因为 ES6 语法对于函数式编程更为友好，也可能是因为诸如 RxJS (ReactiveX) 等函数式框架的流行。</p>
-<p>看过许多关于函数式编程的讲解，但是其中大部分是停留在理论层面，还有一些是仅针对 Haskell 等纯函数式编程语言的。而本文旨在聊一聊我眼中的函数式编程在 JavaScript 中的具体实践，之所以是 “我眼中的” 即我所说的仅代表个人观点，可能和部分 严格概念 是有冲突的。</p>
-<p>本文将略去一大堆形式化的概念介绍，重点展示在 JavaScript 中到底什么是函数式的代码、函数式代码与一般写法有什么区别、函数式的代码能给我们带来什么好处以及常见的一些函数式模型都有哪些。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017-04-10/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-2017-04-04" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017-04-04/">nodejs的process.nextTick方法理解和使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017-04-04/" class="archive-article-date">
-  	<time datetime="2017-04-04T09:49:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。</p>
-<p>Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中使用一个事件队列，在每个时间点上，系统只会处理一个事件，即使电脑有多个CPU核心，也无法同时并行的处理多个事件。因此，node.js适合处理I／O型的应用，不适合那种CPU运算密集型的应用。在I／O型的应用中，给每一个输入输出定义一个回调函数，node.js会自动将其加入到事件轮询的处理队列里，当I／O操作完成后，这个回调函数会被触发，系统会继续处理其他的请求。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">node</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017-04-04/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-ajax" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/ajax/">ajax如何截取302响应</a>
-    </h1>
-  
-
-        
-        <a href="/ajax/" class="archive-article-date">
-  	<time datetime="2017-04-02T00:01:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。</p>
-<h5 id="使用jQuery的-ajax-发起ajax请求的JavaScript代码如下："><a href="#使用jQuery的-ajax-发起ajax请求的JavaScript代码如下：" class="headerlink" title="使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下："></a>使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line"><span class="attr">url</span>: <span class="string">'/oauth/respond'</span>,</div><div class="line"><span class="attr">type</span>: <span class="string">'post'</span>,</div><div class="line"><span class="attr">data</span>: data,</div><div class="line"><span class="attr">complete</span>: <span class="function"><span class="keyword">function</span>(<span class="params">jqXHR</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(jqXHR.status);</div><div class="line">&#125;,</div><div class="line"><span class="attr">error</span>: <span class="function"><span class="keyword">function</span> (<span class="params">xhr</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(xhr.status);</div><div class="line">&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ajax</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">302</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/javascript/" class="article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/ajax/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-  
 
 
           </div>
@@ -588,8 +319,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
