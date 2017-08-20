@@ -1,6 +1,7 @@
 ---
 title: ajax如何截取302响应
 comments: true
+date: 2017-04-02 20:09:11
 categories: "javascript"
 tags: 
     - 'javascript'

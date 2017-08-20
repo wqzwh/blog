@@ -149,6 +149,73 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-vue-ssr3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/vue-ssr3/">如何使用vue-ssr做服务端渲染初体验(三)</a>
+    </h1>
+  
+
+        
+        <a href="/vue-ssr3/" class="archive-article-date">
+  	<time datetime="2017-06-05T12:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h3><p>上一节大致介绍了服务端和客户端入口文件代码内容，现在已经可以正常运行你的后端渲染脚手架了，这一节，跟大家分享下如何使用axios做ajax请求，如何使用mockjs做本地假数据，跑通本地基本逻辑，为以后前后端连调做准备。</p>
+<h3 id="2、前期准备"><a href="#2、前期准备" class="headerlink" title="2、前期准备"></a>2、前期准备</h3><p>需要用npm安装axios，mockjs依赖包,由于mockjs只是代码开发的辅助工具，所以安装的时候我会加–save-dev来区分，具体可以根据自己的需求来定，当然，如果有mock服务平台的话，可以直接走mock平台造假数据，本地直接访问mock平台的接口，例如可以使用阿里的Rap平台管理工具生成。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install axios --save</div><div class="line">npm install mockjs --save-dev</div></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/vue-ssr3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-vue-ssr2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -329,6 +396,76 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017-05-07/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-2017-05-02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017-05-02/">axios基本使用介绍</a>
+    </h1>
+  
+
+        
+        <a href="/2017-05-02/" class="archive-article-date">
+  	<time datetime="2017-05-02T10:56:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>axios建议使用高版本浏览器，目前在手机端使用频繁，但是在低版本的安卓上其实是有兼容性问题的，安卓4.2就开始出问题了，主要是由于Promise不支持，需要额外引入兼容包来处理。并且axios也是vue官方推荐使用的库。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>(<span class="string">'es6-promise'</span>).polyfill();</div></pre></td></tr></table></figure>
+<blockquote>
+<p>发送一个GET请求，代码示例如下：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//通过给定的ID来发送请求</span></div><div class="line">axios.get(<span class="string">'/user?ID=12345'</span>)</div><div class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(response);</div><div class="line">  &#125;)</div><div class="line">  .catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(err);</div><div class="line">  &#125;);</div><div class="line"><span class="comment">//以上请求也可以通过这种方式来发送</span></div><div class="line">axios.get(<span class="string">'/user'</span>,&#123;</div><div class="line">  params:&#123;</div><div class="line">    ID:<span class="number">12345</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(response);</div><div class="line">&#125;)</div><div class="line">.catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(err);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ajax</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017-05-02/">展开全文 >></a>
         </p>
       
 
@@ -560,7 +697,7 @@
 
         
         <a href="/ajax/" class="archive-article-date">
-  	<time datetime="2017-04-02T00:01:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-02</time>
+  	<time datetime="2017-04-02T12:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-02</time>
 </a>
         
       </header>
@@ -720,11 +857,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">es6</a>
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">node</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">

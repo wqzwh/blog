@@ -6,23 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>如何使用vue-ssr做服务端渲染初体验(-) | 王奇技术博客</title>
+  <title>如何使用vue-ssr做服务端渲染初体验(三) | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1、前言服务端渲染实现原理机制：在服务端拿数据进行解析渲染，直接生成html片段返回给前端。然后前端可以通过解析后端返回的html片段到前端页面，大致有以下两种形式： 1、服务器通过模版引擎直接渲染整个页面，例如java后端的vm模版引擎，php后端的smarty模版引擎。2、服务渲染生成html代码块, 前端通过AJAX获取然后使用js动态添加。">
+  <meta name="description" content="1、前言上一节大致介绍了服务端和客户端入口文件代码内容，现在已经可以正常运行你的后端渲染脚手架了，这一节，跟大家分享下如何使用axios做ajax请求，如何使用mockjs做本地假数据，跑通本地基本逻辑，为以后前后端连调做准备。 2、前期准备需要用npm安装axios，mockjs依赖包,由于mockjs只是代码开发的辅助工具，所以安装的时候我会加–save-dev来区分，具体可以根据自己的需求来">
 <meta name="keywords" content="javascript,vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何使用vue-ssr做服务端渲染初体验(-)">
-<meta property="og:url" content="http://www.iwangqi.com/vue-ssr/index.html">
+<meta property="og:title" content="如何使用vue-ssr做服务端渲染初体验(三)">
+<meta property="og:url" content="http://www.iwangqi.com/vue-ssr3/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="1、前言服务端渲染实现原理机制：在服务端拿数据进行解析渲染，直接生成html片段返回给前端。然后前端可以通过解析后端返回的html片段到前端页面，大致有以下两种形式： 1、服务器通过模版引擎直接渲染整个页面，例如java后端的vm模版引擎，php后端的smarty模版引擎。2、服务渲染生成html代码块, 前端通过AJAX获取然后使用js动态添加。">
+<meta property="og:description" content="1、前言上一节大致介绍了服务端和客户端入口文件代码内容，现在已经可以正常运行你的后端渲染脚手架了，这一节，跟大家分享下如何使用axios做ajax请求，如何使用mockjs做本地假数据，跑通本地基本逻辑，为以后前后端连调做准备。 2、前期准备需要用npm安装axios，mockjs依赖包,由于mockjs只是代码开发的辅助工具，所以安装的时候我会加–save-dev来区分，具体可以根据自己的需求来">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.iwangqi.com/vue-ssr/11.png">
-<meta property="og:image" content="http://www.iwangqi.com/vue-ssr/22.jpeg">
-<meta property="og:updated_time" content="2017-08-19T13:43:10.000Z">
+<meta property="og:image" content="http://www.iwangqi.com/vue-ssr3/11.jpeg">
+<meta property="og:updated_time" content="2017-08-20T11:54:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何使用vue-ssr做服务端渲染初体验(-)">
-<meta name="twitter:description" content="1、前言服务端渲染实现原理机制：在服务端拿数据进行解析渲染，直接生成html片段返回给前端。然后前端可以通过解析后端返回的html片段到前端页面，大致有以下两种形式： 1、服务器通过模版引擎直接渲染整个页面，例如java后端的vm模版引擎，php后端的smarty模版引擎。2、服务渲染生成html代码块, 前端通过AJAX获取然后使用js动态添加。">
-<meta name="twitter:image" content="http://www.iwangqi.com/vue-ssr/11.png">
+<meta name="twitter:title" content="如何使用vue-ssr做服务端渲染初体验(三)">
+<meta name="twitter:description" content="1、前言上一节大致介绍了服务端和客户端入口文件代码内容，现在已经可以正常运行你的后端渲染脚手架了，这一节，跟大家分享下如何使用axios做ajax请求，如何使用mockjs做本地假数据，跑通本地基本逻辑，为以后前后端连调做准备。 2、前期准备需要用npm安装axios，mockjs依赖包,由于mockjs只是代码开发的辅助工具，所以安装的时候我会加–save-dev来区分，具体可以根据自己的需求来">
+<meta name="twitter:image" content="http://www.iwangqi.com/vue-ssr3/11.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
@@ -152,48 +151,51 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-vue-ssr" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-vue-ssr3" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      如何使用vue-ssr做服务端渲染初体验(-)
+      如何使用vue-ssr做服务端渲染初体验(三)
     </h1>
   
 
         
-        <a href="/vue-ssr/" class="archive-article-date">
-  	<time datetime="2017-06-01T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-01</time>
+        <a href="/vue-ssr3/" class="archive-article-date">
+  	<time datetime="2017-06-05T12:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h3><p>服务端渲染实现原理机制：在服务端拿数据进行解析渲染，直接生成html片段返回给前端。然后前端可以通过解析后端返回的html片段到前端页面，大致有以下两种形式：</p>
-<p>1、服务器通过模版引擎直接渲染整个页面，例如java后端的vm模版引擎，php后端的smarty模版引擎。<br>2、服务渲染生成html代码块, 前端通过AJAX获取然后使用js动态添加。</p>
-<a id="more"></a>    
-<h3 id="2、服务端渲染的优劣"><a href="#2、服务端渲染的优劣" class="headerlink" title="2、服务端渲染的优劣"></a>2、服务端渲染的优劣</h3><p>服务端渲染能够解决两大问题：</p>
-<p>1、seo问题，有利于搜索引擎蜘蛛抓取网站内容，利于网站的收录和排名。<br>2、首屏加载过慢问题，例如现在成熟的SPA项目中，打开首页需要加载很多资源，通过服务端渲染可以加速首屏渲染。</p>
-<p>同样服务端渲染也会有弊端，主要是根据自己的业务场景来选择适合方式，由于服务端渲染前端页面，必将会给服务器增加压力。</p>
-<h3 id="3、SSR的实现原理"><a href="#3、SSR的实现原理" class="headerlink" title="3、SSR的实现原理"></a>3、SSR的实现原理</h3><p>客户端请求服务器，服务器根据请求地址获得匹配的组件，在调用匹配到的组件返回 Promise (官方是preFetch方法)来将需要的数据拿到。最后再通过</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;<span class="built_in">window</span>.__initial_state=data&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure> 
-<p>将其写入网页，最后将服务端渲染好的网页返回回去。</p>
-<p>接下来客户端会将vuex将写入的 <strong>initial_state</strong> 替换为当前的全局状态树，再用这个状态树去检查服务端渲染好的数据有没有问题。遇到没被服务端渲染的组件，再去发异步请求拿数据。说白了就是一个类似React的 shouldComponentUpdate 的Diff操作。</p>
-<p>Vue2使用的是单向数据流，用了它，就可以通过 SSR 返回唯一一个全局状态， 并确认某个组件是否已经SSR过了。</p>
-<h3 id="4、vue后端渲染主要插件：vue-server-renderer"><a href="#4、vue后端渲染主要插件：vue-server-renderer" class="headerlink" title="4、vue后端渲染主要插件：vue-server-renderer"></a>4、vue后端渲染主要插件：vue-server-renderer</h3><p>由于virtual dom的引入，使得vue的服务端渲染成为了可能，下面是官方 vue-server-renderer提供的渲染流程图:</p>
-<p><img src="/vue-ssr/11.png" alt="官方流程图"></p>
-<p>可以看出vue的后端渲染分三个部分组成：页面的源码（source），node层的渲染部分和浏览器端的渲染部分。</p>
-<p>source分为两种entry point,一个是前端页面的入口client entry,主要是实例化Vue对象，将其挂载到页面中；另外一个是后端渲染服务入口server entry,主要是控服务端渲染模块回调，返回一个Promise对象，最终返回一个Vue对象（经过测试，直接返回Vue对象也是可以的）;</p>
-<p>前面的source部分就是业务开发的代码，开发完成之后通过 webpack 进行构建，生成对应的bundle，这里不再赘述client bundle,就是一个可在浏览器端执行的打包文件；这里说下server bundle, vue2提供 vue-server-renderer模块，模块可以提供两种render: rendererer/bundleRenderer ,下面分别介绍下这两种render。</p>
-<p>renderer接收一个vue对象 ，然后进行渲染，这种对于简单的vue对象,可以这么去做，但是对于复杂的项目，如果使用这种直接require一个vue对象，这个对于服务端代码的结构和逻辑都不太友好，首先模块的状态会一直延续在每个请求渲染请求，我们需要去管理和避免这次渲染请求的状态影响到后面的请求,因此vue-server-renderer提供了另外一种渲染模式，通过一个 bundleRenderer去做渲染。</p>
-<p>bundleRenderer是较为复杂项目进行服务端渲染官方推荐的方式，通过webpack以server entry按照一定的要求打包生成一个 server-bundle,它相当于一个可以给服务端用的app的打包压缩文件，每一次调用都会重新初始化 vue对象，保证了每次请求都是独立的，对于开发者来说，只需要专注于当前业务就可以，不用为服务端渲染开发更多的逻辑代码。<br>renderer生成完成之后，都存在两个接口，分别是renderToString和renderToStream，一个是一次性将页面渲染成字符串文件，另外一个是流式渲染，适用于支持流的web服务器，可以是请求服务的速度更快。</p>
-<h3 id="5、项目基本结构如下"><a href="#5、项目基本结构如下" class="headerlink" title="5、项目基本结构如下"></a>5、项目基本结构如下</h3><p><img src="/vue-ssr/22.jpeg" alt="项目结构图"></p>
-<blockquote>
-<p>如何从零开始搭建适合自己的vue后端渲染框架？</p>
+        <h3 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h3><p>上一节大致介绍了服务端和客户端入口文件代码内容，现在已经可以正常运行你的后端渲染脚手架了，这一节，跟大家分享下如何使用axios做ajax请求，如何使用mockjs做本地假数据，跑通本地基本逻辑，为以后前后端连调做准备。</p>
+<h3 id="2、前期准备"><a href="#2、前期准备" class="headerlink" title="2、前期准备"></a>2、前期准备</h3><p>需要用npm安装axios，mockjs依赖包,由于mockjs只是代码开发的辅助工具，所以安装的时候我会加–save-dev来区分，具体可以根据自己的需求来定，当然，如果有mock服务平台的话，可以直接走mock平台造假数据，本地直接访问mock平台的接口，例如可以使用阿里的Rap平台管理工具生成。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install axios --save</div><div class="line">npm install mockjs --save-dev</div></pre></td></tr></table></figure> 
+<a id="more"></a>
+<h3 id="3、简要介绍axios"><a href="#3、简要介绍axios" class="headerlink" title="3、简要介绍axios"></a>3、简要介绍axios</h3><blockquote>
+<p>其他请求方式，代码示例如下：</p>
 </blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">axios.request(config);</div><div class="line">axios.get(url[,config]);</div><div class="line">axios.delete(url[,config]);</div><div class="line">axios.head(url[,config]);</div><div class="line">axios.post(url[,data[,config]]);</div><div class="line">axios.put(url[,data[,config]])</div><div class="line">axios.patch(url[,data[,config]])</div></pre></td></tr></table></figure> 
+<blockquote>
+<p>具体详细可以点击查看<a href="/2017-05-02/" target="_blank">axios基本使用介绍</a></p>
+</blockquote>
+<p>api.js完整代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">url, type, options</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> Q.Promise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">        axios(&#123;</div><div class="line">            method : type,</div><div class="line">            url : url,</div><div class="line">            <span class="comment">// responseType:'stream',</span></div><div class="line">            data : options</div><div class="line">        &#125;)</div><div class="line">        .then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</div><div class="line">            <span class="keyword">if</span> (result &amp;&amp; result.status === <span class="number">401</span>) &#123;</div><div class="line">                location.href = <span class="string">'/views/401.html'</span></div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (result &amp;&amp; result.status === <span class="number">200</span>) &#123;</div><div class="line">                resolve(result.data);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                reject(&#123;</div><div class="line">                    errno: result.errno,</div><div class="line">                    msg: result.msg</div><div class="line">                &#125;);</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">        .catch(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(error,url);</div><div class="line">        &#125;);</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> config = &#123;</div><div class="line">    get(url, options) &#123;</div><div class="line">        <span class="keyword">const</span> _self = <span class="keyword">this</span>;</div><div class="line">        <span class="keyword">return</span> Q.Promise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">            ajax(url, <span class="string">'get'</span>, options)</div><div class="line">            .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">                resolve(data);</div><div class="line">            &#125;, (error) =&gt; &#123;</div><div class="line">                reject(error);</div><div class="line">            &#125;);</div><div class="line">        &#125;)</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    post(url, options) &#123;</div><div class="line">        <span class="keyword">const</span> _self = <span class="keyword">this</span>;</div><div class="line">        <span class="keyword">return</span> Q.Promise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">            ajax(url, <span class="string">'post'</span>, options)</div><div class="line">            .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">                resolve(data);</div><div class="line">            &#125;, (error) =&gt; &#123;</div><div class="line">                reject(error);</div><div class="line">            &#125;);</div><div class="line">        &#125;)</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    put(url, options) &#123;</div><div class="line">        <span class="keyword">const</span> _self = <span class="keyword">this</span>;</div><div class="line">        <span class="keyword">return</span> Q.Promise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">            ajax(url, <span class="string">'put'</span>, options)</div><div class="line">            .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">                resolve(data);</div><div class="line">            &#125;, (error) =&gt; &#123;</div><div class="line">                reject(error);</div><div class="line">            &#125;);</div><div class="line">        &#125;)</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    <span class="keyword">delete</span>(url, options) &#123;</div><div class="line">        <span class="keyword">const</span> _self = <span class="keyword">this</span>;</div><div class="line">        <span class="keyword">return</span> Q.Promise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">            ajax(url, <span class="string">'delete'</span>, options)</div><div class="line">            .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">                resolve(data);</div><div class="line">            &#125;, (error) =&gt; &#123;</div><div class="line">                reject(error);</div><div class="line">            &#125;);</div><div class="line">        &#125;)</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    jsonp(url, options) &#123;</div><div class="line">        <span class="keyword">const</span> _self = <span class="keyword">this</span>;</div><div class="line">        <span class="keyword">return</span> Q.Promise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">            ajax(url, <span class="string">'jsonp'</span>, options)</div><div class="line">            .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</div><div class="line">                resolve(data);</div><div class="line">            &#125;, (error) =&gt; &#123;</div><div class="line">                reject(error);</div><div class="line">            &#125;);</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> config;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>mockjs项目基本配置如下：</p>
+</blockquote>
+<p>1、在public下新建conf.js全局定义请求url地址，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    HOST: <span class="string">"http://www.xxx.com"</span>,</div><div class="line">    DEBUGMOCK: <span class="literal">true</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>2、在component根目录下新建conf.js，定义组件mock的请求路径，并且定义是否开始单个组件使用mock数据还是线上接口数据，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> PUBCONF = <span class="built_in">require</span>(<span class="string">'../public/conf.js'</span>);</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> DEMO = &#123;</div><div class="line">  DEBUGMOCK : PUBCONF.DEBUGMOCK,</div><div class="line"></div><div class="line">  INDEX_URL : PUBCONF.HOST + <span class="string">'/demo'</span>,</div><div class="line">  INDEX_URL_MOCK : <span class="literal">true</span> &amp;&amp; PUBCONF.DEBUGMOCK</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> ANOTHER_DEMO = &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">    DEMO,</div><div class="line">    ANOTHER_DEMO</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3、在组件内部定义conf.js文件，主要编写单个组件的基本配置信息，请求路径，mock数据对应的url地址，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;DEMO&#125; <span class="keyword">from</span> <span class="string">'../conf.js'</span>;</div><div class="line"><span class="keyword">const</span> MODULECONF = &#123;</div><div class="line">  <span class="string">'demo'</span>: &#123;</div><div class="line">    NAME: <span class="string">'demo'</span>,</div><div class="line">    ICON: <span class="string">''</span>,</div><div class="line">    MOCK: DEMO.INDEX_URL_MOCK,</div><div class="line">    API: &#123;</div><div class="line">      GET: DEMO.INDEX_URL,</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">&#125;;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> MODULECONF;</div></pre></td></tr></table></figure></p>
+<p>4、在组件内部定义mockjs来编写mock假数据，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Mock <span class="keyword">from</span> <span class="string">'mockjs'</span>;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> Mock.mock(<span class="string">'http://www.xxx.com/demo'</span>, &#123;</div><div class="line">    errno: <span class="number">0</span>,</div><div class="line">    msg: <span class="string">"成功"</span>,</div><div class="line">    data: [&#123;</div><div class="line">        <span class="string">'name'</span>: <span class="string">'@name'</span>,</div><div class="line">        <span class="string">'age|1-100'</span>: <span class="number">100</span>,</div><div class="line">        <span class="string">'color'</span>: <span class="string">'@color'</span></div><div class="line">    &#125;]</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>查看数据返回效果，数据在控制台打印出来</p>
+</blockquote>
+<p><img src="/vue-ssr3/11.jpeg" alt="查看数据返回"></p>
+<p>以上就是基本的流程，如果有更好更灵活的使用方案，希望能够参与沟通并且分享，这里会有个问题，就是目前mockjs未能跟业务代码隔离，webpack如果单纯加上externals配置，项目打包后,直接本地运行会报错，找不到mockjs，不知道是不是自己配置的原因，但是基本的思想就是最终上线代码不要把工具类的函数打包进去。项目脚手架已经在github上分享，<a href="https://github.com/wqzwh/wq-vue-ssr" target="_blank">点击查看详情</a></p>
 
       
 
@@ -267,7 +269,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/vue-ssr/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/vue-ssr3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -281,18 +283,9 @@
   
 <nav id="article-nav">
   
-    <a href="/vue-ssr2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          如何使用vue-ssr做服务端渲染初体验(二)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017-05-07/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">浅谈webworker的使用场景</div>
+    <a href="/vue-ssr2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">如何使用vue-ssr做服务端渲染初体验(二)</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -309,7 +302,7 @@
 
 
   <section id="comments">
-<div id="SOHUCS" sid="如何使用vue-ssr做服务端渲染初体验(-)" style="padding: 0px 30px 0px 46px;"></div>
+<div id="SOHUCS" sid="如何使用vue-ssr做服务端渲染初体验(三)" style="padding: 0px 30px 0px 46px;"></div>
 <script>
   (function(){
     var appid = 'cytaIcbYU',
