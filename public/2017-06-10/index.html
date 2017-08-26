@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>Archives: 2017/6 | 王奇技术博客</title>
+  <title>React深入浅出系列--如何理解JSX | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="专注前端开发／全栈开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="王奇技术博客">
-<meta property="og:url" content="http://www.iwangqi.com/archives/2017/06/index.html">
+  <meta name="description" content="1、JSX介绍所谓JSX,是javascript的语法扩展，并不是一门新的编程语言，看起来有点像XML，让我们在javascript中可以编写像HTML一样的代码。例如以下示例代码：123456789101112class App extends Component &amp;#123;  render() &amp;#123;    return (      &amp;lt;div className=&quot;App&quot;&amp;g">
+<meta name="keywords" content="javascript,react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React深入浅出系列--如何理解JSX">
+<meta property="og:url" content="http://www.iwangqi.com/2017-06-10/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="专注前端开发／全栈开发">
+<meta property="og:description" content="1、JSX介绍所谓JSX,是javascript的语法扩展，并不是一门新的编程语言，看起来有点像XML，让我们在javascript中可以编写像HTML一样的代码。例如以下示例代码：123456789101112class App extends Component &amp;#123;  render() &amp;#123;    return (      &amp;lt;div className=&quot;App&quot;&amp;g">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-26T12:38:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="王奇技术博客">
-<meta name="twitter:description" content="专注前端开发／全栈开发">
+<meta name="twitter:title" content="React深入浅出系列--如何理解JSX">
+<meta name="twitter:description" content="1、JSX介绍所谓JSX,是javascript的语法扩展，并不是一门新的编程语言，看起来有点像XML，让我们在javascript中可以编写像HTML一样的代码。例如以下示例代码：123456789101112class App extends Component &amp;#123;  render() &amp;#123;    return (      &amp;lt;div className=&quot;App&quot;&amp;g">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
@@ -147,36 +149,53 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-2017-06-10" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017-06-10/" class="archive-article-date">
-  	<time datetime="2017-06-10T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-10</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017-06-10/">React深入浅出系列--如何理解JSX</a>
+    <h1 class="article-title" itemprop="name">
+      React深入浅出系列--如何理解JSX
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017-06-10/" class="archive-article-date">
+  	<time datetime="2017-06-10T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、JSX介绍"><a href="#1、JSX介绍" class="headerlink" title="1、JSX介绍"></a>1、JSX介绍</h3><p>所谓JSX,是javascript的语法扩展，并不是一门新的编程语言，看起来有点像XML，让我们在javascript中可以编写像HTML一样的代码。例如以下示例代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div className=<span class="string">"App"</span>&gt;</div><div class="line">        &lt;div className=<span class="string">"App-header"</span>&gt;</div><div class="line">          &lt;img src=&#123;logo&#125; className=<span class="string">"App-logo"</span> alt=<span class="string">"logo"</span> /&gt;</div><div class="line">          &lt;h2&gt;Welcome to React&lt;<span class="regexp">/h2&gt;</span></div><div class="line"><span class="regexp">        &lt;/</span>div&gt;</div><div class="line">      &lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">    );</span></div><div class="line"><span class="regexp">  &#125;</span></div><div class="line"><span class="regexp">&#125;</span></div></pre></td></tr></table></figure><br>JSX中的这几段代码看起来和HTML几乎一模一样，可以使用div,button之类的标签，但是，JSX和HTML之间还是有不同之处。</p>
+<a id="more"></a>
+<blockquote>
+<p>注意：React判断一个元素HTNML元素还是React组件的原则就是看第一个字母是否大写，小写的话，React会认为是HTML标签</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;hello/&gt; <span class="comment">//默认认为是html标签，错误写法</span></div><div class="line">      &lt;Hello/&gt; <span class="comment">//默认是自定义Hello组件</span></div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2、事件绑定"><a href="#2、事件绑定" class="headerlink" title="2、事件绑定"></a>2、事件绑定</h3><p>在早期时候绑定事件写法如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;button onclick=<span class="string">"checkAndSubmit(this.form)"</span>&gt;Submit&lt;<span class="regexp">/button&gt;</span></div></pre></td></tr></table></figure><br>随着业务不断复杂，虽然这种写法便于阅读，但是复杂的业务加上复杂的DOM结构，为了html和js解耦，所以绑定事件写法有如下变化，通过获取DOM节点，通过代理机制来绑定事件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'#my-button'</span>).on(<span class="string">'click'</span>, <span class="keyword">this</span>.checkAndSubmit.bind(<span class="keyword">this</span>));</div></pre></td></tr></table></figure><br>然而react中的JSX绑定事件的写法格式如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;button onClick=&#123;<span class="keyword">this</span>.checkAndSubmit.bind(<span class="keyword">this</span>)&#125;&gt;Submit&lt;<span class="regexp">/button&gt;</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>大括号中仍然是标准的JavaScript表达式，返回一个事件处理函数。在JSX中你不需要关心什么时机去移除事件绑定，因为React会在对应的真实DOM节点移除时就自动解除了事件绑定。</p>
+</blockquote>
+<h3 id="3、JSX绑定事件和html绑定事件的区别"><a href="#3、JSX绑定事件和html绑定事件的区别" class="headerlink" title="3、JSX绑定事件和html绑定事件的区别"></a>3、JSX绑定事件和html绑定事件的区别</h3><p>  <b>在html添加事件有如下问题：</b></p>
+<p>  1、在html中使用onclick添加的事件处理函数是在全局环境下执行的，这样会污染全局环境，很容易产生意料不到的后果。</p>
+<p>  2、给多个DOM添加onclick事件，可能会影响网页性能，毕竟，网页需要的事件处理函数越多，性能就会越低。</p>
+<p>  3、对于使用onclick的DOM元素，如果要动态地从DOM树中删掉的话，需要把对应的时间处理器注销，假如忘了注销，就可能造成内存泄露，这样的bug很难被发现。</p>
+<p>  <b>以上说的这些问题在JSX中都不存在，其有如下特点：</b></p>
+<p>  1、JSX中添加onclick事件并没有直接在相应的html中添加事件，而是使用了事件委托的方式处理点击事件，无论有多少个onclick的出现，其实最后都只在DOM树上添加一个事件处理函数，并挂载在最顶层的DOM节点上。所有的点击事件都被这个事件处理函数捕获，然后根据具体组件分配给特定的函数，使用事件委托的性能比为每一个onclick都挂载一个事件函数要高。</p>
+<p>  2、jsx中同样可以添加自定义样式，外层定义一个样式对象，然后在jsx中将对象赋值给相应的dom上，这样真正意义上组件封装的思想（html，css，js在一起），提高复用性，大致写法如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">const</span> Style = &#123;</div><div class="line">      margin:<span class="string">'10px'</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div style=&#123;Style&#125;&gt;</div><div class="line">        &lt;p&gt;测试文字&lt;<span class="regexp">/p&gt;</span></div><div class="line"><span class="regexp">      &lt;/</span>div&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="4、JSX编译"><a href="#4、JSX编译" class="headerlink" title="4、JSX编译"></a>4、JSX编译</h3><p>JSX是一种新的语法，浏览器并不能直接运行，因此需要这种翻译器。这里我们推荐使用Babel编译JSX，打包编译建议使用Webpack，大致配置如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>: &#123;</div><div class="line">  loaders: [</div><div class="line">    &#123; <span class="attr">test</span>: <span class="regexp">/\.jsx?$/</span>, <span class="attr">loaders</span>: [<span class="string">'babel-loader'</span>]&#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>本文主要介绍JSX优势所在，在添加事件上性能高于普通的html添加事件形式，组件方式的开发模式，更利于代码的通用性和维护性，下一篇将为大家介绍React的理念／Virtual DOM／工作方式的优点。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -192,146 +211,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/2017-06-10/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/vue-ssr3/" class="archive-article-date">
-  	<time datetime="2017-06-05T12:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-05</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/vue-ssr3/">如何使用vue-ssr做服务端渲染初体验(三)</a>
-    </h1>
+  
+    <a href="/vue-ssr3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">如何使用vue-ssr做服务端渲染初体验(三)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+  <section id="comments">
+<div id="SOHUCS" sid="React深入浅出系列--如何理解JSX" style="padding: 0px 30px 0px 46px;"></div>
+<script>
+  (function(){
+    var appid = 'cytaIcbYU',
+    conf = 'ebd898f01c4500525d43d880c4075984';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>
+  </section>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/vue-ssr2/" class="archive-article-date">
-  	<time datetime="2017-06-02T12:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/vue-ssr2/">如何使用vue-ssr做服务端渲染初体验(二)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/vue-ssr/" class="archive-article-date">
-  	<time datetime="2017-06-01T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/vue-ssr/">如何使用vue-ssr做服务端渲染初体验(-)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-
 
           </div>
         </div>
@@ -352,8 +331,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
