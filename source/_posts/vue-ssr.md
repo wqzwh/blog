@@ -1,5 +1,6 @@
 ---
 title: 如何使用vue-ssr做服务端渲染初体验(-)
+comments: true
 date: 2017-06-01 21:09:11
 tags: 
     - 'javascript'
