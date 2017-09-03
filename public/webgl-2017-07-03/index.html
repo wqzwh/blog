@@ -6,17 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>王奇技术博客</title>
+  <title>webgl-2017-07-03 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="专注前端开发／全栈开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="王奇技术博客">
-<meta property="og:url" content="http://www.iwangqi.com/page/2/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webgl-2017-07-03">
+<meta property="og:url" content="http://www.iwangqi.com/webgl-2017-07-03/index.html">
 <meta property="og:site_name" content="王奇技术博客">
 <meta property="og:description" content="专注前端开发／全栈开发">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-03T07:06:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="王奇技术博客">
+<meta name="twitter:title" content="webgl-2017-07-03">
 <meta name="twitter:description" content="专注前端开发／全栈开发">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
@@ -147,22 +148,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-2017-05-02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-webgl-2017-07-03" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017-05-02/">axios基本使用介绍</a>
+    <h1 class="article-title" itemprop="name">
+      webgl-2017-07-03
     </h1>
   
 
         
-        <a href="/2017-05-02/" class="archive-article-date">
-  	<time datetime="2017-05-02T10:56:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-02</time>
+        <a href="/webgl-2017-07-03/" class="archive-article-date">
+  	<time datetime="2017-09-03T07:06:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-03</time>
 </a>
         
       </header>
@@ -172,12 +171,6 @@
   <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <p>axios建议使用高版本浏览器，目前在手机端使用频繁，但是在低版本的安卓上其实是有兼容性问题的，安卓4.2就开始出问题了，主要是由于Promise不支持，需要额外引入兼容包来处理。并且axios也是vue官方推荐使用的库。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>(<span class="string">'es6-promise'</span>).polyfill();</div></pre></td></tr></table></figure>
-<blockquote>
-<p>发送一个GET请求，代码示例如下：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//通过给定的ID来发送请求</span></div><div class="line">axios.get(<span class="string">'/user?ID=12345'</span>)</div><div class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(response);</div><div class="line">  &#125;)</div><div class="line">  .catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(err);</div><div class="line">  &#125;);</div><div class="line"><span class="comment">//以上请求也可以通过这种方式来发送</span></div><div class="line">axios.get(<span class="string">'/user'</span>,&#123;</div><div class="line">  params:&#123;</div><div class="line">    ID:<span class="number">12345</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(response);</div><div class="line">&#125;)</div><div class="line">.catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(err);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
         
       
 
@@ -186,35 +179,77 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ajax</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017-05-02/">展开全文 >></a>
-        </p>
-      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
 
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/webgl-2017-07-03/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
+  
+<nav id="article-nav">
+  
+  
+    <a href="/webgl-2017-07-02/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">WebGL系列教程--基本概述</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
@@ -222,307 +257,28 @@
 
 
   
-    <article id="post-2017-04-11" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017-04-11/">详解javascript对象方法Object.assign()痛点</a>
-    </h1>
+    <div class="duoshuo"></div>
   
 
-        
-        <a href="/2017-04-11/" class="archive-article-date">
-  	<time datetime="2017-04-11T13:55:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-11</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-         
-  <!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h2><p>首先看一下函数的定义：<br>函数参数为一个目标对象（该对象作为最终的返回值）,源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。</p>
-<p>Object.assign(target, …sources)</p>
-<p>这里我们需要强调的三点是：</p>
-<ol>
-<li>可被枚举的属性</li>
-<li>自有属性</li>
-<li>string或者Symbol类型是可以被直接分配的</li>
-</ol>
-<p>拷贝过程中将调用源对象的getter方法，并在target对象上使用setter方法实现目标对象的拷贝。</p>
-        
-      
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">es6</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017-04-11/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
+  <section id="comments">
+<div id="SOHUCS" sid="webgl-2017-07-03" style="padding: 0px 30px 0px 46px;"></div>
+<script>
+  (function(){
+    var appid = 'cytaIcbYU',
+    conf = 'ebd898f01c4500525d43d880c4075984';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>
+  </section>
   
-    <article id="post-2017-04-10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017-04-10/">理解JavaScript函数式编程</a>
-    </h1>
-  
-
-        
-        <a href="/2017-04-10/" class="archive-article-date">
-  	<time datetime="2017-04-10T14:14:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-10</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-         
-  <!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>JavaScript 函数式编程是一个存在了很久的话题，但似乎从 2016 年开始，它变得越来越火热。这可能是因为 ES6 语法对于函数式编程更为友好，也可能是因为诸如 RxJS (ReactiveX) 等函数式框架的流行。</p>
-<p>看过许多关于函数式编程的讲解，但是其中大部分是停留在理论层面，还有一些是仅针对 Haskell 等纯函数式编程语言的。而本文旨在聊一聊我眼中的函数式编程在 JavaScript 中的具体实践，之所以是 “我眼中的” 即我所说的仅代表个人观点，可能和部分 严格概念 是有冲突的。</p>
-<p>本文将略去一大堆形式化的概念介绍，重点展示在 JavaScript 中到底什么是函数式的代码、函数式代码与一般写法有什么区别、函数式的代码能给我们带来什么好处以及常见的一些函数式模型都有哪些。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017-04-10/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-2017-04-04" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017-04-04/">nodejs的process.nextTick方法理解和使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017-04-04/" class="archive-article-date">
-  	<time datetime="2017-04-04T09:49:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-04</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-         
-  <!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。</p>
-<p>Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中使用一个事件队列，在每个时间点上，系统只会处理一个事件，即使电脑有多个CPU核心，也无法同时并行的处理多个事件。因此，node.js适合处理I／O型的应用，不适合那种CPU运算密集型的应用。在I／O型的应用中，给每一个输入输出定义一个回调函数，node.js会自动将其加入到事件轮询的处理队列里，当I／O操作完成后，这个回调函数会被触发，系统会继续处理其他的请求。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">node</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017-04-04/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-ajax" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/ajax/">ajax如何截取302响应</a>
-    </h1>
-  
-
-        
-        <a href="/ajax/" class="archive-article-date">
-  	<time datetime="2017-04-02T12:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-02</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-         
-  <!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。</p>
-<h5 id="使用jQuery的-ajax-发起ajax请求的JavaScript代码如下："><a href="#使用jQuery的-ajax-发起ajax请求的JavaScript代码如下：" class="headerlink" title="使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下："></a>使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">url: <span class="string">'/oauth/respond'</span>,</div><div class="line">type: <span class="string">'post'</span>,</div><div class="line">data: data,</div><div class="line">complete: <span class="function"><span class="keyword">function</span>(<span class="params">jqXHR</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(jqXHR.status);</div><div class="line">&#125;,</div><div class="line">error: <span class="function"><span class="keyword">function</span> (<span class="params">xhr</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(xhr.status);</div><div class="line">&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ajax</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">302</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/javascript/" class="article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/ajax/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
-  
-
 
           </div>
         </div>
@@ -542,8 +298,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
