@@ -6,19 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>webgl-2017-07-03 | 王奇技术博客</title>
+  <title>WebGL系列教程--缓冲区对象 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="专注前端开发／全栈开发">
+  <meta name="description" content="attribute 变量的使用主要职能是在顶点着色器当中使用的，只能被申明为全局变量，用来表示顶点的信息，比如一个图形中包含多个顶点，顶点着色器是针对逐顶点进行运算的，都会传导到attribute变量中，然而，两个顶点之间的部分是不会被传导到顶点着色器中的。 这个变量只能支持矢量和矩阵两种类型，attribute变量的个数限制和设备有关系，最小支持8个attribute变量。   在顶点着色器中，">
+<meta name="keywords" content="javascript,webgl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="webgl-2017-07-03">
+<meta property="og:title" content="WebGL系列教程--缓冲区对象">
 <meta property="og:url" content="http://www.iwangqi.com/webgl-2017-07-03/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="专注前端开发／全栈开发">
+<meta property="og:description" content="attribute 变量的使用主要职能是在顶点着色器当中使用的，只能被申明为全局变量，用来表示顶点的信息，比如一个图形中包含多个顶点，顶点着色器是针对逐顶点进行运算的，都会传导到attribute变量中，然而，两个顶点之间的部分是不会被传导到顶点着色器中的。 这个变量只能支持矢量和矩阵两种类型，attribute变量的个数限制和设备有关系，最小支持8个attribute变量。   在顶点着色器中，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-09-03T07:06:14.000Z">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-03/01.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-03/02.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-03/03.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-03/04.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-03/05.jpeg">
+<meta property="og:updated_time" content="2017-09-03T13:27:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="webgl-2017-07-03">
-<meta name="twitter:description" content="专注前端开发／全栈开发">
+<meta name="twitter:title" content="WebGL系列教程--缓冲区对象">
+<meta name="twitter:description" content="attribute 变量的使用主要职能是在顶点着色器当中使用的，只能被申明为全局变量，用来表示顶点的信息，比如一个图形中包含多个顶点，顶点着色器是针对逐顶点进行运算的，都会传导到attribute变量中，然而，两个顶点之间的部分是不会被传导到顶点着色器中的。 这个变量只能支持矢量和矩阵两种类型，attribute变量的个数限制和设备有关系，最小支持8个attribute变量。   在顶点着色器中，">
+<meta name="twitter:image" content="http://www.iwangqi.com/webgl-2017-07-03/01.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
@@ -155,23 +162,108 @@
         
   
     <h1 class="article-title" itemprop="name">
-      webgl-2017-07-03
+      WebGL系列教程--缓冲区对象
     </h1>
   
 
         
         <a href="/webgl-2017-07-03/" class="archive-article-date">
-  	<time datetime="2017-09-03T07:06:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-03</time>
+  	<time datetime="2017-07-03T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
 </a>
         
       </header>
     
     <!-- 目录内容 -->
-         
+    
+      <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+      <span class="btn-bg"></span>
+      <span class="btn-text">文章导航</span>
+      </p>
+      <div id="toc-article" class="toc-article">
+          <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+          <strong class="toc-title">文章目录</strong>
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#attribute-变量的使用"><span class="toc-number">1.</span> <span class="toc-text">attribute 变量的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓冲区对象的创建、绑定、写入数据"><span class="toc-number">2.</span> <span class="toc-text">缓冲区对象的创建、绑定、写入数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#缓冲区对象是什么"><span class="toc-number">2.1.</span> <span class="toc-text">缓冲区对象是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建缓冲区对象"><span class="toc-number">2.2.</span> <span class="toc-text">创建缓冲区对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#写入数据"><span class="toc-number">2.3.</span> <span class="toc-text">写入数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类型化数组"><span class="toc-number">2.4.</span> <span class="toc-text">类型化数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#缓冲区数据导入-attribute-变量"><span class="toc-number">2.5.</span> <span class="toc-text">缓冲区数据导入 attribute 变量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码分析"><span class="toc-number">3.</span> <span class="toc-text">代码分析</span></a></li></ol>
+     </div>
+     <script type="text/javascript">
+      function showToc(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:block");
+          show_toc_btn.setAttribute("style","display:none");
+          };
+      function showBtn(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:none");
+          show_toc_btn.setAttribute("style","display:block");
+          };
+     </script>
+       
   <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="attribute-变量的使用"><a href="#attribute-变量的使用" class="headerlink" title="attribute 变量的使用"></a>attribute 变量的使用</h3><p>主要职能是在顶点着色器当中使用的，只能被申明为全局变量，用来表示顶点的信息，比如一个图形中包含多个顶点，顶点着色器是针对逐顶点进行运算的，都会传导到attribute变量中，然而，两个顶点之间的部分是不会被传导到顶点着色器中的。</p>
+<p>这个变量只能支持矢量和矩阵两种类型，attribute变量的个数限制和设备有关系，最小支持8个attribute变量。</p>
+<p><img width="600" src="/webgl-2017-07-03/01.jpeg"></p>
+<ul>
+<li>在顶点着色器中，声明 attribute 变量</li>
+<li>将 attribute 变量赋值给 gl_Position 变量</li>
+<li>向 attribute 变量传递数据</li>
+</ul>
+<a id="more"></a>
+<p>首先创建顶点着色器的基本代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 顶点着色器程序</span></div><div class="line"><span class="keyword">const</span> vertexShaderSource =</div><div class="line">    <span class="string">`attribute vec4 apos;</span></div><div class="line"><span class="string">    void main() &#123;</span></div><div class="line"><span class="string">  gl_Position = apos;</span></div><div class="line"><span class="string">  gl_PointSize = 10.0;</span></div><div class="line"><span class="string">&#125;`</span></div></pre></td></tr></table></figure>
+<p>书写基本的片元着色器的代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 片元着色器程序</span></div><div class="line"><span class="keyword">const</span> fragmentShaderSource =</div><div class="line">    <span class="string">`void main() &#123;</span></div><div class="line"><span class="string">  gl_FragColor = vec4(1.0,0.5,0.0,1.0);</span></div><div class="line"><span class="string">  &#125;`</span></div></pre></td></tr></table></figure></p>
+<p>获取webgl上下文代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> cxt = canvas.getContext(<span class="string">'webgl'</span>);</div></pre></td></tr></table></figure></p>
+<p>获得顶点着色器和片元着色器对象,并且把源代码写入到顶点着色器及片元着色器中去，然后进行编译，片段代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> vertexShader = cxt.createShader(cxt.VERTEX_SHADER);</div><div class="line"><span class="keyword">var</span> fragmentShader = cxt.createShader(cxt.FRAGMENT_SHADER);</div><div class="line">cxt.shaderSource(vertexShader,vertexShaderSource);</div><div class="line">cxt.shaderSource(fragmentShader,fragmentShaderSource);</div><div class="line">cxt.compileShader(vertexShader);</div><div class="line">cxt.compileShader(fragmentShader);</div></pre></td></tr></table></figure></p>
+<p>创建program，并且将顶点着色器和片元着色器附着在program上，代码如下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> program = cxt.createProgram();</div><div class="line">cxt.attachShader(program,vertexShader);</div><div class="line">cxt.attachShader(program,fragmentShader);</div><div class="line">cxt.linkProgram(program);</div><div class="line">cxt.useProgram(program);</div></pre></td></tr></table></figure></p>
+<p>得到顶点着色器中的变量apos，片段代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> aposLocation = cxt.getAttribLocation(program,<span class="string">'apos'</span>);</div></pre></td></tr></table></figure></p>
+<p>清屏处理，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cxt.clearColor(<span class="number">0.2</span>,<span class="number">0.2</span>,<span class="number">0.2</span>,<span class="number">1.0</span>);</div><div class="line">cxt.clear(cxt.COLOR_BUFFER_BIT);</div></pre></td></tr></table></figure></p>
+<p>通过for循环来绘制多个点，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i= <span class="number">0</span>,num = points.length;i&lt;num;i++)&#123;</div><div class="line">    cxt.vertexAttrib4f(aposLocation,points[i].x,points[i].y,<span class="number">1.0</span>,<span class="number">1.0</span>);</div><div class="line">    cxt.drawArrays(cxt.POINTS,<span class="number">0</span>,<span class="number">1</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="缓冲区对象的创建、绑定、写入数据"><a href="#缓冲区对象的创建、绑定、写入数据" class="headerlink" title="缓冲区对象的创建、绑定、写入数据"></a>缓冲区对象的创建、绑定、写入数据</h3><h4 id="缓冲区对象是什么"><a href="#缓冲区对象是什么" class="headerlink" title="缓冲区对象是什么"></a>缓冲区对象是什么</h4><ul>
+<li>绘制面所必需的技术</li>
+<li>一次性写入多个顶点数据</li>
+<li>一块内存区域   </li>
+</ul>
+<h4 id="创建缓冲区对象"><a href="#创建缓冲区对象" class="headerlink" title="创建缓冲区对象"></a>创建缓冲区对象</h4><ul>
+<li>创建缓冲区的方法  var buffer = gl.createBuffer()</li>
+<li>根据返回值判断是否创建成功</li>
+<li>绑定缓冲区方法 gl.bindBuffer(gl.ARRAY_BUFFER , buffer)</li>
+</ul>
+<p><img width="600" src="/webgl-2017-07-03/02.jpeg"></p>
+<h4 id="写入数据"><a href="#写入数据" class="headerlink" title="写入数据"></a>写入数据</h4><ul>
+<li>gl.bufferData(gl.ARRAY_BUFFER , data , gl.STATIC_DRAW)</li>
+<li>data 是类型化数组</li>
+<li>gl.STATIC_DRAW，一次写入多次绘制</li>
+<li>gl.STREAM_DRAW，一次写入多次绘制，比第一次调用的少</li>
+<li>gl.DYNAMIC_DRAW，多次写入多次绘制</li>
+</ul>
+<p><img width="600" src="/webgl-2017-07-03/03.jpeg"></p>
+<h4 id="类型化数组"><a href="#类型化数组" class="headerlink" title="类型化数组"></a>类型化数组</h4><p>接口都是通过类型化数组来进行通信</p>
+<ul>
+<li>Int8Array   Uint8Array   </li>
+<li>Int16Array   Uint16Array</li>
+<li>Int32Array   Uint32Array </li>
+<li>Float32Array </li>
+<li>Float64Array</li>
+</ul>
+<h4 id="缓冲区数据导入-attribute-变量"><a href="#缓冲区数据导入-attribute-变量" class="headerlink" title="缓冲区数据导入 attribute 变量"></a>缓冲区数据导入 attribute 变量</h4><ul>
+<li>vertexAttribPointer(location , size , type , normalized , stride , offset ) </li>
+<li>错误信息  INVALID_OPERATION，表示没有可用的program对象</li>
+<li>错误信息  INVALID_VALUE，表示attribute的最大值已经超出的范围</li>
+<li>enableVertexAttribArray(location)，激活localtion</li>
+<li>错误信息  INVALID_OPERATION，表示没有可用的program对象</li>
+</ul>
+<p><img width="600" src="/webgl-2017-07-03/04.jpeg"></p>
+<h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><p>创建类型化数组对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">    <span class="number">-1.0</span>,<span class="number">1.0</span>,</div><div class="line">    <span class="number">1.0</span>,<span class="number">1.0</span>,</div><div class="line">    <span class="number">-1.0</span>,<span class="number">-1.0</span>,</div><div class="line">    <span class="number">1.0</span>,<span class="number">-1.0</span>,</div><div class="line">    <span class="number">0.0</span>,<span class="number">0.0</span></div><div class="line">]);</div></pre></td></tr></table></figure></p>
+<p>创建buffer和绑定baffer片段代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> buf = cxt.createBuffer();</div><div class="line">cxt.bindBuffer(cxt.ARRAY_BUFFER,buf);</div></pre></td></tr></table></figure></p>
+<p>将类型化数组绑定到缓冲区中：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cxt.bufferData(cxt.ARRAY_BUFFER,data,cxt.STATIC_DRAW);</div></pre></td></tr></table></figure></p>
+<p>将缓冲区数据导入attribute变量中：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cxt.vertexAttribPointer(aposLocation,<span class="number">2</span>,cxt.FLOAT,<span class="literal">false</span>,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">cxt.enableVertexAttribArray(aposLocation);</div></pre></td></tr></table></figure></p>
+<p>开始绘制，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cxt.clearColor(<span class="number">0.0</span>,<span class="number">0.5</span>,<span class="number">0.5</span>,<span class="number">1.0</span>);</div><div class="line">cxt.clear(cxt.COLOR_BUFFER_BIT);</div><div class="line">cxt.drawArrays(cxt.POINTS,<span class="number">0</span>,<span class="number">5</span>);</div></pre></td></tr></table></figure></p>
+<p>完整代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"e03"</span> <span class="attr">width</span>=<span class="string">"500"</span> <span class="attr">height</span>=<span class="string">"500"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../lib.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'e03'</span>);</span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> cxt = canvas.getContext(<span class="string">'webgl'</span>);</span></div><div class="line"><span class="javascript">    <span class="comment">// 顶点着色器程序</span></span></div><div class="line"><span class="javascript">    <span class="keyword">const</span> vertexShaderSource =</span></div><div class="line"><span class="undefined">        `attribute vec4 apos;</span></div><div class="line"><span class="javascript">        <span class="keyword">void</span> main() &#123;</span></div><div class="line"><span class="undefined">    gl_Position = apos;</span></div><div class="line"><span class="undefined">    gl_PointSize = 10.0;</span></div><div class="line"><span class="undefined">    &#125;`</span></div><div class="line"><span class="javascript">    <span class="comment">// 片元着色器程序</span></span></div><div class="line"><span class="javascript">    <span class="keyword">const</span> fragmentShaderSource =</span></div><div class="line"><span class="undefined">        `void main() &#123;</span></div><div class="line"><span class="undefined">    gl_FragColor = vec4(1.0,0.5,0.0,1.0);</span></div><div class="line"><span class="undefined">    &#125;`</span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> program  = initShader(cxt,vertexShaderSource,fragmentShaderSource);</span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> aposLocation = cxt.getAttribLocation(program,<span class="string">'apos'</span>);</span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> buffer = cxt.createBuffer();</span></div><div class="line"><span class="undefined">    cxt.bindBuffer(cxt.ARRAY_BUFFER,buffer);</span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</span></div><div class="line"><span class="undefined">            -1.0,1.0,</span></div><div class="line"><span class="undefined">            1.0,1.0,</span></div><div class="line"><span class="undefined">            -1.0,-1.0,</span></div><div class="line"><span class="undefined">            1.0,-1.0,</span></div><div class="line"><span class="undefined">            0.0,0.0</span></div><div class="line"><span class="undefined">    ]);</span></div><div class="line"><span class="undefined">    cxt.bufferData(cxt.ARRAY_BUFFER,data,cxt.STATIC_DRAW);</span></div><div class="line"><span class="javascript">    cxt.vertexAttribPointer(aposLocation,<span class="number">2</span>,cxt.FLOAT,<span class="literal">false</span>,<span class="number">0</span>,<span class="number">0</span>);</span></div><div class="line"><span class="undefined">    cxt.enableVertexAttribArray(aposLocation);</span></div><div class="line"><span class="undefined">    cxt.clearColor(0.0,0.5,0.5,1.0);</span></div><div class="line"><span class="undefined">    cxt.clear(cxt.COLOR_BUFFER_BIT);</span></div><div class="line"><span class="undefined">    cxt.drawArrays(cxt.POINTS,0,5);</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>运行效果图如下：</p>
+<p><img width="600" src="/webgl-2017-07-03/05.jpeg"></p>
+
       
 
       
@@ -179,6 +271,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -262,7 +369,7 @@
 
 
   <section id="comments">
-<div id="SOHUCS" sid="webgl-2017-07-03" style="padding: 0px 30px 0px 46px;"></div>
+<div id="SOHUCS" sid="WebGL系列教程--缓冲区对象" style="padding: 0px 30px 0px 46px;"></div>
 <script>
   (function(){
     var appid = 'cytaIcbYU',

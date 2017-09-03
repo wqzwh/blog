@@ -156,13 +156,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/webgl-2017-07-03/">webgl-2017-07-03</a>
+      <a class="article-title" href="/webgl-2017-07-03/">WebGL系列教程--缓冲区对象</a>
     </h1>
   
 
         
         <a href="/webgl-2017-07-03/" class="archive-article-date">
-  	<time datetime="2017-09-03T07:06:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-03</time>
+  	<time datetime="2017-07-03T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
 </a>
         
       </header>
@@ -172,6 +172,14 @@
   <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
+        <h3 id="attribute-变量的使用"><a href="#attribute-变量的使用" class="headerlink" title="attribute 变量的使用"></a>attribute 变量的使用</h3><p>主要职能是在顶点着色器当中使用的，只能被申明为全局变量，用来表示顶点的信息，比如一个图形中包含多个顶点，顶点着色器是针对逐顶点进行运算的，都会传导到attribute变量中，然而，两个顶点之间的部分是不会被传导到顶点着色器中的。</p>
+<p>这个变量只能支持矢量和矩阵两种类型，attribute变量的个数限制和设备有关系，最小支持8个attribute变量。</p>
+<p><img width="600" src="/webgl-2017-07-03/01.jpeg"></p>
+<ul>
+<li>在顶点着色器中，声明 attribute 变量</li>
+<li>将 attribute 变量赋值给 gl_Position 变量</li>
+<li>向 attribute 变量传递数据</li>
+</ul>
         
       
 
@@ -180,6 +188,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       

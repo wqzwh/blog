@@ -96,10 +96,10 @@ plugin: hexo-deployer-ftpsync
 # repo: git@github.com/wqzwh/wqzwh.github.io.git
 # branch: master
 deploy:
-  type: ftpsync
-  host: hz225674.ftp.aliapp.com
-  user: hz225674
-  pass: wangqi597WQ!@
+  type: 
+  host: 
+  user: 
+  pass: 
   remote: ./htdocs/
   port: 21
   ignore: 1
