@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>Tag: javascript | 王奇技术博客</title>
+  <title>WebGL系列教程--基本概述 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="专注前端开发／全栈开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="王奇技术博客">
-<meta property="og:url" content="http://www.iwangqi.com/tags/javascript/index.html">
+  <meta name="description" content="WebGL是什么在浏览器绘制3D图形的的一门技术，是内嵌在浏览器中，目前支持高版本浏览器，因此不需要安装任何插件，同样也支持多平台运行，它是基于OpenGL ES 2.0技术。 优势 快速传播 维护简单 跨平台性 开放的标准 硬件加速 无需安装插件 充分利用浏览器功能">
+<meta name="keywords" content="javascript,webgl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebGL系列教程--基本概述">
+<meta property="og:url" content="http://www.iwangqi.com/webgl-2017-07-02/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="专注前端开发／全栈开发">
+<meta property="og:description" content="WebGL是什么在浏览器绘制3D图形的的一门技术，是内嵌在浏览器中，目前支持高版本浏览器，因此不需要安装任何插件，同样也支持多平台运行，它是基于OpenGL ES 2.0技术。 优势 快速传播 维护简单 跨平台性 开放的标准 硬件加速 无需安装插件 充分利用浏览器功能">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-02/01.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-02/02.jpeg">
+<meta property="og:updated_time" content="2017-09-03T07:02:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="王奇技术博客">
-<meta name="twitter:description" content="专注前端开发／全栈开发">
+<meta name="twitter:title" content="WebGL系列教程--基本概述">
+<meta name="twitter:description" content="WebGL是什么在浏览器绘制3D图形的的一门技术，是内嵌在浏览器中，目前支持高版本浏览器，因此不需要安装任何插件，同样也支持多平台运行，它是基于OpenGL ES 2.0技术。 优势 快速传播 维护简单 跨平台性 开放的标准 硬件加速 无需安装插件 充分利用浏览器功能">
+<meta name="twitter:image" content="http://www.iwangqi.com/webgl-2017-07-02/01.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
@@ -147,36 +152,97 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-webgl-2017-07-02" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      WebGL系列教程--基本概述
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-02/" class="archive-article-date">
+
+        
+        <a href="/webgl-2017-07-02/" class="archive-article-date">
   	<time datetime="2017-07-02T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-02</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-02/">WebGL系列教程--基本概述</a>
-    </h1>
-  
+        
+      </header>
+    
+    <!-- 目录内容 -->
+    
+      <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+      <span class="btn-bg"></span>
+      <span class="btn-text">文章导航</span>
+      </p>
+      <div id="toc-article" class="toc-article">
+          <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+          <strong class="toc-title">文章目录</strong>
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#WebGL是什么"><span class="toc-number">1.</span> <span class="toc-text">WebGL是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#优势"><span class="toc-number">1.1.</span> <span class="toc-text">优势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#图形API模式"><span class="toc-number">1.2.</span> <span class="toc-text">图形API模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图像硬件介绍"><span class="toc-number">2.</span> <span class="toc-text">图像硬件介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WebGL程序执行原理"><span class="toc-number">3.</span> <span class="toc-text">WebGL程序执行原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#图形流水线"><span class="toc-number">3.1.</span> <span class="toc-text">图形流水线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定点着色器"><span class="toc-number">3.2.</span> <span class="toc-text">定点着色器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#片元着色器"><span class="toc-number">3.3.</span> <span class="toc-text">片元着色器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WebGL和HTML5及Javascript的关系"><span class="toc-number">4.</span> <span class="toc-text">WebGL和HTML5及Javascript的关系</span></a></li></ol>
+     </div>
+     <script type="text/javascript">
+      function showToc(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:block");
+          show_toc_btn.setAttribute("style","display:none");
+          };
+      function showBtn(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:none");
+          show_toc_btn.setAttribute("style","display:block");
+          };
+     </script>
+       
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="WebGL是什么"><a href="#WebGL是什么" class="headerlink" title="WebGL是什么"></a>WebGL是什么</h3><p>在浏览器绘制3D图形的的一门技术，是内嵌在浏览器中，目前支持高版本浏览器，因此不需要安装任何插件，同样也支持多平台运行，它是基于OpenGL ES 2.0技术。</p>
+<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><ul>
+<li>快速传播</li>
+<li>维护简单</li>
+<li>跨平台性</li>
+<li>开放的标准</li>
+<li>硬件加速</li>
+<li>无需安装插件</li>
+<li>充分利用浏览器功能</li>
+</ul>
+<a id="more"></a>
+<h4 id="图形API模式"><a href="#图形API模式" class="headerlink" title="图形API模式"></a>图形API模式</h4><p>即时模式，每一帧的场景不管是否发生了变化，都需要重新绘制，提供API的图形库并没有保存需要绘图场景的内部模型，但是应用程序需要在内存中用自己的方式表示场景，这种设计模式大大提高了应用程序的灵活性和控制的能力，但是需要应用程序执行更多的操作，如跟踪场景的模型，应用初始化等等，包括清除操作。webGL采用的是即时模式，非常灵活，但是相对而言手工代码会多一点。</p>
+<p>保留模式，它的API保留了所有图形库的模型和场景，但应用程序调用保留模式API时需要更新内部的模型，图形库决定在什么时候执行实际的绘制方法，这意味着不需要为每一帧场景重新绘制命令，因此保留模式API似乎更容易使用。</p>
+<h3 id="图像硬件介绍"><a href="#图像硬件介绍" class="headerlink" title="图像硬件介绍"></a>图像硬件介绍</h3><p><img width="600" src="/webgl-2017-07-02/01.jpeg"></p>
+<h3 id="WebGL程序执行原理"><a href="#WebGL程序执行原理" class="headerlink" title="WebGL程序执行原理"></a>WebGL程序执行原理</h3><h4 id="图形流水线"><a href="#图形流水线" class="headerlink" title="图形流水线"></a>图形流水线</h4><p><img width="600" src="/webgl-2017-07-02/02.jpeg"></p>
+<p>通过顶点来确定图形，具备形状之后内部时空的，通过光栅化进行“面积”的填充，然后进入片元着色器，进入“绘图”过程，类似上色过程，再次进逐片元操作</p>
+<h4 id="定点着色器"><a href="#定点着色器" class="headerlink" title="定点着色器"></a>定点着色器</h4><ul>
+<li>顶点着色器源代码，javascript字符串形式表示出来</li>
+<li>内置变量，名字不可辨，区分大小写</li>
+<li>自定义 Attribute 变量，表示每一个点的数据，可以定义多个</li>
+<li>自定义 Uniform 变量，表示一个常量，是个恒定的，所有点的数据都是一样的</li>
+<li>自定义 Varying 变量，定点着色器和片着色器传导数据用的</li>
+</ul>
+<h4 id="片元着色器"><a href="#片元着色器" class="headerlink" title="片元着色器"></a>片元着色器</h4><ul>
+<li>片元着色器源代码，javascript字符串形式表示出来</li>
+<li>内置变量，名字不可辨，区分大小写</li>
+<li>Uniform 和 Samplers，Samplers用来储存纹理</li>
+<li>自定义 Varying 变量，定点着色器和片着色器传导数据用的</li>
+</ul>
+<h3 id="WebGL和HTML5及Javascript的关系"><a href="#WebGL和HTML5及Javascript的关系" class="headerlink" title="WebGL和HTML5及Javascript的关系"></a>WebGL和HTML5及Javascript的关系</h3><ul>
+<li>需要 HTML5 Canvas 元素，webgl和canvas画图都需要canvas这个api</li>
+<li>用 Javascript 处理逻辑</li>
+<li>可利用支持 HTML5 浏览器的一切功能</li>
+<li>用 Javascript 字符串形式编写着色器源代码</li>
+</ul>
+<p>基本示例代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"main()"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"webgl"</span> <span class="attr">width</span>=<span class="string">"500"</span> <span class="attr">height</span>=<span class="string">"400"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../lib/webgl-utils.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../lib/webgl-debug.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../lib/cuon-utils.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined">        // 顶点着色器程序</span></div><div class="line"><span class="undefined">        const VSHADER_SOURCE =</span></div><div class="line"><span class="undefined">            `void main() &#123;</span></div><div class="line"><span class="undefined">          gl_Position = vec4(1.0,0.0,0.0,1.0);</span></div><div class="line"><span class="undefined">          gl_PointSize = 30.0;</span></div><div class="line"><span class="undefined">        &#125;`</span></div><div class="line"><span class="undefined">        </span></div><div class="line"><span class="undefined">        // 片元着色器程序</span></div><div class="line"><span class="undefined">        const FSHADER_SOURCE =</span></div><div class="line"><span class="undefined">            `void main() &#123;</span></div><div class="line"><span class="undefined">          gl_FragColor = vec4(1.0,1.0,0.0,1.0);</span></div><div class="line"><span class="undefined">          &#125;`</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">        function main() &#123;</span></div><div class="line"><span class="undefined">            // 获取canvan元素</span></div><div class="line"><span class="undefined">            var canvas = document.getElementById("webgl");</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">            // 获取webgl绘图上下文</span></div><div class="line"><span class="undefined">            var gl = getWebGLContext(canvas, true);</span></div><div class="line"><span class="undefined">            if (!gl) &#123;</span></div><div class="line"><span class="undefined">                console.log('error');</span></div><div class="line"><span class="undefined">                return;</span></div><div class="line"><span class="undefined">            &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">            // 初始化着色器</span></div><div class="line"><span class="undefined">            if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) &#123;</span></div><div class="line"><span class="undefined">                console.log('error');</span></div><div class="line"><span class="undefined">                return;</span></div><div class="line"><span class="undefined">            &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">            // 制定清空canvas的颜色</span></div><div class="line"><span class="undefined">            gl.clearColor(0.0, 0.0, 0.0, 1.0);</span></div><div class="line"><span class="undefined">            // 清空canvas</span></div><div class="line"><span class="undefined">            gl.clear(gl.COLOR_BUFFER_BIT);</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">            // 绘制一个点</span></div><div class="line"><span class="undefined">            gl.drawArrays(gl.POINTS, 0, 1);</span></div><div class="line"><span class="undefined">        &#125;</span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -192,398 +258,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/webgl-2017-07-02/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-01/" class="archive-article-date">
-  	<time datetime="2017-07-01T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-01</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-01/">WebGL系列教程--3D图形学入门</a>
-    </h1>
+  
+    <a href="/webgl-2017-07-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">WebGL系列教程--3D图形学入门</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+  <section id="comments">
+<div id="SOHUCS" sid="WebGL系列教程--基本概述" style="padding: 0px 30px 0px 46px;"></div>
+<script>
+  (function(){
+    var appid = 'cytaIcbYU',
+    conf = 'ebd898f01c4500525d43d880c4075984';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>
+  </section>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017-06-12/" class="archive-article-date">
-  	<time datetime="2017-06-12T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017-06-12/">React深入浅出系列--如何设计高质量的React组件</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">react</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017-06-11/" class="archive-article-date">
-  	<time datetime="2017-06-11T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017-06-11/">React深入浅出系列--React的工作方式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">react</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017-06-10/" class="archive-article-date">
-  	<time datetime="2017-06-10T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017-06-10/">React深入浅出系列--如何理解JSX</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">react</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/vue-ssr3/" class="archive-article-date">
-  	<time datetime="2017-06-05T12:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/vue-ssr3/">如何使用vue-ssr做服务端渲染初体验(三)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/vue-ssr2/" class="archive-article-date">
-  	<time datetime="2017-06-02T12:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/vue-ssr2/">如何使用vue-ssr做服务端渲染初体验(二)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/vue-ssr/" class="archive-article-date">
-  	<time datetime="2017-06-01T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/vue-ssr/">如何使用vue-ssr做服务端渲染初体验(-)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017-05-07/" class="archive-article-date">
-  	<time datetime="2017-05-07T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017-05-07/">浅谈webworker的使用场景</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017-05-02/" class="archive-article-date">
-  	<time datetime="2017-05-02T10:56:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017-05-02/">axios基本使用介绍</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ajax</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/tags/javascript/page/2/">2</a><a class="extend next" rel="next" href="/tags/javascript/page/2/">Next &raquo;</a>
-    </nav>
-  
-
 
           </div>
         </div>
@@ -604,9 +378,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

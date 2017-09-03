@@ -6,23 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>React深入浅出系列--React的工作方式 | 王奇技术博客</title>
+  <title>React深入浅出系列--如何设计高质量的React组件 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="jQuery如何工作在讲解React的工作方式之前，先了解下jQuery的工作方式，我们使用jQuery给网页添加一个onclick事件基本写发如下：12345678910&amp;lt;div&amp;gt;  &amp;lt;button type=&quot;btn&quot; id=&quot;btn&quot;&amp;gt;点击我&amp;lt;/button&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script&amp;gt;  $(function()&amp;#123;">
+  <meta name="description" content="组件的设计要素在项目开发初期，针对模块或者组件的分配是及其重要，基本会按照“分而治之”的思想去合理的设计组件的功能以及扩展它们的复用性等等。拆分组件最关键的就是确定组件功能的边界，每个组件都应该是可以独立存在的，如果两个组件逻辑太紧密，无法清晰定义各自的职责，那这两个组件本身就不该被拆分，作为同一个组件或许更加合理。 组件的划分需要满足两个基本原则：高内聚和低耦合 高内聚:把逻辑紧密相关的内容放在">
 <meta name="keywords" content="javascript,react">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React深入浅出系列--React的工作方式">
-<meta property="og:url" content="http://www.iwangqi.com/2017-06-11/index.html">
+<meta property="og:title" content="React深入浅出系列--如何设计高质量的React组件">
+<meta property="og:url" content="http://www.iwangqi.com/2017-06-12/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="jQuery如何工作在讲解React的工作方式之前，先了解下jQuery的工作方式，我们使用jQuery给网页添加一个onclick事件基本写发如下：12345678910&amp;lt;div&amp;gt;  &amp;lt;button type=&quot;btn&quot; id=&quot;btn&quot;&amp;gt;点击我&amp;lt;/button&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script&amp;gt;  $(function()&amp;#123;">
+<meta property="og:description" content="组件的设计要素在项目开发初期，针对模块或者组件的分配是及其重要，基本会按照“分而治之”的思想去合理的设计组件的功能以及扩展它们的复用性等等。拆分组件最关键的就是确定组件功能的边界，每个组件都应该是可以独立存在的，如果两个组件逻辑太紧密，无法清晰定义各自的职责，那这两个组件本身就不该被拆分，作为同一个组件或许更加合理。 组件的划分需要满足两个基本原则：高内聚和低耦合 高内聚:把逻辑紧密相关的内容放在">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.iwangqi.com/2017-06-11/01.jpeg">
-<meta property="og:image" content="http://www.iwangqi.com/2017-06-11/02.jpeg">
-<meta property="og:updated_time" content="2017-09-02T13:02:32.000Z">
+<meta property="og:image" content="http://www.iwangqi.com/2017-06-12/01.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/2017-06-12/02.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/2017-06-12/03.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/2017-06-12/04.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/2017-06-12/05.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/2017-06-12/05.jpeg">
+<meta property="og:updated_time" content="2017-09-03T04:00:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React深入浅出系列--React的工作方式">
-<meta name="twitter:description" content="jQuery如何工作在讲解React的工作方式之前，先了解下jQuery的工作方式，我们使用jQuery给网页添加一个onclick事件基本写发如下：12345678910&amp;lt;div&amp;gt;  &amp;lt;button type=&quot;btn&quot; id=&quot;btn&quot;&amp;gt;点击我&amp;lt;/button&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script&amp;gt;  $(function()&amp;#123;">
-<meta name="twitter:image" content="http://www.iwangqi.com/2017-06-11/01.jpeg">
+<meta name="twitter:title" content="React深入浅出系列--如何设计高质量的React组件">
+<meta name="twitter:description" content="组件的设计要素在项目开发初期，针对模块或者组件的分配是及其重要，基本会按照“分而治之”的思想去合理的设计组件的功能以及扩展它们的复用性等等。拆分组件最关键的就是确定组件功能的边界，每个组件都应该是可以独立存在的，如果两个组件逻辑太紧密，无法清晰定义各自的职责，那这两个组件本身就不该被拆分，作为同一个组件或许更加合理。 组件的划分需要满足两个基本原则：高内聚和低耦合 高内聚:把逻辑紧密相关的内容放在">
+<meta name="twitter:image" content="http://www.iwangqi.com/2017-06-12/01.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
@@ -152,20 +156,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-2017-06-11" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-2017-06-12" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      React深入浅出系列--React的工作方式
+      React深入浅出系列--如何设计高质量的React组件
     </h1>
   
 
         
-        <a href="/2017-06-11/" class="archive-article-date">
-  	<time datetime="2017-06-11T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-11</time>
+        <a href="/2017-06-12/" class="archive-article-date">
+  	<time datetime="2017-06-12T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-12</time>
 </a>
         
       </header>
@@ -179,7 +183,7 @@
       <div id="toc-article" class="toc-article">
           <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
           <strong class="toc-title">文章目录</strong>
-          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#jQuery如何工作"><span class="toc-number">1.</span> <span class="toc-text">jQuery如何工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React的理念"><span class="toc-number">2.</span> <span class="toc-text">React的理念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Virtual-DOM"><span class="toc-number">3.</span> <span class="toc-text">Virtual DOM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React工作方式的优点"><span class="toc-number">4.</span> <span class="toc-text">React工作方式的优点</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#组件的设计要素"><span class="toc-number">1.</span> <span class="toc-text">组件的设计要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#react组件的数据"><span class="toc-number">2.</span> <span class="toc-text">react组件的数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#React中的prop"><span class="toc-number">2.1.</span> <span class="toc-text">React中的prop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#propTypes的检查"><span class="toc-number">2.2.</span> <span class="toc-text">propTypes的检查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#React中的state"><span class="toc-number">2.3.</span> <span class="toc-text">React中的state</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#prop和state的对比"><span class="toc-number">2.4.</span> <span class="toc-text">prop和state的对比</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用prop建立组件间的通信"><span class="toc-number">3.</span> <span class="toc-text">使用prop建立组件间的通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用prop传递参数的局限"><span class="toc-number">4.</span> <span class="toc-text">使用prop传递参数的局限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#react生命周期介绍"><span class="toc-number">5.</span> <span class="toc-text">react生命周期介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#装载过程"><span class="toc-number">5.1.</span> <span class="toc-text">装载过程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#constructor-NaN"><span class="toc-number">5.1.1.</span> <span class="toc-text">constructor</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#defaultProps"><span class="toc-number">5.1.2.</span> <span class="toc-text">defaultProps</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#render"><span class="toc-number">5.1.3.</span> <span class="toc-text">render</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#componentWillMount和componentDidMount"><span class="toc-number">5.1.4.</span> <span class="toc-text">componentWillMount和componentDidMount</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更新过程"><span class="toc-number">5.2.</span> <span class="toc-text">更新过程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#componentWillReceiveProps"><span class="toc-number">5.2.1.</span> <span class="toc-text">componentWillReceiveProps</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#shouldComponentUpdate"><span class="toc-number">5.2.2.</span> <span class="toc-text">shouldComponentUpdate</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#componentWillUpdate和componentDidUpdate"><span class="toc-number">5.2.3.</span> <span class="toc-text">componentWillUpdate和componentDidUpdate</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#卸载过程"><span class="toc-number">5.3.</span> <span class="toc-text">卸载过程</span></a></li></ol></li></ol>
      </div>
      <script type="text/javascript">
       function showToc(){
@@ -199,24 +203,76 @@
   <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="jQuery如何工作"><a href="#jQuery如何工作" class="headerlink" title="jQuery如何工作"></a>jQuery如何工作</h3><p>在讲解React的工作方式之前，先了解下jQuery的工作方式，我们使用jQuery给网页添加一个onclick事件基本写发如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"btn"</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>点击我<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">  $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">    $(<span class="string">"#btn"</span>).click(fucntion()&#123;</span></div><div class="line"><span class="javascript">      <span class="comment">// do some things</span></span></div><div class="line"><span class="undefined">    &#125;)</span></div><div class="line"><span class="undefined">  &#125;)</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure><br>在jQuery的解决方案中，首先根据css规则找到id为btn的按钮，挂上一个匿名事件处理函数，在事件处理函数中，选中那个需要被修改的DOM元素，读取其中的文本值，加以修改，然后修改这个DOM元素。</p>
-<p>但是对于庞大的项目，这种模式会造成代码结构复杂，难易维护，每个jQuery的使用者都会有这种体会。</p>
+        <h3 id="组件的设计要素"><a href="#组件的设计要素" class="headerlink" title="组件的设计要素"></a>组件的设计要素</h3><p>在项目开发初期，针对模块或者组件的分配是及其重要，基本会按照“分而治之”的思想去合理的设计组件的功能以及扩展它们的复用性等等。拆分组件最关键的就是确定组件功能的边界，每个组件都应该是可以独立存在的，如果两个组件逻辑太紧密，无法清晰定义各自的职责，那这两个组件本身就不该被拆分，作为同一个组件或许更加合理。</p>
+<p>组件的划分需要满足两个基本原则：<b>高内聚</b>和<b>低耦合</b></p>
+<p><b>高内聚:</b>把逻辑紧密相关的内容放在一个组件中。早期开发html、css、js基本会以三个不同的文件存放，这样其实是违背高聚合的原则，react正好提供将跟组件相关的css、js、html放在一起的语法结构，这样一来，组件的复用性能够达到极致。</p>
+<p><b>低耦合:</b>不同的组件之间的依赖关系要尽量弱化。也就是每个组件要尽量独立。保持整个系统的低耦合度，让不同的组件去实现不同的功能，复杂的功能是通过细分的组件组装起来完成的，这样设计的话，方便开发者写出低耦合的系统。</p>
 <a id="more"></a>
-<h3 id="React的理念"><a href="#React的理念" class="headerlink" title="React的理念"></a>React的理念</h3><p>react给dom添加事件并不是通过选择器选中某个dom，然后添加相应的事件，使用react开发，开发者不需要关心dom的组成结构，只需关注数据从哪里来，该去哪个组件中显示，也就是关心整个数据流的走向，通过render函数将相应的数据显示在界面上，如果需要更新界面，只需要找到相应的数据data更新即可，用户界面自然会做出响应，所以说react也是响应式编程。</p>
-<h3 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h3><p>对于改变普通的html中的DOM会造成页面的重排和重绘，这也是前端性能优化主要的方面，就是尽量减少对DOM的操作。其实虚拟DOM说的简单点就是js动态生成的html标签在js内存中存储，并没有实际插入到页面当中。例如使用createElement（’Button’）和DocumentFragment创建虚拟的标签。简单的虚拟DOM代码示例如下，主要是方面从简单的层面理解虚拟DOM：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> frag=<span class="built_in">document</span>.createDocumentFragment();</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">   <span class="keyword">var</span> l=<span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</div><div class="line">   l.innerHTML=<span class="string">"ss"</span>;</div><div class="line">   frag.appendChild(l);</div><div class="line">&#125;</div><div class="line"><span class="built_in">document</span>.getElementById(<span class="string">"list"</span>).appendChild(frag);</div></pre></td></tr></table></figure>
-<p>当然React中的虚拟DOM并没有像以上的例子这么简单，但是核心思想是这样的，相比直接操作DOM而言，通过操作js生成的DOM数结构改变映射到页面上的内容能提高不少性能。虚拟DOM就是对DOM树的抽象，仅仅是存在与javascript空间的树形结构，例如最简单的形式如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;</div><div class="line">  type: <span class="string">'a'</span>,</div><div class="line">  props: &#123;</div><div class="line">    children: <span class="string">'React'</span>,</div><div class="line">    className: <span class="string">'link'</span>,</div><div class="line">    href: <span class="string">'facebook/react · GitHub'</span></div><div class="line">  &#125;,</div><div class="line">  _isReactElement: <span class="literal">true</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">React.render(a, <span class="built_in">document</span>.body)</div></pre></td></tr></table></figure></p>
-<p>虚拟DOM中有个核心算法就是diff算法，主要实现以下三个步骤：</p>
-<ul>
-<li>步骤一：用JS对象模拟DOM树</li>
-<li>步骤二：比较两棵虚拟DOM树的差异</li>
-<li>步骤三：把差异应用到真正的DOM树上<br>react会根据diff算法计算出需要更新改变虚拟DOM，从而只更新页面中映射的那一小块DOM。对于diff算法以及react性能优化后期会单独用一节分析。</li>
+<h3 id="react组件的数据"><a href="#react组件的数据" class="headerlink" title="react组件的数据"></a>react组件的数据</h3><p>react组件的数据主要分两种：<b>prop</b>和<b>state</b>。无论prop、state的改变都可能引发组件的渲染，其实react有基本的规范，prop主要作为组件对外部的接口，负责接受其他组件传过来的数据参数等，state主要是组件内部定义的数据状态，仅仅属于当前组件内部使用，片段代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义一个子组件</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="comment">// 在构造函数中定义super主要是为了接受父组件传进来的参数，保证内部正常使用this.props</span></div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="comment">//使用state定义自己内部状态数据</span></div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      text: <span class="number">1</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">const</span> &#123;caption&#125; = <span class="keyword">this</span>.props; <span class="comment">//通过this.props来获取父亲组件传进来的caption值</span></div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div className=<span class="string">"App"</span>&gt;</div><div class="line">        &#123;<span class="keyword">this</span>.state.text&#125;</div><div class="line">      &lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">    );</span></div><div class="line"><span class="regexp">  &#125;</span></div><div class="line"><span class="regexp">&#125;</span></div><div class="line"><span class="regexp">/</span><span class="regexp">/ 定义一个父组件</span></div><div class="line"><span class="regexp">class ControlPanel extends Component &#123;</span></div><div class="line"><span class="regexp">  render() &#123;</span></div><div class="line"><span class="regexp">    console.log('enter ControlPanel render');</span></div><div class="line"><span class="regexp">    return (</span></div><div class="line"><span class="regexp">      &lt;div style=&#123;style&#125;&gt;</span></div><div class="line"><span class="regexp">        &lt;Counter caption="First"/</span>&gt;</div><div class="line">      &lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">    );</span></div><div class="line"><span class="regexp">  &#125;</span></div><div class="line"><span class="regexp">&#125;;</span></div></pre></td></tr></table></figure>
+<h4 id="React中的prop"><a href="#React中的prop" class="headerlink" title="React中的prop"></a>React中的prop</h4><p>给prop赋值和读取prop的值，以下只是代码片段，主要为了解释那些是赋值那些是读取值<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//在构造函数中读取父组件传过来的值</span></div><div class="line"><span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="comment">// 在构造函数中定义super主要是为了接受父组件传进来的参数，保证内部正常使用this.props</span></div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="comment">//使用state定义自己内部状态数据</span></div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      text: <span class="number">1</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line"><span class="comment">//在render函数中返回一个组件，并且带上要给该组件传递的数据  </span></div><div class="line"><span class="keyword">return</span> (</div><div class="line">    &lt;Counter caption=<span class="string">"First"</span>/&gt;</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>如果一个组件需要定义自己的构造函数，一定要在构造函数的第一行通过super调用父级也就是React.Component的构造函数，只有这样才能通过this.props来获取父级传下来的数据。因此常常会在构造函数中绑定this的指向，避免在render中多次绑定而造成性能问题。</p>
+<h4 id="propTypes的检查"><a href="#propTypes的检查" class="headerlink" title="propTypes的检查"></a>propTypes的检查</h4><p>通过propTypes属性来定义prop规格，在组件渲染运行和静态代码检查时，都可以根据propTypes判断外部传递数据的格式是否正确，基本代码片段如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Counter.propTypes = &#123;</div><div class="line">  caption:PropTypes.string.isRequired,</div><div class="line">  initValue:PropTypes.number</div><div class="line">&#125;</div></pre></td></tr></table></figure><br>其中要求caption必须是string类型，initValue必须是number类型，isRequired代表该caption必须传递，不能缺失，而initValue可以不传。</p>
+<p>所以在具体项目开发中，最好的方式是，在开发模式下带上propTypes，而在上线的时候可以去掉这些代码，可以用babel-react-optimize工具自动去除propTypes，这样部署到产品环境的代码就会更优。</p>
+<h4 id="React中的state"><a href="#React中的state" class="headerlink" title="React中的state"></a>React中的state</h4><p>state代表组件内部状态，常常用来定义组件内部初始值。组件内部的state必须是一个对象，不能是string或者number这样简单的数据类型。基本使用如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      text: <span class="number">1</span>, <span class="comment">// 使用state定义自己内部状态数据</span></div><div class="line">      num:props.num || <span class="number">1</span> <span class="comment">// 接受父组件传来的参数</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure><br>在当前组件对象内部通过this.state来访问内部定义的变量，如果要改变状态千万不要直接通过this.state赋值改变，使用react提供的setState这个方法来改变状态，这样改变能够直接触发组件重新render使得界面绑定的相应的状态更新。</p>
+<h4 id="prop和state的对比"><a href="#prop和state的对比" class="headerlink" title="prop和state的对比"></a>prop和state的对比</h4><ul>
+<li>prop用于定义外部接口，state用于定义内部状态；</li>
+<li>prop的赋值在外部世界使用组件时，state的赋值在组件内部；</li>
+<li>组件不应该改变prop的值，而state存在的目的就是让组件来改变的；</li>
 </ul>
-<h3 id="React工作方式的优点"><a href="#React工作方式的优点" class="headerlink" title="React工作方式的优点"></a>React工作方式的优点</h3><p>传统化的jquery的方式直观易懂，但是随着项目变得庞大时，用jquery写出的代码往往相互纠缠，难以维护。</p>
-<p><img width="400" src="/2017-06-11/01.jpeg" title="jquery方式造成的纠缠代码结构"></p>
-<p>使用react的方式，可以避免构建这样复杂的程序结构，无论何种事件，引发的都是react组件的重新渲染，至于如何只修改必要的DOM部分，则完全交给React去操作，开发这不需要关心。react利用函数式编程的思想来解决用户界面渲染问题，最大的优势能够提高开发效率，代码可维护性和可阅读性增强。</p>
-<p><img width="400" src="/2017-06-11/02.jpeg" title="react的程序流程"></p>
-<p>react会强制所有组件都按照这种由数据驱动渲染的模式来工作，无论应用多大，都让程序处于可控范围内。下一篇将为大家介绍如何设计高质量的React组件。</p>
+<p>一个子组件去修改props中的值，就是违背react的设计初衷，如果必须修改，建议使用组件内部状态先保存props，然后通过改变组件内部状态变相改变了props。</p>
+<h3 id="使用prop建立组件间的通信"><a href="#使用prop建立组件间的通信" class="headerlink" title="使用prop建立组件间的通信"></a>使用prop建立组件间的通信</h3><p>应用示例如下：</p>
+<p><img width="600" src="/2017-06-12/01.jpeg" title="应用示例"></p>
+<p>使用prop建立组件间的通信原理就是在子组件内部定义改变内部状态的方法并且触发父组件改变父组件的方法，并且在自组件自定一个空函数作为父子组件通信的桥接。</p>
+<p>具体实现代码如下，我们现在Counter子组件中定义需要改变状态的方法，除了触发改变内部状态的updateCount方法，同时也会触发父组件的this.props.onUpdate方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">onClickIncrementButton() &#123;</div><div class="line">  <span class="keyword">this</span>.updateCount(<span class="literal">true</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">onClickDecrementButton() &#123;</div><div class="line">  <span class="keyword">this</span>.updateCount(<span class="literal">false</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">updateCount(isIncrement) &#123;</div><div class="line">  <span class="keyword">const</span> previousValue = <span class="keyword">this</span>.state.count;</div><div class="line">  <span class="keyword">const</span> newValue = isIncrement ? previousValue + <span class="number">1</span> : previousValue - <span class="number">1</span>;</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.setState(&#123;<span class="attr">count</span>: newValue&#125;)</div><div class="line">  <span class="keyword">this</span>.props.onUpdate(newValue, previousValue)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>接下来我们定义一个默认的空函数，来桥接父子组件通信，代码片段如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Counter.propTypes = &#123;</div><div class="line">  caption: PropTypes.string.isRequired,</div><div class="line">  initValue: PropTypes.number,</div><div class="line">  onUpdate: PropTypes.func</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Counter.defaultProps = &#123;</div><div class="line">  initValue: <span class="number">0</span>,</div><div class="line">  onUpdate: <span class="function"><span class="params">f</span> =&gt;</span> f <span class="comment">//什么都不做的函数</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>并且在父组件中建立相应的更新方法，并且在render将onCounterUpdate方法以onUpdate名字传递给子组件中，自组件定义onUpdate来接受父组件传递下来的方法，从而解决了父子组件的通信，代码片段如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">onCounterUpdate(newValue, previousValue) &#123;</div><div class="line">  <span class="keyword">const</span> valueChange = newValue - previousValue;</div><div class="line">  <span class="keyword">this</span>.setState(&#123; <span class="attr">sum</span>: <span class="keyword">this</span>.state.sum + valueChange&#125;);</div><div class="line">&#125;</div><div class="line">render() &#123;</div><div class="line">  <span class="keyword">return</span> (</div><div class="line">    &lt;div style=&#123;style&#125;&gt;</div><div class="line">      &lt;Counter onUpdate=&#123;<span class="keyword">this</span>.onCounterUpdate&#125; caption=<span class="string">"First"</span> /&gt;</div><div class="line">      &lt;Counter onUpdate=&#123;<span class="keyword">this</span>.onCounterUpdate&#125; caption=<span class="string">"Second"</span> initValue=&#123;<span class="keyword">this</span>.initValues[<span class="number">1</span>]&#125; /&gt;</div><div class="line">      &lt;Counter onUpdate=&#123;<span class="keyword">this</span>.onCounterUpdate&#125; caption=<span class="string">"Third"</span> initValue=&#123;<span class="keyword">this</span>.initValues[<span class="number">2</span>]&#125; /&gt;</div><div class="line">      &lt;hr/&gt;</div><div class="line">      &lt;div&gt;Total Count: &#123;<span class="keyword">this</span>.state.sum&#125;&lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">    &lt;/</span>div&gt;</div><div class="line">  );</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="使用prop传递参数的局限"><a href="#使用prop传递参数的局限" class="headerlink" title="使用prop传递参数的局限"></a>使用prop传递参数的局限</h3><p>从上面的示例不难看出，子组件和父组件都各自维护一套属于自己的状态，并且通过update来相互通信，如果update内部内部逻辑出现bug，这个时候，计数器的结果到底是子组件的对还是父组件的对呢，这个时候就需要共享状态的概念出现，通过一个全局状态来同步各个子组件内部的状态，开发者也只要关注共享全局状态走向就行。</p>
+<p>组件状态不统一：<br><img width="300" src="/2017-06-12/02.jpeg" title="组件状态不统一"><br>全局状态同步状态：<br><img width="300" src="/2017-06-12/03.jpeg" title="全局状态同步状态"></p>
+<p>如果一个系统中，存在多层嵌套组件，如果按照prop规则传递参数，岂不是非常麻烦，所以必须引入全局状态Redux，将在下节中为大家介绍基本的Redux思想及原理。</p>
+<h3 id="react生命周期介绍"><a href="#react生命周期介绍" class="headerlink" title="react生命周期介绍"></a>react生命周期介绍</h3><p>生命周期基本分成三个主要阶段：</p>
+<ul>
+<li>装载过程，组件第一次渲染过程</li>
+<li>更新过程，当组件重新渲染过程</li>
+<li>卸载过程，组件从DOM中删除过程</li>
+</ul>
+<h4 id="装载过程"><a href="#装载过程" class="headerlink" title="装载过程"></a>装载过程</h4><p>依次调用一下生命周期函数方法(按照es6最新语法介绍)：</p>
+<ul>
+<li>constructor</li>
+<li>defaultProps</li>
+<li>componentWillMount</li>
+<li>render</li>
+<li>componentDidMount</li>
+</ul>
+<h5 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h5><p>这是es6中构造函数的写法，如果是无状态的React组件无需定义构造函数，因此定义构造函数基本的作用是：</p>
+<ul>
+<li>初始化state，在组件定义个函数中需要访问state状态。</li>
+<li>绑定函数的this上下文。</li>
+</ul>
+<p>代码片段如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="keyword">this</span>.onClickIncrementButton = <span class="keyword">this</span>.onClickIncrementButton.bind(<span class="keyword">this</span>);</div><div class="line">    <span class="keyword">this</span>.onClickDecrementButton = <span class="keyword">this</span>.onClickDecrementButton.bind(<span class="keyword">this</span>);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h5 id="defaultProps"><a href="#defaultProps" class="headerlink" title="defaultProps"></a>defaultProps</h5><p>主要作用是给props定义初始值，基本写法如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Counter.defaultProps = &#123;</div><div class="line">  initValue: <span class="number">0</span>,</div><div class="line">  onUpdate: <span class="function"><span class="params">f</span> =&gt;</span> f <span class="comment">//什么都不做的函数</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h5 id="render"><a href="#render" class="headerlink" title="render"></a>render</h5><p>主要作用返回一个JSX描述的结构，最终再交付给React来操作渲染，组件在有些情况下如果不需要返回JSX结构，可以通过返回null或者false来告诉React不渲染任何DOM元素。</p>
+<blockquote>
+<p>注意：在render中不要操作对状态的改变，应该在自定义函数中改变</p>
+</blockquote>
+<h5 id="componentWillMount和componentDidMount"><a href="#componentWillMount和componentDidMount" class="headerlink" title="componentWillMount和componentDidMount"></a>componentWillMount和componentDidMount</h5><p>componentWillMount在render函数之前调用，也就是DOM还没有挂载，这个时候如果调用this.setState修改状态也不会发生重新渲染，其实我们可以在创建构造函数中就做好在componentWillMount应该做的事情。此函数既可以在服务端被调用，也可以在浏览器端被调用。</p>
+<p>componentDidMount在render之后调用，也就是挂载DOM的操作，如果一个父组件嵌套多个子组件，这个时候挂载DOM的顺序是等到子组件全部调用render函数之后再开始挂载相应子组件的DOM。该函数只能在浏览器端被调用。如果需要对DOM操作的话，建议可以在componentDidMount中定义函数进行操作。DOM挂载顺序结果如下：</p>
+<p><img width="700" src="/2017-06-12/04.jpeg" title="DOM挂载顺序"></p>
+<h4 id="更新过程"><a href="#更新过程" class="headerlink" title="更新过程"></a>更新过程</h4><ul>
+<li>componentWillReceiveProps</li>
+<li>shouldComponentUpdate</li>
+<li>componentWillUpdate</li>
+<li>render</li>
+<li>componentDidUpdate</li>
+</ul>
+<h5 id="componentWillReceiveProps"><a href="#componentWillReceiveProps" class="headerlink" title="componentWillReceiveProps"></a>componentWillReceiveProps</h5><p>这个函数是根据新的props的值来计算出是不是要更新组件内部state状态。同同时，只要父组件的render函数被调用，在render函数里面被渲染的子组件就会经历更新过程，不管父组件传给子组件的props有没有改变，都会触发componentWillReceiveProps函数运行。</p>
+<p>在Counter组件中增加函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">componentWillReceiveProps(nextProps) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'enter componentWillReceiveProps '</span> + <span class="keyword">this</span>.props.caption)</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>在ControlPanel函数中定义强制更新函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">render() &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'enter ControlPanel render'</span>);</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div style=&#123;style&#125;&gt;</div><div class="line">        &lt;Counter onUpdate=&#123;<span class="keyword">this</span>.onCounterUpdate&#125; caption=<span class="string">"First"</span> /&gt;</div><div class="line">        &lt;Counter onUpdate=&#123;<span class="keyword">this</span>.onCounterUpdate&#125; caption=<span class="string">"Second"</span> initValue=&#123;<span class="keyword">this</span>.initValues[<span class="number">1</span>]&#125; /&gt;</div><div class="line">        &lt;Counter onUpdate=&#123;<span class="keyword">this</span>.onCounterUpdate&#125; caption=<span class="string">"Third"</span> initValue=&#123;<span class="keyword">this</span>.initValues[<span class="number">2</span>]&#125; /&gt;</div><div class="line">        &lt;button onClick=&#123; () =&gt; <span class="keyword">this</span>.forceUpdate() &#125;&gt;</div><div class="line">          Click me to re-render!</div><div class="line">        &lt;<span class="regexp">/button&gt;</span></div><div class="line"><span class="regexp">        &lt;hr/</span>&gt;</div><div class="line">        &lt;div&gt;Total Count: &#123;<span class="keyword">this</span>.state.sum&#125;&lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">      &lt;/</span>div&gt;</div><div class="line">    );</div></pre></td></tr></table></figure><br>ControlPanel组件中触发了render函数，子组件中的componentWillReceiveProps都被触发了，但是并没有改变props的值，运行结果截图如下：<br><img width="700" src="/2017-06-12/05.jpeg" title="更新过程"></p>
+<p>这个函数会接受nextProps参数，一般会用nextProps（这一次渲染传入的值）与this.props（上一次渲染传入的值）进行比较，只有两者有变化的时候才会调用this.setState更新内部状态。</p>
+<h5 id="shouldComponentUpdate"><a href="#shouldComponentUpdate" class="headerlink" title="shouldComponentUpdate"></a>shouldComponentUpdate</h5><p>主要作用根据nextProps, nextState接收的两个参数来判断组件是否需要执行render函数，react中这个函数如果不做任何设置，默认都是返回true，所以再做性能优化的时候，这个函数起到了至关重要的作用。<br>在Counter组件中增加函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">shouldComponentUpdate(nextProps, nextState) &#123;</div><div class="line">    <span class="keyword">return</span> (nextProps.caption !== <span class="keyword">this</span>.props.caption) ||</div><div class="line">           (nextState.count !== <span class="keyword">this</span>.state.count);</div><div class="line">  &#125;</div></pre></td></tr></table></figure><br>改变任何一个值，只会触发当前这个组件调用render函数，运行结构如下：<br><img width="700" src="/2017-06-12/05.jpeg" title="性能优化过程"></p>
+<h5 id="componentWillUpdate和componentDidUpdate"><a href="#componentWillUpdate和componentDidUpdate" class="headerlink" title="componentWillUpdate和componentDidUpdate"></a>componentWillUpdate和componentDidUpdate</h5><p>只要shouldComponentUpdate函数返回为true，就会以此调用componentWillUpdate、render、componentDidUpdate这三个函数，同样这两个函数即可以在服务端调用也可以在浏览器端调用。</p>
+<h4 id="卸载过程"><a href="#卸载过程" class="headerlink" title="卸载过程"></a>卸载过程</h4><p>这个过程主要是卸载不使用的组件DOM元素，或者使用非React方式创建的DOM元素，还是非常有作用的，例如，如果在componentDidMount中可以使用了js原生创建了DOM元素，但是在组件卸载过程中没有清楚，这个时候会造成内存泄露，所以在使用卸载组件的函数，必须确定相关的DOM都清除。</p>
+<p>本篇简要的React组件的通信和基本的生命周期运行流程，在使用prop通信会有一定的局限，下节会引入Redux共享状态概念，来解决prop传递的局限，本篇涉及到的源码可以访问<a href="https://github.com/wqzwh/react-redux-demo/tree/master/src/demo/01" target="_blank" rel="external">https://github.com/wqzwh/react-redux-demo/tree/master/src/demo/01</a> </p>
 
       
 
@@ -290,7 +346,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/2017-06-11/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/2017-06-12/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -304,18 +360,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2017-06-12/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/webgl-2017-07-01/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          React深入浅出系列--如何设计高质量的React组件
+          WebGL系列教程--3D图形学入门
         
       </div>
     </a>
   
   
-    <a href="/2017-06-10/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">React深入浅出系列--如何理解JSX</div>
+    <a href="/2017-06-11/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">React深入浅出系列--React的工作方式</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -332,7 +388,7 @@
 
 
   <section id="comments">
-<div id="SOHUCS" sid="React深入浅出系列--React的工作方式" style="padding: 0px 30px 0px 46px;"></div>
+<div id="SOHUCS" sid="React深入浅出系列--如何设计高质量的React组件" style="padding: 0px 30px 0px 46px;"></div>
 <script>
   (function(){
     var appid = 'cytaIcbYU',

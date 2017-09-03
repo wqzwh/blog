@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="王奇技术博客">
 <meta property="og:description" content="今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。 Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中使用一个事件队列，在每个时间点上，系统只会处理一个事件，即使">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-26T12:58:33.000Z">
+<meta property="og:updated_time" content="2017-09-02T13:01:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nodejs的process.nextTick方法理解和使用">
 <meta name="twitter:description" content="今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。 Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中使用一个事件队列，在每个时间点上，系统只会处理一个事件，即使">
@@ -167,6 +167,33 @@
         
       </header>
     
+    <!-- 目录内容 -->
+    
+      <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+      <span class="btn-bg"></span>
+      <span class="btn-text">文章导航</span>
+      </p>
+      <div id="toc-article" class="toc-article">
+          <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+          <strong class="toc-title">文章目录</strong>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#理解"><span class="toc-number">1.</span> <span class="toc-text">理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#具体使用场景"><span class="toc-number">2.</span> <span class="toc-text">具体使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在多个事件里交叉执行CPU运算密集型的任务"><span class="toc-number">2.0.1.</span> <span class="toc-text">在多个事件里交叉执行CPU运算密集型的任务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#保持回调函数异步执行的原则"><span class="toc-number">2.0.2.</span> <span class="toc-text">保持回调函数异步执行的原则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用在事件触发过程中"><span class="toc-number">2.0.3.</span> <span class="toc-text">用在事件触发过程中</span></a></li></ol></li></ol></li></ol>
+     </div>
+     <script type="text/javascript">
+      function showToc(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:block");
+          show_toc_btn.setAttribute("style","display:none");
+          };
+      function showBtn(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:none");
+          show_toc_btn.setAttribute("style","display:block");
+          };
+     </script>
+       
+  <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
         <p>今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。</p>
@@ -459,11 +486,11 @@ stream.on(<span class="string">'data'</span>, <span class="function"><span class
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">302</a>
+                <a href="javascript:void(0)" class="js-tag color1">react</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">react</a>
+                <a href="javascript:void(0)" class="js-tag color4">302</a>
               </li>
              
               <li class="article-tag-list-item">

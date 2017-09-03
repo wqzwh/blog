@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
   <title>WebGL系列教程--3D图形学入门 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1、3D的基本元素2D坐标系由x轴和y轴构成。其中，笛卡尔坐标系是最常见的2D坐标系。原点为（0.0），每个系统的坐标系不一样，有的系统y轴是正方向，有的是y轴的负方向为正方向。">
+  <meta name="description" content="3D的基本元素2D坐标系由x轴和y轴构成。其中，笛卡尔坐标系是最常见的2D坐标系。原点为（0.0），每个系统的坐标系不一样，有的系统y轴是正方向，有的是y轴的负方向为正方向。">
 <meta name="keywords" content="javascript,webgl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WebGL系列教程--3D图形学入门">
 <meta property="og:url" content="http://www.iwangqi.com/webgl-2017-07-01/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="1、3D的基本元素2D坐标系由x轴和y轴构成。其中，笛卡尔坐标系是最常见的2D坐标系。原点为（0.0），每个系统的坐标系不一样，有的系统y轴是正方向，有的是y轴的负方向为正方向。">
+<meta property="og:description" content="3D的基本元素2D坐标系由x轴和y轴构成。其中，笛卡尔坐标系是最常见的2D坐标系。原点为（0.0），每个系统的坐标系不一样，有的系统y轴是正方向，有的是y轴的负方向为正方向。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-01/01.jpeg">
 <meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-01/02.jpeg">
@@ -31,10 +31,10 @@
 <meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-01/13.jpeg">
 <meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-01/14.jpeg">
 <meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-01/15.jpeg">
-<meta property="og:updated_time" content="2017-08-27T03:53:05.000Z">
+<meta property="og:updated_time" content="2017-09-03T04:15:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WebGL系列教程--3D图形学入门">
-<meta name="twitter:description" content="1、3D的基本元素2D坐标系由x轴和y轴构成。其中，笛卡尔坐标系是最常见的2D坐标系。原点为（0.0），每个系统的坐标系不一样，有的系统y轴是正方向，有的是y轴的负方向为正方向。">
+<meta name="twitter:description" content="3D的基本元素2D坐标系由x轴和y轴构成。其中，笛卡尔坐标系是最常见的2D坐标系。原点为（0.0），每个系统的坐标系不一样，有的系统y轴是正方向，有的是y轴的负方向为正方向。">
 <meta name="twitter:image" content="http://www.iwangqi.com/webgl-2017-07-01/01.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
@@ -183,9 +183,36 @@
         
       </header>
     
+    <!-- 目录内容 -->
+    
+      <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+      <span class="btn-bg"></span>
+      <span class="btn-text">文章导航</span>
+      </p>
+      <div id="toc-article" class="toc-article">
+          <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+          <strong class="toc-title">文章目录</strong>
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#3D的基本元素"><span class="toc-number">1.</span> <span class="toc-text">3D的基本元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3D的变换概念"><span class="toc-number">2.</span> <span class="toc-text">3D的变换概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网格表面"><span class="toc-number">3.</span> <span class="toc-text">网格表面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#着色器"><span class="toc-number">4.</span> <span class="toc-text">着色器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3D世界"><span class="toc-number">5.</span> <span class="toc-text">3D世界</span></a></li></ol>
+     </div>
+     <script type="text/javascript">
+      function showToc(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:block");
+          show_toc_btn.setAttribute("style","display:none");
+          };
+      function showBtn(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:none");
+          show_toc_btn.setAttribute("style","display:block");
+          };
+     </script>
+       
+  <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1、3D的基本元素"><a href="#1、3D的基本元素" class="headerlink" title="1、3D的基本元素"></a>1、3D的基本元素</h3><p>2D坐标系由x轴和y轴构成。其中，笛卡尔坐标系是最常见的2D坐标系。原点为（0.0），每个系统的坐标系不一样，有的系统y轴是正方向，有的是y轴的负方向为正方向。</p>
+        <h3 id="3D的基本元素"><a href="#3D的基本元素" class="headerlink" title="3D的基本元素"></a>3D的基本元素</h3><p>2D坐标系由x轴和y轴构成。其中，笛卡尔坐标系是最常见的2D坐标系。原点为（0.0），每个系统的坐标系不一样，有的系统y轴是正方向，有的是y轴的负方向为正方向。</p>
 <p><img width="300" src="/webgl-2017-07-01/01.jpeg" title="2D笛卡尔坐标系"></p>
 <a id="more"></a>
 <p>HTML5 canvas2D坐标系,canvas坐标原点在左上角，从x为右是正方向，向下为y轴的正方向</p>
@@ -203,14 +230,14 @@
 <p>三角形是基础图形，所有的图形都能根据三角形进行拼凑而成，也就是3D图形是由一个或者多个三角形组成；网格是由一个或者多个图形组成。</p>
 <p><b>法线</b>:始终垂直于某平面的虚线，在几何中，法线是指平面上垂直于曲线在某点切线的直线。法线和切线的交点称作切点，法线在3D绘图当中尤其在切图当中起到很大作用，通常的切图会失真，用法线切图方式算法的切图效果相对比较逼真。</p>
 <p><img width="300" src="/webgl-2017-07-01/08.jpeg"></p>
-<h3 id="2、3D的变换概念"><a href="#2、3D的变换概念" class="headerlink" title="2、3D的变换概念"></a>2、3D的变换概念</h3><p><b>变换</b>：变换的原理是对顶点的改变，变换的方式有三种，分别是缩放、平移、旋转。<br>    <img width="200" src="/webgl-2017-07-01/09.jpeg"><img width="200" src="/webgl-2017-07-01/10.jpeg"><img width="200" src="/webgl-2017-07-01/11.jpeg"><img width="200" src="/webgl-2017-07-01/12.jpeg"></p>
+<h3 id="3D的变换概念"><a href="#3D的变换概念" class="headerlink" title="3D的变换概念"></a>3D的变换概念</h3><p><b>变换</b>：变换的原理是对顶点的改变，变换的方式有三种，分别是缩放、平移、旋转。<br>    <img width="200" src="/webgl-2017-07-01/09.jpeg"><img width="200" src="/webgl-2017-07-01/10.jpeg"><img width="200" src="/webgl-2017-07-01/11.jpeg"><img width="200" src="/webgl-2017-07-01/12.jpeg"></p>
 <p>旋转规定Z轴不变，定义初始旋转角度变量，示例代码我们先用着色器来计算顶点坐标位置，性能会比较低，在实际开发中，会定义矩阵来计算复杂的位置，示例代码片段如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义旋转角度</span></div><div class="line"><span class="keyword">var</span> ANGLE = <span class="number">30.0</span>;</div><div class="line"><span class="keyword">const</span> VSHADER_SOURCE =</div><div class="line">  <span class="string">` attribute vec4 a_Position;</span></div><div class="line"><span class="string">    uniform float u_CosB,u_SinB;</span></div><div class="line"><span class="string">    attribute float a_PointSize;</span></div><div class="line"><span class="string">    void main() &#123;</span></div><div class="line"><span class="string">       gl_Position.x = a_Position.x * u_CosB -  a_Position.y * u_SinB;</span></div><div class="line"><span class="string">       gl_Position.y = a_Position.x * u_SinB -  a_Position.y * u_CosB;</span></div><div class="line"><span class="string">       gl_Position.z = a_Position.z;</span></div><div class="line"><span class="string">       gl_Position.w = 1.0;</span></div><div class="line"><span class="string">     &#125;`</span></div><div class="line"><span class="comment">// 片元着色器程序</span></div><div class="line"><span class="keyword">const</span> FSHADER_SOURCE =</div><div class="line">  <span class="string">` precision mediump float;</span></div><div class="line"><span class="string">    uniform vec4 u_FragColor;</span></div><div class="line"><span class="string">    void main() &#123;</span></div><div class="line"><span class="string">      gl_FragColor = vec4(1.0,1.0,0.0,1.0);</span></div><div class="line"><span class="string">    &#125;`</span></div></pre></td></tr></table></figure></p>
 <p><b>矩阵</b>：解决的复杂是针对着色器的，在实际开发中，应保证着色器的简单，因为着色器越复杂性能就越低。在webgl中矩阵可以理解为是一种数据类型，专门处理复杂的计算，可以进行乘法和加法的运算。代码片段如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义矩阵的方式来处理变换效果</span></div><div class="line"><span class="comment">// 定义旋转角度</span></div><div class="line"><span class="keyword">var</span> ANGLE = <span class="number">30.0</span>;</div><div class="line"><span class="keyword">const</span> VSHADER_SOURCE =</div><div class="line">  <span class="string">` attribute vec4 a_Position;</span></div><div class="line"><span class="string">    uniform mat4 u_xformMatrix; //定义矩阵来变化</span></div><div class="line"><span class="string">    void main() &#123;</span></div><div class="line"><span class="string">       gl_Position = u_xformMatrix * a_Position;</span></div><div class="line"><span class="string">     &#125;`</span></div><div class="line"><span class="comment">// 片元着色器程序</span></div><div class="line"><span class="keyword">const</span> FSHADER_SOURCE =</div><div class="line">  <span class="string">` void main() &#123;</span></div><div class="line"><span class="string">      gl_FragColor = vec4(1.0,1.0,0.0,1.0);</span></div><div class="line"><span class="string">    &#125;`</span></div></pre></td></tr></table></figure></p>
-<h3 id="3、网格表面"><a href="#3、网格表面" class="headerlink" title="3、网格表面"></a>3、网格表面</h3><p><b>纹理与材质</b>：纹理可以定义网格表面的外观，例如在模型上贴一张图片；材质是网格表面的特性，也就是光滑度、透明度等等。<br><b>光照原理</b>：光线方向决定物体的明暗度与阴影,在着色过程中，需要考虑光源类型与反射类型。<br><b>光照类型</b>：平行光（从一个方向平行的打在一个物体上，有方向感的）、点光源光（由中心光源散发出来的光线，越往四周光线越弱）、环境光（在任何一个地方，光线的强弱都是一样的）</p>
+<h3 id="网格表面"><a href="#网格表面" class="headerlink" title="网格表面"></a>网格表面</h3><p><b>纹理与材质</b>：纹理可以定义网格表面的外观，例如在模型上贴一张图片；材质是网格表面的特性，也就是光滑度、透明度等等。<br><b>光照原理</b>：光线方向决定物体的明暗度与阴影,在着色过程中，需要考虑光源类型与反射类型。<br><b>光照类型</b>：平行光（从一个方向平行的打在一个物体上，有方向感的）、点光源光（由中心光源散发出来的光线，越往四周光线越弱）、环境光（在任何一个地方，光线的强弱都是一样的）</p>
 <p><img width="500" src="/webgl-2017-07-01/13.jpeg"></p>
 <p><b>反射类型</b>：漫反射光色由入射光色、表面漆色和入射角决定，环境反射由入射光色和表面漆色决定。</p>
 <p><img width="300" src="/webgl-2017-07-01/14.jpeg"></p>
-<h3 id="4、着色器"><a href="#4、着色器" class="headerlink" title="4、着色器"></a>4、着色器</h3><p>代替传统的固定渲染管线，固定的渲染管线是不可变的；着色器具有可编程性的；着色器分为，顶点着色器和片元着色器。</p>
+<h3 id="着色器"><a href="#着色器" class="headerlink" title="着色器"></a>着色器</h3><p>代替传统的固定渲染管线，固定的渲染管线是不可变的；着色器具有可编程性的；着色器分为，顶点着色器和片元着色器。</p>
 <p><b>顶点着色器</b>：顶点着色器用来描述顶点的位置、颜色的程序，写法类似c语言，会定义一个主函数main，同时有系统变量，这个变量是不可以变的，变量对应的值是强类型，片段代码如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> main() &#123;</div><div class="line">    gl_Position = vec4(<span class="number">0.0</span>,<span class="number">0.0</span>,<span class="number">0.0</span>,<span class="number">1.0</span>);</div><div class="line">    gl_PointSize = <span class="number">20.0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><b>片元着色器</b>：对网格表面像素的处理程序，例如网格表面的贴图就需要用到片元着色器，系统变量对应的值是不能超过1.0的，片段代码如下：</p>
@@ -305,9 +332,18 @@
   
 <nav id="article-nav">
   
+    <a href="/webgl-2017-07-02/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          WebGL系列教程--基本概述
+        
+      </div>
+    </a>
   
-    <a href="/2017-06-11/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">React深入浅出系列--React的工作方式</div>
+  
+    <a href="/2017-06-12/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">React深入浅出系列--如何设计高质量的React组件</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -443,11 +479,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">302</a>
+                <a href="javascript:void(0)" class="js-tag color1">react</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">react</a>
+                <a href="javascript:void(0)" class="js-tag color4">302</a>
               </li>
              
               <li class="article-tag-list-item">
