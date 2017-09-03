@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="王奇技术博客">
 <meta property="og:description" content="1、JSX介绍所谓JSX,是javascript的语法扩展，并不是一门新的编程语言，看起来有点像XML，让我们在javascript中可以编写像HTML一样的代码。例如以下示例代码：123456789101112class App extends Component &amp;#123;  render() &amp;#123;    return (      &amp;lt;div className=&quot;App&quot;&amp;g">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-26T12:58:33.000Z">
+<meta property="og:updated_time" content="2017-08-27T04:24:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React深入浅出系列--如何理解JSX">
 <meta name="twitter:description" content="1、JSX介绍所谓JSX,是javascript的语法扩展，并不是一门新的编程语言，看起来有点像XML，让我们在javascript中可以编写像HTML一样的代码。例如以下示例代码：123456789101112class App extends Component &amp;#123;  render() &amp;#123;    return (      &amp;lt;div className=&quot;App&quot;&amp;g">
@@ -177,7 +177,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;hello/&gt; <span class="comment">//默认认为是html标签，错误写法</span></div><div class="line">      &lt;Hello/&gt; <span class="comment">//默认是自定义Hello组件</span></div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="2、事件绑定"><a href="#2、事件绑定" class="headerlink" title="2、事件绑定"></a>2、事件绑定</h3><p>在早期时候绑定事件写法如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;button onclick=<span class="string">"checkAndSubmit(this.form)"</span>&gt;Submit&lt;<span class="regexp">/button&gt;</span></div></pre></td></tr></table></figure><br>随着业务不断复杂，虽然这种写法便于阅读，但是复杂的业务加上复杂的DOM结构，为了html和js解耦，所以绑定事件写法有如下变化，通过获取DOM节点，通过代理机制来绑定事件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'#my-button'</span>).on(<span class="string">'click'</span>, <span class="keyword">this</span>.checkAndSubmit.bind(<span class="keyword">this</span>));</div></pre></td></tr></table></figure><br>然而react中的JSX绑定事件的写法格式如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;button onClick=&#123;<span class="keyword">this</span>.checkAndSubmit.bind(<span class="keyword">this</span>)&#125;&gt;Submit&lt;<span class="regexp">/button&gt;</span></div></pre></td></tr></table></figure></p>
 <blockquote>
-<p>大括号中仍然是标准的JavaScript表达式，返回一个事件处理函数。在JSX中你不需要关心什么时机去移除事件绑定，因为React会在对应的真实DOM节点移除时就自动解除了事件绑定。</p>
+<p>大括号中仍然是标准的JavaScript表达式，返回一个事件处理函数。在JSX中你不需要关心什么时机去移除事件绑定，因为React会在对应的真实DOM节点移除时就自动解除了事件绑定。<font color="red">注意：在真正开发中，并不提倡给在组件添加事件中bind（this）这种写法，一般会在constructor的时候就绑定上下文this，这样在组件里面就不会因为多次绑定this而造成内存泄露。</font></p>
 </blockquote>
 <h3 id="3、JSX绑定事件和html绑定事件的区别"><a href="#3、JSX绑定事件和html绑定事件的区别" class="headerlink" title="3、JSX绑定事件和html绑定事件的区别"></a>3、JSX绑定事件和html绑定事件的区别</h3><p>  <b>在html添加事件有如下问题：</b></p>
 <p>  1、在html中使用onclick添加的事件处理函数是在全局环境下执行的，这样会污染全局环境，很容易产生意料不到的后果。</p>
@@ -497,7 +497,7 @@
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">忘记一切你自以为知道的事</div>
   	  	
     	</section>
     

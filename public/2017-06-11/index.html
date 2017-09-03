@@ -16,10 +16,13 @@
 <meta property="og:site_name" content="王奇技术博客">
 <meta property="og:description" content="1、jQuery如何工作在讲解React的工作方式之前，先了解下jQuery的工作方式，我们使用jQuery给网页添加一个onclick事件基本写发如下：12345678910&amp;lt;div&amp;gt;  &amp;lt;button type=&quot;btn&quot; id=&quot;btn&quot;&amp;gt;点击我&amp;lt;/button&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script&amp;gt;  $(function()&amp;#123;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-26T12:58:33.000Z">
+<meta property="og:image" content="http://www.iwangqi.com/2017-06-11/01.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/2017-06-11/02.jpeg">
+<meta property="og:updated_time" content="2017-08-27T08:04:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React深入浅出系列--React的工作方式">
 <meta name="twitter:description" content="1、jQuery如何工作在讲解React的工作方式之前，先了解下jQuery的工作方式，我们使用jQuery给网页添加一个onclick事件基本写发如下：12345678910&amp;lt;div&amp;gt;  &amp;lt;button type=&quot;btn&quot; id=&quot;btn&quot;&amp;gt;点击我&amp;lt;/button&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script&amp;gt;  $(function()&amp;#123;">
+<meta name="twitter:image" content="http://www.iwangqi.com/2017-06-11/01.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
@@ -172,7 +175,22 @@
         <h3 id="1、jQuery如何工作"><a href="#1、jQuery如何工作" class="headerlink" title="1、jQuery如何工作"></a>1、jQuery如何工作</h3><p>在讲解React的工作方式之前，先了解下jQuery的工作方式，我们使用jQuery给网页添加一个onclick事件基本写发如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"btn"</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>点击我<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">  $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">    $(<span class="string">"#btn"</span>).click(fucntion()&#123;</span></div><div class="line"><span class="javascript">      <span class="comment">// do some things</span></span></div><div class="line"><span class="undefined">    &#125;)</span></div><div class="line"><span class="undefined">  &#125;)</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure><br>在jQuery的解决方案中，首先根据css规则找到id为btn的按钮，挂上一个匿名事件处理函数，在事件处理函数中，选中那个需要被修改的DOM元素，读取其中的文本值，加以修改，然后修改这个DOM元素。</p>
 <p>但是对于庞大的项目，这种模式会造成代码结构复杂，难易维护，每个jQuery的使用者都会有这种体会。</p>
 <a id="more"></a>
-<h3 id="React的理念"><a href="#React的理念" class="headerlink" title="React的理念"></a>React的理念</h3>
+<h3 id="React的理念"><a href="#React的理念" class="headerlink" title="React的理念"></a>React的理念</h3><p>react给dom添加事件并不是通过选择器选中某个dom，然后添加相应的事件，使用react开发，开发者不需要关心dom的组成结构，只需关注数据从哪里来，该去哪个组件中显示，也就是关心整个数据流的走向，通过render函数将相应的数据显示在界面上，如果需要更新界面，只需要找到相应的数据data更新即可，用户界面自然会做出响应，所以说react也是响应式编程。</p>
+<h3 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h3><p>对于改变普通的html中的DOM会造成页面的重排和重绘，这也是前端性能优化主要的方面，就是尽量减少对DOM的操作。其实虚拟DOM说的简单点就是js动态生成的html标签在js内存中存储，并没有实际插入到页面当中。例如使用createElement（’Button’）和DocumentFragment创建虚拟的标签。简单的虚拟DOM代码示例如下，主要是方面从简单的层面理解虚拟DOM：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> frag=<span class="built_in">document</span>.createDocumentFragment();</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">   <span class="keyword">var</span> l=<span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</div><div class="line">   l.innerHTML=<span class="string">"ss"</span>;</div><div class="line">   frag.appendChild(l);</div><div class="line">&#125;</div><div class="line"><span class="built_in">document</span>.getElementById(<span class="string">"list"</span>).appendChild(frag);</div></pre></td></tr></table></figure>
+<p>当然React中的虚拟DOM并没有像以上的例子这么简单，但是核心思想是这样的，相比直接操作DOM而言，通过操作js生成的DOM数结构改变映射到页面上的内容能提高不少性能。虚拟DOM就是对DOM树的抽象，仅仅是存在与javascript空间的树形结构，例如最简单的形式如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;</div><div class="line">  type: <span class="string">'a'</span>,</div><div class="line">  props: &#123;</div><div class="line">    children: <span class="string">'React'</span>,</div><div class="line">    className: <span class="string">'link'</span>,</div><div class="line">    href: <span class="string">'facebook/react · GitHub'</span></div><div class="line">  &#125;,</div><div class="line">  _isReactElement: <span class="literal">true</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">React.render(a, <span class="built_in">document</span>.body)</div></pre></td></tr></table></figure></p>
+<p>虚拟DOM中有个核心算法就是diff算法，主要实现以下三个步骤：</p>
+<ul>
+<li>步骤一：用JS对象模拟DOM树</li>
+<li>步骤二：比较两棵虚拟DOM树的差异</li>
+<li>步骤三：把差异应用到真正的DOM树上<br>react会根据diff算法计算出需要更新改变虚拟DOM，从而只更新页面中映射的那一小块DOM。对于diff算法以及react性能优化后期会单独用一节分析。</li>
+</ul>
+<h3 id="React工作方式的优点"><a href="#React工作方式的优点" class="headerlink" title="React工作方式的优点"></a>React工作方式的优点</h3><p>传统化的jqury的方式直观易懂，但是随着项目变得庞大时，用jquery写出的代码往往相互纠缠，难以维护。</p>
+<p><img width="400" src="/2017-06-11/01.jpeg" title="jquery方式造成的纠缠代码结构"></p>
+<p>使用react的方式，可以避免构建这样复杂的程序结构，无论何种事件，引发的都是react组件的重新渲染，至于如何只修改必要的DOM部分，则完全交给React去操作，开发这不需要关心。react利用函数式编程的思想来解决用户界面渲染问题，最大的优势能够提高开发效率，代码可维护性和可阅读性增强。</p>
+<p><img width="400" src="/2017-06-11/02.jpeg" title="react的程序流程"></p>
+<p>react会强制所有组件都按照这种由数据驱动渲染的模式来工作，无论应用多大，都让程序处于可控范围内。下一篇将为大家介绍如何设计高质量的React组件。</p>
+
       
 
       
@@ -481,7 +499,7 @@
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">忘记一切你自以为知道的事</div>
   	  	
     	</section>
     
