@@ -6,18 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>Archives: 2017/7 | 王奇技术博客</title>
+  <title>WebGL系列教程--着色器技术 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="专注前端开发／全栈开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="王奇技术博客">
-<meta property="og:url" content="http://www.iwangqi.com/archives/2017/07/index.html">
+  <meta name="description" content="数据传入顶点着色器创建多个缓冲区 例如上图显示的，创建点的坐标和创建点的大小两个缓冲区，就要在顶点着色器中创建两个attribute变量 在顶点着色器中定义两个attribute变量，分别是点和点的大小，基本代码如下：123456789// 顶点着色器程序    const vertexShaderSource =        `    attribute vec4 pos;    attrib">
+<meta name="keywords" content="javascript,webgl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebGL系列教程--着色器技术">
+<meta property="og:url" content="http://www.iwangqi.com/webgl-2017-07-08/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="专注前端开发／全栈开发">
+<meta property="og:description" content="数据传入顶点着色器创建多个缓冲区 例如上图显示的，创建点的坐标和创建点的大小两个缓冲区，就要在顶点着色器中创建两个attribute变量 在顶点着色器中定义两个attribute变量，分别是点和点的大小，基本代码如下：123456789// 顶点着色器程序    const vertexShaderSource =        `    attribute vec4 pos;    attrib">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-08/1.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-08/2.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-08/3.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-08/6.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-08/7.jpeg">
+<meta property="og:updated_time" content="2017-10-06T11:47:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="王奇技术博客">
-<meta name="twitter:description" content="专注前端开发／全栈开发">
+<meta name="twitter:title" content="WebGL系列教程--着色器技术">
+<meta name="twitter:description" content="数据传入顶点着色器创建多个缓冲区 例如上图显示的，创建点的坐标和创建点的大小两个缓冲区，就要在顶点着色器中创建两个attribute变量 在顶点着色器中定义两个attribute变量，分别是点和点的大小，基本代码如下：123456789// 顶点着色器程序    const vertexShaderSource =        `    attribute vec4 pos;    attrib">
+<meta name="twitter:image" content="http://www.iwangqi.com/webgl-2017-07-08/1.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
@@ -147,36 +155,95 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-webgl-2017-07-08" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      WebGL系列教程--着色器技术
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-08/" class="archive-article-date">
+
+        
+        <a href="/webgl-2017-07-08/" class="archive-article-date">
   	<time datetime="2017-07-08T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-08</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-08/">WebGL系列教程--着色器技术</a>
-    </h1>
-  
+        
+      </header>
+    
+    <!-- 目录内容 -->
+    
+      <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+      <span class="btn-bg"></span>
+      <span class="btn-text">文章导航</span>
+      </p>
+      <div id="toc-article" class="toc-article">
+          <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+          <strong class="toc-title">文章目录</strong>
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据传入顶点着色器"><span class="toc-number">1.</span> <span class="toc-text">数据传入顶点着色器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建多个缓冲区"><span class="toc-number">1.1.</span> <span class="toc-text">创建多个缓冲区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#偏移参数"><span class="toc-number">2.</span> <span class="toc-text">偏移参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#顶点着色器和片元着色器通信"><span class="toc-number">3.</span> <span class="toc-text">顶点着色器和片元着色器通信</span></a></li></ol>
+     </div>
+     <script type="text/javascript">
+      function showToc(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:block");
+          show_toc_btn.setAttribute("style","display:none");
+          };
+      function showBtn(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:none");
+          show_toc_btn.setAttribute("style","display:block");
+          };
+     </script>
+       
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="数据传入顶点着色器"><a href="#数据传入顶点着色器" class="headerlink" title="数据传入顶点着色器"></a>数据传入顶点着色器</h3><h4 id="创建多个缓冲区"><a href="#创建多个缓冲区" class="headerlink" title="创建多个缓冲区"></a>创建多个缓冲区</h4><p><img width="300" src="/webgl-2017-07-08/1.jpeg"></p>
+<p>例如上图显示的，创建点的坐标和创建点的大小两个缓冲区，就要在顶点着色器中创建两个attribute变量</p>
+<p>在顶点着色器中定义两个attribute变量，分别是点和点的大小，基本代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 顶点着色器程序</span></div><div class="line">    <span class="keyword">const</span> vertexShaderSource =</div><div class="line">        <span class="string">`</span></div><div class="line"><span class="string">    attribute vec4 pos;</span></div><div class="line"><span class="string">    attribute float size;</span></div><div class="line"><span class="string">    void main() &#123;</span></div><div class="line"><span class="string">      gl_Position = pos;</span></div><div class="line"><span class="string">      gl_PointSize = size;</span></div><div class="line"><span class="string">&#125;`</span></div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>创建program变量，代码基本如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> program = initShader(cxt, vertexShaderSource, fragmentShaderSource);</div></pre></td></tr></table></figure></p>
+<p>使用lib库中的bindAttribute函数创建两个buffer相关代码，基本如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">bindAttribute(cxt, <span class="string">'pos'</span>, <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">            <span class="number">0.0</span>,<span class="number">0.0</span>,</div><div class="line">            <span class="number">0.3</span>,<span class="number">0.5</span>,</div><div class="line">            <span class="number">0.2</span>,<span class="number">1.0</span></div><div class="line">    ]), program, <span class="number">2</span>);</div><div class="line">    bindAttribute(cxt, <span class="string">'size'</span>, <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">            <span class="number">10.0</span>,<span class="number">20.0</span>,<span class="number">30.0</span></div><div class="line">    ]), program, <span class="number">1</span>);</div></pre></td></tr></table></figure></p>
+<p>最后调用drawArrays直接画点即可，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cxt.drawArrays(cxt.POINTS, <span class="number">0</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure></p>
+<h3 id="偏移参数"><a href="#偏移参数" class="headerlink" title="偏移参数"></a>偏移参数</h3><ul>
+<li>一个缓冲区多种用途</li>
+<li>通过偏移参数划分数据类别</li>
+</ul>
+<p>类数组定义方式有所变化，将点的位置和点的大小定义在一个数组中，前面两位代表点的位置，最后一位代表点的大小，基本代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">        <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">10.0</span>,</div><div class="line">        <span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">30.0</span>,</div><div class="line">        <span class="number">0.2</span>, <span class="number">-.6</span>, <span class="number">50.0</span></div><div class="line">    ]);</div></pre></td></tr></table></figure></p>
+<p>vertexAttribPointer函数的参数形式有所变化，data.BYTES_PER_ELEMENT代表偏移量单位，<em>3代表每一组数据有三个，所以</em>3，*2代表从偏移2两位开始计算，基本代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cxt.vertexAttribPointer(posLocation, <span class="number">2</span>, cxt.FLOAT, <span class="literal">false</span>, data.BYTES_PER_ELEMENT * <span class="number">3</span>, <span class="number">0</span>);</div><div class="line">    cxt.vertexAttribPointer(sizeLocation, <span class="number">1</span>, cxt.FLOAT, <span class="literal">false</span>, data.BYTES_PER_ELEMENT * <span class="number">3</span>, data.BYTES_PER_ELEMENT * <span class="number">2</span>)</div></pre></td></tr></table></figure></p>
+<h3 id="顶点着色器和片元着色器通信"><a href="#顶点着色器和片元着色器通信" class="headerlink" title="顶点着色器和片元着色器通信"></a>顶点着色器和片元着色器通信</h3><ul>
+<li>通过 uniform 实现顶点和片元着色器共用数据，uniform是不可变的值</li>
+<li>通过 varying 传递数据</li>
+</ul>
+<p>着色器代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 顶点着色器程序</span></div><div class="line">    <span class="keyword">const</span> vertexShaderSource =</div><div class="line">        <span class="string">`</span></div><div class="line"><span class="string">    attribute vec4 pos;</span></div><div class="line"><span class="string">    varying vec4 color;</span></div><div class="line"><span class="string">    void main() &#123;</span></div><div class="line"><span class="string">      gl_Position = pos;</span></div><div class="line"><span class="string">      gl_PointSize = abs(pos.x) * 30.0;</span></div><div class="line"><span class="string">      color = pos;</span></div><div class="line"><span class="string">&#125;`</span></div><div class="line"></div><div class="line">    <span class="comment">// 片元着色器程序</span></div><div class="line">    <span class="keyword">const</span> fragmentShaderSource =</div><div class="line">        <span class="string">`</span></div><div class="line"><span class="string">		precision lowp float;</span></div><div class="line"><span class="string">		varying vec4 color;</span></div><div class="line"><span class="string">        void main() &#123;</span></div><div class="line"><span class="string">      gl_FragColor = color;</span></div><div class="line"><span class="string">  &#125;`</span></div></pre></td></tr></table></figure></p>
+<p>最终效果是根据坐标的大小和坐标的位置，显示不同的颜色，基本效果如下：<br><img width="300" src="/webgl-2017-07-08/2.jpeg"></p>
+<p>编写一个渐变三角形的示例效果，使用一个buffer数据，分别定义坐标点和点的颜色值，着色器代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 顶点着色器程序</span></div><div class="line">    <span class="keyword">const</span> vertexShaderSource =</div><div class="line">        <span class="string">`</span></div><div class="line"><span class="string">    attribute vec4 pos;</span></div><div class="line"><span class="string">    attribute vec4 vcolor;</span></div><div class="line"><span class="string">    varying vec4 color;</span></div><div class="line"><span class="string">    void main() &#123;</span></div><div class="line"><span class="string">      gl_Position = pos;</span></div><div class="line"><span class="string">      color = vcolor;</span></div><div class="line"><span class="string">&#125;`</span></div><div class="line"></div><div class="line">    <span class="comment">// 片元着色器程序</span></div><div class="line">    <span class="keyword">const</span> fragmentShaderSource =</div><div class="line">        <span class="string">`</span></div><div class="line"><span class="string">		precision lowp float;</span></div><div class="line"><span class="string">		varying vec4 color;</span></div><div class="line"><span class="string">        void main() &#123;</span></div><div class="line"><span class="string">      gl_FragColor = color;</span></div><div class="line"><span class="string">  &#125;`</span></div></pre></td></tr></table></figure></p>
+<p>buffer数据data代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">        <span class="number">0.0</span>, <span class="number">.3</span>,  <span class="number">1.0</span> ,<span class="number">0.0</span>,<span class="number">0.0</span>,</div><div class="line">        <span class="number">-.5</span>, <span class="number">-.5</span>, <span class="number">0.0</span>, <span class="number">1.0</span>,<span class="number">0.0</span>,</div><div class="line">        <span class="number">.5</span>, <span class="number">-.5</span>  , <span class="number">0.0</span>, <span class="number">0.0</span>,<span class="number">1.0</span></div><div class="line"></div><div class="line">    ]);</div></pre></td></tr></table></figure></p>
+<p>最终效果效果如下：<br><img width="300" src="/webgl-2017-07-08/3.jpeg"></p>
+<p>制作一个旋转四边形，并且四边形四个坐标系分别是不同的颜色，首先初步定义着色器代码，基本代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 顶点着色器程序</span></div><div class="line">    <span class="keyword">const</span> vertexShaderSource =</div><div class="line">        <span class="string">`</span></div><div class="line"><span class="string">        uniform mat4 xf;</span></div><div class="line"><span class="string">    attribute vec4 pos;</span></div><div class="line"><span class="string">    varying vec4 vpos;</span></div><div class="line"><span class="string">    void main() &#123;</span></div><div class="line"><span class="string">      gl_Position =  xf * pos;</span></div><div class="line"><span class="string">      vpos = gl_Position;</span></div><div class="line"><span class="string">&#125;`</span></div><div class="line"></div><div class="line">    <span class="comment">// 片元着色器程序</span></div><div class="line">    <span class="keyword">const</span> fragmentShaderSource =</div><div class="line">        <span class="string">`</span></div><div class="line"><span class="string">		precision lowp float;</span></div><div class="line"><span class="string">        varying vec4 vpos;</span></div><div class="line"><span class="string">        void main() &#123;</span></div><div class="line"><span class="string">      gl_FragColor = vec4(1.0,0.0,0.0,1.0);</span></div><div class="line"><span class="string">  &#125;`</span></div></pre></td></tr></table></figure>
+<p>获取上下文和program示例代码，利用lib库中的initShader函数，基本如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> cxt = <span class="built_in">document</span>.getElementById(<span class="string">'example06'</span>).getContext(<span class="string">'webgl'</span>);</div><div class="line"></div><div class="line">    <span class="keyword">var</span> program = initShader(cxt, vertexShaderSource, fragmentShaderSource);</div></pre></td></tr></table></figure>
+<p>定义一个四边形相关的buffer数据内容，基本代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">        <span class="number">-.3</span>, <span class="number">.3</span>,</div><div class="line">        <span class="number">-0.5</span>, <span class="number">-.3</span>,</div><div class="line">        <span class="number">.5</span>, <span class="number">.3</span>,</div><div class="line">        <span class="number">.3</span>, <span class="number">-.3</span></div><div class="line"></div><div class="line">    ]);</div><div class="line"></div><div class="line">    bindAttribute(cxt,<span class="string">'pos'</span>,data,program);</div></pre></td></tr></table></figure>
+<p>定义着色器中定义的xf变量相关代码，并且创建旋转矩阵，定义旋转角度等，基本如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> xfLocation = cxt.getUniformLocation(program,<span class="string">'xf'</span>);</div><div class="line"><span class="keyword">var</span> angle = <span class="number">0</span>;</div><div class="line">run()</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">run</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        angle++</div><div class="line">        <span class="keyword">var</span> xzm = createXZMatrix(angle);</div><div class="line">        cxt.uniformMatrix4fv(xfLocation, <span class="literal">false</span>, xzm);</div><div class="line">        cxt.drawArrays(cxt.TRIANGLE_STRIP, <span class="number">0</span>, <span class="number">4</span>);</div><div class="line">        setTimeout(run, <span class="number">100</span>)</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>此时的效果是四边形可以旋转，但是颜色还是之前定义的红色，基本效果如下：</p>
+<p><img width="300" src="/webgl-2017-07-08/6.jpeg"></p>
+<p>通过修改片元着色器中的代码实现不同象限中显示不同颜色，基本代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 片元着色器程序</span></div><div class="line">    <span class="keyword">const</span> fragmentShaderSource =</div><div class="line">        <span class="string">`</span></div><div class="line"><span class="string">		precision lowp float;</span></div><div class="line"><span class="string">        varying vec4 vpos;</span></div><div class="line"><span class="string">        void main() &#123;</span></div><div class="line"><span class="string">      if(vpos.x &gt;= 0.0 &amp;&amp; vpos.y &gt;= 0.0)&#123;</span></div><div class="line"><span class="string">                   gl_FragColor = vec4(1.0,0.0,0.0,1.0);</span></div><div class="line"><span class="string">               &#125;else if(vpos.x &gt;0.0 &amp;&amp; vpos.y &lt; 0.0)&#123;</span></div><div class="line"><span class="string">                   gl_FragColor = vec4(0.0,1.0,0.0,1.0);</span></div><div class="line"><span class="string">               &#125;else if(vpos.x &lt; 0.0 &amp;&amp; vpos.y &gt; 0.0)&#123;</span></div><div class="line"><span class="string">                   gl_FragColor = vec4(0.0,0.0,1.0,1.0);</span></div><div class="line"><span class="string">               &#125;else&#123;</span></div><div class="line"><span class="string">                   gl_FragColor = vec4(0.2,0.2,0.2,1.0);</span></div><div class="line"><span class="string">            &#125;</span></div><div class="line"><span class="string">  &#125;`</span></div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>修改完之后，最终效果如下：<br><img width="300" src="/webgl-2017-07-08/7.jpeg"></p>
+<p>源码链接请访问 <a href="https://github.com/wqzwh/webgl-code/tree/master/06" target="_blank" rel="external">https://github.com/wqzwh/webgl-code/tree/master/06</a></p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -192,230 +259,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/webgl-2017-07-08/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-06/" class="archive-article-date">
-  	<time datetime="2017-07-06T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-06</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-06/">WebGL系列教程--图形的变换</a>
-    </h1>
+  
+    <a href="/webgl-2017-07-06/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">WebGL系列教程--图形的变换</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+  <section id="comments">
+<div id="SOHUCS" sid="WebGL系列教程--着色器技术" style="padding: 0px 30px 0px 46px;"></div>
+<script>
+  (function(){
+    var appid = 'cytaIcbYU',
+    conf = 'ebd898f01c4500525d43d880c4075984';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>
+  </section>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-04/" class="archive-article-date">
-  	<time datetime="2017-07-04T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-04/">WebGL系列教程--基本图形绘制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-03/" class="archive-article-date">
-  	<time datetime="2017-07-03T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-03/">WebGL系列教程--缓冲区对象</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-02/" class="archive-article-date">
-  	<time datetime="2017-07-02T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-02/">WebGL系列教程--基本概述</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-01/" class="archive-article-date">
-  	<time datetime="2017-07-01T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-01/">WebGL系列教程--3D图形学入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-
 
           </div>
         </div>
@@ -436,8 +379,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
