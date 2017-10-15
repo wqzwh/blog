@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>Tag: webgl | 王奇技术博客</title>
+  <title>WebGL系列教程--贴图 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="专注前端开发／全栈开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="王奇技术博客">
-<meta property="og:url" content="http://www.iwangqi.com/tags/webgl/index.html">
+  <meta name="description" content="贴图概述图片类别 JPG 格式，24位的颜色储存单个的绘图，是有损的压缩，牺牲图像质量可以控制文件大小 GIF 格式，压缩比例能够达到40%到50%，无损压缩技术（必须保证256颜色的） PNG 格式，无损压缩  贴图开发流程 准备纹理图像 配置图像映射方式 加载纹理图像 纹理贴图">
+<meta name="keywords" content="javascript,webgl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebGL系列教程--贴图">
+<meta property="og:url" content="http://www.iwangqi.com/webgl-2017-07-10/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="专注前端开发／全栈开发">
+<meta property="og:description" content="贴图概述图片类别 JPG 格式，24位的颜色储存单个的绘图，是有损的压缩，牺牲图像质量可以控制文件大小 GIF 格式，压缩比例能够达到40%到50%，无损压缩技术（必须保证256颜色的） PNG 格式，无损压缩  贴图开发流程 准备纹理图像 配置图像映射方式 加载纹理图像 纹理贴图">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-10/1.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-10/2.jpeg">
+<meta property="og:updated_time" content="2017-10-15T04:10:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="王奇技术博客">
-<meta name="twitter:description" content="专注前端开发／全栈开发">
+<meta name="twitter:title" content="WebGL系列教程--贴图">
+<meta name="twitter:description" content="贴图概述图片类别 JPG 格式，24位的颜色储存单个的绘图，是有损的压缩，牺牲图像质量可以控制文件大小 GIF 格式，压缩比例能够达到40%到50%，无损压缩技术（必须保证256颜色的） PNG 格式，无损压缩  贴图开发流程 准备纹理图像 配置图像映射方式 加载纹理图像 纹理贴图">
+<meta name="twitter:image" content="http://www.iwangqi.com/webgl-2017-07-10/1.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
@@ -147,36 +152,103 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-webgl-2017-07-10" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      WebGL系列教程--贴图
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-10/" class="archive-article-date">
+
+        
+        <a href="/webgl-2017-07-10/" class="archive-article-date">
   	<time datetime="2017-07-10T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-10</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-10/">WebGL系列教程--贴图</a>
-    </h1>
-  
+        
+      </header>
+    
+    <!-- 目录内容 -->
+    
+      <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+      <span class="btn-bg"></span>
+      <span class="btn-text">文章导航</span>
+      </p>
+      <div id="toc-article" class="toc-article">
+          <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+          <strong class="toc-title">文章目录</strong>
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#贴图概述"><span class="toc-number">1.</span> <span class="toc-text">贴图概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#图片类别"><span class="toc-number">1.1.</span> <span class="toc-text">图片类别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#贴图开发流程"><span class="toc-number">1.2.</span> <span class="toc-text">贴图开发流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#贴图核心技术"><span class="toc-number">2.</span> <span class="toc-text">贴图核心技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#纹理坐标"><span class="toc-number">2.1.</span> <span class="toc-text">纹理坐标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#纹理对象"><span class="toc-number">2.2.</span> <span class="toc-text">纹理对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#图片加载"><span class="toc-number">2.3.</span> <span class="toc-text">图片加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置纹理"><span class="toc-number">2.4.</span> <span class="toc-text">配置纹理</span></a></li></ol></li></ol>
+     </div>
+     <script type="text/javascript">
+      function showToc(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:block");
+          show_toc_btn.setAttribute("style","display:none");
+          };
+      function showBtn(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:none");
+          show_toc_btn.setAttribute("style","display:block");
+          };
+     </script>
+       
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="贴图概述"><a href="#贴图概述" class="headerlink" title="贴图概述"></a>贴图概述</h3><h4 id="图片类别"><a href="#图片类别" class="headerlink" title="图片类别"></a>图片类别</h4><ul>
+<li>JPG 格式，24位的颜色储存单个的绘图，是有损的压缩，牺牲图像质量可以控制文件大小</li>
+<li>GIF 格式，压缩比例能够达到40%到50%，无损压缩技术（必须保证256颜色的）</li>
+<li>PNG 格式，无损压缩</li>
+</ul>
+<h4 id="贴图开发流程"><a href="#贴图开发流程" class="headerlink" title="贴图开发流程"></a>贴图开发流程</h4><ul>
+<li>准备纹理图像</li>
+<li>配置图像映射方式</li>
+<li>加载纹理图像</li>
+<li>纹理贴图</li>
+</ul>
+<a id="more"></a>
+<h3 id="贴图核心技术"><a href="#贴图核心技术" class="headerlink" title="贴图核心技术"></a>贴图核心技术</h3><h4 id="纹理坐标"><a href="#纹理坐标" class="headerlink" title="纹理坐标"></a>纹理坐标</h4><ul>
+<li>st坐标系</li>
+</ul>
+<p><img width="300" src="/webgl-2017-07-10/1.jpeg"></p>
+<h4 id="纹理对象"><a href="#纹理对象" class="headerlink" title="纹理对象"></a>纹理对象</h4><ul>
+<li>createTexture 创建纹理</li>
+<li>deleteTexture(tex) 删除纹理</li>
+</ul>
+<h4 id="图片加载"><a href="#图片加载" class="headerlink" title="图片加载"></a>图片加载</h4><ul>
+<li>确定图片加载后调用的函数</li>
+<li>图片开始加载</li>
+<li>向服务器请求图片</li>
+<li>服务器查找图片</li>
+<li>服务器返回图片数据</li>
+<li>浏览器收到图片数据</li>
+<li>调用回调函数</li>
+</ul>
+<h4 id="配置纹理"><a href="#配置纹理" class="headerlink" title="配置纹理"></a>配置纹理</h4><ul>
+<li>Y 轴反转</li>
+<li>开启纹理单元</li>
+<li>绑定纹理对象</li>
+<li>配置纹理参数</li>
+<li>配置纹理图形</li>
+<li>将纹理传递给着色器</li>
+</ul>
+<p>编写着色器代码，在片元着色器中定义贴图，基本如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 顶点着色器程序</span></div><div class="line">    <span class="keyword">const</span> vertexShaderSource =</div><div class="line">        <span class="string">`</span></div><div class="line"><span class="string">	    attribute vec4 pos;</span></div><div class="line"><span class="string">	    attribute vec2 texPos;</span></div><div class="line"><span class="string">	    varying vec2 v_texPos;</span></div><div class="line"><span class="string">	    void main() &#123;</span></div><div class="line"><span class="string">	      gl_Position = pos;</span></div><div class="line"><span class="string">	      v_texPos = texPos;</span></div><div class="line"><span class="string">	&#125;`</span></div><div class="line"></div><div class="line">	    <span class="comment">// 片元着色器程序</span></div><div class="line">	    <span class="keyword">const</span> fragmentShaderSource =</div><div class="line">	        <span class="string">`</span></div><div class="line"><span class="string">	        precision lowp float;</span></div><div class="line"><span class="string">	        uniform sampler2D ss;</span></div><div class="line"><span class="string">	        varying vec2 v_texPos;</span></div><div class="line"><span class="string">	        void main() &#123;</span></div><div class="line"><span class="string">	      gl_FragColor = texture2D(ss,v_texPos);</span></div><div class="line"><span class="string">	  &#125;`</span>   </div></pre></td></tr></table></figure>
+<p>将加载的图片画在canvas上面，基本代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadImg</span>(<span class="params">url,callback</span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> img = <span class="keyword">new</span> Image;</div><div class="line">        img.src = url;</div><div class="line">        img.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            callback(img);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    loadImg(<span class="string">'./img.png'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">img</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> texture = cxt.createTexture();</div><div class="line">        cxt.pixelStorei(cxt.UNPACK_FLIP_Y_WEBGL,<span class="number">1</span>);</div><div class="line">        cxt.activeTexture(cxt.TEXTURE0);</div><div class="line">        cxt.bindTexture(cxt.TEXTURE_2D,texture);</div><div class="line"></div><div class="line">        cxt.texParameteri(cxt.TEXTURE_2D,cxt.TEXTURE_MIN_FILTER,cxt.LINEAR);</div><div class="line">        cxt.texImage2D(cxt.TEXTURE_2D,<span class="number">0</span>,cxt.RGB,cxt.RGB,cxt.UNSIGNED_BYTE,img);</div><div class="line">        cxt.uniform1i(texLocation,<span class="number">0</span>);</div><div class="line">        cxt.drawArrays(cxt.TRIANGLE_STRIP,<span class="number">0</span>,<span class="number">4</span>);</div><div class="line"></div><div class="line">    &#125;);</div></pre></td></tr></table></figure></p>
+<p>最终效果如下：<br><img width="300" src="/webgl-2017-07-10/2.jpeg"></p>
+<p>源码链接请访问 <a href="https://github.com/wqzwh/webgl-code/tree/master/10" target="_blank" rel="external">https://github.com/wqzwh/webgl-code/tree/master/10</a></p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -192,314 +264,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/webgl-2017-07-10/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-09/" class="archive-article-date">
-  	<time datetime="2017-07-09T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-09</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-09/">WebGL系列教程--视点与视线</a>
-    </h1>
+  
+    <a href="/webgl-2017-07-09/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">WebGL系列教程--视点与视线</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+  <section id="comments">
+<div id="SOHUCS" sid="WebGL系列教程--贴图" style="padding: 0px 30px 0px 46px;"></div>
+<script>
+  (function(){
+    var appid = 'cytaIcbYU',
+    conf = 'ebd898f01c4500525d43d880c4075984';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>
+  </section>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-08/" class="archive-article-date">
-  	<time datetime="2017-07-08T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-08/">WebGL系列教程--着色器技术</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-06/" class="archive-article-date">
-  	<time datetime="2017-07-06T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-06/">WebGL系列教程--图形的变换</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-04/" class="archive-article-date">
-  	<time datetime="2017-07-04T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-04/">WebGL系列教程--基本图形绘制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-03/" class="archive-article-date">
-  	<time datetime="2017-07-03T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-03/">WebGL系列教程--缓冲区对象</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-02/" class="archive-article-date">
-  	<time datetime="2017-07-02T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-02/">WebGL系列教程--基本概述</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-01/" class="archive-article-date">
-  	<time datetime="2017-07-01T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-01/">WebGL系列教程--3D图形学入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-
 
           </div>
         </div>
@@ -520,9 +384,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
