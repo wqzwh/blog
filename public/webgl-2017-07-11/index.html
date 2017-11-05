@@ -6,18 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>Tag: javascript | 王奇技术博客</title>
+  <title>WebGL系列教程--可视范围 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="专注前端开发／全栈开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="王奇技术博客">
-<meta property="og:url" content="http://www.iwangqi.com/tags/javascript/index.html">
+  <meta name="description" content="可视范围基础盒状空间 长方体可是空间，也叫盒状空间，是由正射投影产生。 可视锥体空间，由透视投影产生。  在透视投影下，产生的三维场景看上去更是有深度感，更加自然，因为我们平时观察真实世界用的也是透视投影。在大多数情况下，比如三维射击类游戏中，我们都应该采用透视投影。相比之下，正射投影的好处是用户可以方便的比较场景中物体的大小，这是因为物体看上去的大小与其所在的位置没有关系。在建筑平面图等技术绘图">
+<meta name="keywords" content="javascript,webgl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebGL系列教程--可视范围">
+<meta property="og:url" content="http://www.iwangqi.com/webgl-2017-07-11/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="专注前端开发／全栈开发">
+<meta property="og:description" content="可视范围基础盒状空间 长方体可是空间，也叫盒状空间，是由正射投影产生。 可视锥体空间，由透视投影产生。  在透视投影下，产生的三维场景看上去更是有深度感，更加自然，因为我们平时观察真实世界用的也是透视投影。在大多数情况下，比如三维射击类游戏中，我们都应该采用透视投影。相比之下，正射投影的好处是用户可以方便的比较场景中物体的大小，这是因为物体看上去的大小与其所在的位置没有关系。在建筑平面图等技术绘图">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-11/01.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-11/2.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-11/3.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-11/4.jpeg">
+<meta property="og:updated_time" content="2017-10-29T08:48:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="王奇技术博客">
-<meta name="twitter:description" content="专注前端开发／全栈开发">
+<meta name="twitter:title" content="WebGL系列教程--可视范围">
+<meta name="twitter:description" content="可视范围基础盒状空间 长方体可是空间，也叫盒状空间，是由正射投影产生。 可视锥体空间，由透视投影产生。  在透视投影下，产生的三维场景看上去更是有深度感，更加自然，因为我们平时观察真实世界用的也是透视投影。在大多数情况下，比如三维射击类游戏中，我们都应该采用透视投影。相比之下，正射投影的好处是用户可以方便的比较场景中物体的大小，这是因为物体看上去的大小与其所在的位置没有关系。在建筑平面图等技术绘图">
+<meta name="twitter:image" content="http://www.iwangqi.com/webgl-2017-07-11/01.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
@@ -147,78 +154,91 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-webgl-2017-07-11" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-12/" class="archive-article-date">
-  	<time datetime="2017-07-12T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-12</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-12/">WebGL系列教程--着色器语言</a>
+    <h1 class="article-title" itemprop="name">
+      WebGL系列教程--可视范围
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-11/" class="archive-article-date">
+        
+        <a href="/webgl-2017-07-11/" class="archive-article-date">
   	<time datetime="2017-07-11T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-11/">WebGL系列教程--可视范围</a>
-    </h1>
-  
+        
+      </header>
+    
+    <!-- 目录内容 -->
+    
+      <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+      <span class="btn-bg"></span>
+      <span class="btn-text">文章导航</span>
+      </p>
+      <div id="toc-article" class="toc-article">
+          <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+          <strong class="toc-title">文章目录</strong>
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#可视范围基础"><span class="toc-number">1.</span> <span class="toc-text">可视范围基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#盒状空间"><span class="toc-number">1.1.</span> <span class="toc-text">盒状空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#盒状空间的工作原理"><span class="toc-number">1.2.</span> <span class="toc-text">盒状空间的工作原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正射投影矩阵"><span class="toc-number">2.</span> <span class="toc-text">正射投影矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数"><span class="toc-number">2.1.</span> <span class="toc-text">函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺角的修补"><span class="toc-number">3.</span> <span class="toc-text">缺角的修补</span></a></li></ol>
+     </div>
+     <script type="text/javascript">
+      function showToc(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:block");
+          show_toc_btn.setAttribute("style","display:none");
+          };
+      function showBtn(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:none");
+          show_toc_btn.setAttribute("style","display:block");
+          };
+     </script>
+       
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="可视范围基础"><a href="#可视范围基础" class="headerlink" title="可视范围基础"></a>可视范围基础</h3><h4 id="盒状空间"><a href="#盒状空间" class="headerlink" title="盒状空间"></a>盒状空间</h4><ul>
+<li>长方体可是空间，也叫盒状空间，是由正射投影产生。</li>
+<li>可视锥体空间，由透视投影产生。</li>
+</ul>
+<p>在透视投影下，产生的三维场景看上去更是有深度感，更加自然，因为我们平时观察真实世界用的也是透视投影。在大多数情况下，比如三维射击类游戏中，我们都应该采用透视投影。相比之下，正射投影的好处是用户可以方便的比较场景中物体的大小，这是因为物体看上去的大小与其所在的位置没有关系。在建筑平面图等技术绘图的相关场合，应当使用这种投影。</p>
+<a id="more"></a>
+<h4 id="盒状空间的工作原理"><a href="#盒状空间的工作原理" class="headerlink" title="盒状空间的工作原理"></a>盒状空间的工作原理</h4><p>盒状可视空间的由前后两个矩形表面确定，分别称近裁剪面和远裁剪面，前者的四个顶点为（right,top,-near）,(-left,top,-near),(-left,-bottom,-near),(right,-bottom,-near),而后者的四个顶点为(right,top,far),(-left,top,far),(-left,-bottom,far),(right,-bottom,far).</p>
+<p><img width="300" src="/webgl-2017-07-11/01.jpeg"></p>
+<p><canvas>上显示的就是可视空间中物体在近裁剪面上的投。如果裁剪面的高宽比和<canvas>不一样，那么画面就会被按照<canvas>的高宽比进行压缩，物体会被扭曲。近裁剪面与远裁剪面之间的盒形空间就是可是空间，只有在此空间内的物体会被显示出来。如果某个物体一部分在可视空间内，一部分在其外，那就只显示可视空间内的部分。</canvas></canvas></canvas></p>
+<h3 id="正射投影矩阵"><a href="#正射投影矩阵" class="headerlink" title="正射投影矩阵"></a>正射投影矩阵</h3><h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><ul>
+<li>setOrtho(left , right , bottom , top , near , far)</li>
+<li>left / right / bottom / top 参数含义：定位范围。</li>
+<li>near  参数含义：近裁切面。</li>
+<li>far  参数含义：远裁切面。</li>
+</ul>
+<p>基本方程式如下：</p>
+<p><img width="300" src="/webgl-2017-07-11/2.jpeg"></p>
+<p>写一个正射投影实例代码，核心代码如下：</p>
+<p>编写顶点着色器和片元着色器代码，定义一个uniform矩阵变量。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> vertexShaderSource = <span class="string">`</span></div><div class="line"><span class="string">    attribute vec4 pos;</span></div><div class="line"><span class="string">    uniform mat4 u_mx;</span></div><div class="line"><span class="string">    attribute vec4 a_Color;</span></div><div class="line"><span class="string">    varying vec4 v_Color;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    void main()&#123;</span></div><div class="line"><span class="string">        gl_Position = u_mx * pos;</span></div><div class="line"><span class="string">        v_Color = a_Color;</span></div><div class="line"><span class="string">    &#125;</span></div><div class="line"><span class="string">`</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> fragmentShaderSource = <span class="string">`</span></div><div class="line"><span class="string">    precision lowp float;</span></div><div class="line"><span class="string">    varying vec4 v_Color;</span></div><div class="line"><span class="string">    void main()&#123;</span></div><div class="line"><span class="string">        gl_FragColor = v_Color;</span></div><div class="line"><span class="string">    &#125;</span></div><div class="line"><span class="string">`</span>  </div></pre></td></tr></table></figure></p>
+<p>定义一个正射矩阵的方法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getOMX</span>(<span class="params">left,right,bottom,top,near,far</span>)</span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">        <span class="number">2</span> / (right - left), <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,</div><div class="line">        <span class="number">0</span>, <span class="number">2</span> / (top - bottom), <span class="number">0</span>, <span class="number">0</span>,</div><div class="line">        <span class="number">0</span>, <span class="number">0</span>, <span class="number">-2</span> / (far - near), <span class="number">0</span>,</div><div class="line">        -(right + left) / (right - left),</div><div class="line">        -(top + bottom) / (top - bottom),</div><div class="line">        -(far + near) / (far - near),</div><div class="line">        <span class="number">1</span></div><div class="line">    ]);</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> near = <span class="number">0.0</span>;</div><div class="line"><span class="keyword">var</span> far = <span class="number">.5</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> omx = getOMX(<span class="number">-.5</span>,<span class="number">.5</span>, <span class="number">-.5</span>,<span class="number">.5</span>, near , far);    </div></pre></td></tr></table></figure></p>
+<p>定义数据data类型化数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">    <span class="number">0.0</span>, <span class="number">0.6</span>, <span class="number">-.4</span>, <span class="number">0.4</span>, <span class="number">1.0</span>, <span class="number">0.4</span>,</div><div class="line">    <span class="number">-.45</span>, <span class="number">-.4</span>, <span class="number">-.51</span>, <span class="number">.4</span>, <span class="number">1.0</span>, <span class="number">.4</span>,</div><div class="line">    <span class="number">0.5</span>, <span class="number">-.4</span>, <span class="number">-.4</span>, <span class="number">1.0</span>, <span class="number">.4</span>, <span class="number">.4</span>,</div><div class="line"></div><div class="line">    <span class="number">.5</span>, <span class="number">.4</span>, <span class="number">-.2</span>, <span class="number">1.0</span>, <span class="number">.4</span>, <span class="number">.4</span>,</div><div class="line">    <span class="number">-.5</span>, <span class="number">.4</span>, <span class="number">-.2</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">.3</span>,</div><div class="line">    <span class="number">.0</span>, <span class="number">-.6</span>, <span class="number">-.2</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">.4</span></div><div class="line">]);   </div></pre></td></tr></table></figure></p>
+<p>由于定义的far为.5,而data类型化数组数据一个三角形的坐标为-.51，实际效果会产生一个缺角，可以根据改变三角形的顶点来看不同的效果，最终效果如下图：</p>
+<p><img width="300" src="/webgl-2017-07-11/3.jpeg"></p>
+<h3 id="缺角的修补"><a href="#缺角的修补" class="headerlink" title="缺角的修补"></a>缺角的修补</h3><ul>
+<li>将远裁面移到距离视点更远的地方。</li>
+<li>&lt;正射投影矩阵&gt; <em> &lt;视图矩阵&gt; </em> &lt;顶点坐标&gt;</li>
+</ul>
+<p>代码效果如下：</p>
+<p><img width="300" src="/webgl-2017-07-11/4.jpeg"></p>
+<p>源码链接请访问 <a href="https://github.com/wqzwh/webgl-code/tree/master/11" target="_blank" rel="external">https://github.com/wqzwh/webgl-code/tree/master/11</a></p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -234,360 +254,115 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/webgl-2017-07-11/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-10/" class="archive-article-date">
-  	<time datetime="2017-07-10T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-10</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-10/">WebGL系列教程--贴图</a>
-    </h1>
+    <a href="/webgl-2017-07-12/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          WebGL系列教程--着色器语言
+        
+      </div>
+    </a>
+  
+  
+    <a href="/webgl-2017-07-10/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">WebGL系列教程--贴图</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+  <section id="comments">
+<div id="SOHUCS" sid="WebGL系列教程--可视范围" style="padding: 0px 30px 0px 46px;"></div>
+<script>
+  (function(){
+    var appid = 'cytaIcbYU',
+    conf = 'ebd898f01c4500525d43d880c4075984';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>
+  </section>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-09/" class="archive-article-date">
-  	<time datetime="2017-07-09T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-09/">WebGL系列教程--视点与视线</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-08/" class="archive-article-date">
-  	<time datetime="2017-07-08T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-08/">WebGL系列教程--着色器技术</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-06/" class="archive-article-date">
-  	<time datetime="2017-07-06T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-06/">WebGL系列教程--图形的变换</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-04/" class="archive-article-date">
-  	<time datetime="2017-07-04T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-04/">WebGL系列教程--基本图形绘制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-03/" class="archive-article-date">
-  	<time datetime="2017-07-03T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-03/">WebGL系列教程--缓冲区对象</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-02/" class="archive-article-date">
-  	<time datetime="2017-07-02T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-02/">WebGL系列教程--基本概述</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-01/" class="archive-article-date">
-  	<time datetime="2017-07-01T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-01/">WebGL系列教程--3D图形学入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/tags/javascript/page/2/">2</a><a class="page-number" href="/tags/javascript/page/3/">3</a><a class="extend next" rel="next" href="/tags/javascript/page/2/">Next &raquo;</a>
-    </nav>
-  
-
 
           </div>
         </div>
@@ -608,9 +383,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

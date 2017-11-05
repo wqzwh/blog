@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>Tag: javascript | 王奇技术博客</title>
+  <title>王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="专注前端开发／全栈开发">
 <meta property="og:type" content="website">
 <meta property="og:title" content="王奇技术博客">
-<meta property="og:url" content="http://www.iwangqi.com/tags/javascript/index.html">
+<meta property="og:url" content="http://www.iwangqi.com/page/3/index.html">
 <meta property="og:site_name" content="王奇技术博客">
 <meta property="og:description" content="专注前端开发／全栈开发">
 <meta property="og:locale" content="zh-CN">
@@ -149,34 +149,39 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2017-04-04" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017-04-04/">nodejs的process.nextTick方法理解和使用</a>
+    </h1>
+  
+
+        
+        <a href="/2017-04-04/" class="archive-article-date">
+  	<time datetime="2017-04-04T09:49:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-04</time>
+</a>
+        
+      </header>
     
-    
+    <!-- 目录内容 -->
+         
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天重新温习了下nodejs开发指南中的核心模块全局对象中的process进程模块，其实nextTick和我目前使用的vue中的nextTick方法有些异曲同工之妙，于是上网搜整理了一些资料，详细的了解下nextTick到底该如何理解并且在实际项目中哪些地方会用到这个方法。</p>
+<p>Node.js是单线程的，基于事件循环，非阻塞IO的。事件循环中使用一个事件队列，在每个时间点上，系统只会处理一个事件，即使电脑有多个CPU核心，也无法同时并行的处理多个事件。因此，node.js适合处理I／O型的应用，不适合那种CPU运算密集型的应用。在I／O型的应用中，给每一个输入输出定义一个回调函数，node.js会自动将其加入到事件轮询的处理队列里，当I／O操作完成后，这个回调函数会被触发，系统会继续处理其他的请求。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-12/" class="archive-article-date">
-  	<time datetime="2017-07-12T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-12/">WebGL系列教程--着色器语言</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -186,39 +191,66 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">node</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017-04-04/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+
+
+
+
+
+
   
+    <article id="post-ajax" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-11/" class="archive-article-date">
-  	<time datetime="2017-07-11T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-11/">WebGL系列教程--可视范围</a>
+      <a class="article-title" href="/ajax/">ajax如何截取302响应</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/ajax/" class="archive-article-date">
+  	<time datetime="2017-04-02T12:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-02</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+         
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在ajax请求中，如果服务器端的响应是302 Found，在ajax的回调函数中能够获取这个状态码吗？能够从Response Headers中得到Location的值进行重定向吗？让我们来一起看看实际情况。</p>
+<h5 id="使用jQuery的-ajax-发起ajax请求的JavaScript代码如下："><a href="#使用jQuery的-ajax-发起ajax请求的JavaScript代码如下：" class="headerlink" title="使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下："></a>使用jQuery的$.ajax()发起ajax请求的JavaScript代码如下：</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">url: <span class="string">'/oauth/respond'</span>,</div><div class="line">type: <span class="string">'post'</span>,</div><div class="line">data: data,</div><div class="line">complete: <span class="function"><span class="keyword">function</span>(<span class="params">jqXHR</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(jqXHR.status);</div><div class="line">&#125;,</div><div class="line">error: <span class="function"><span class="keyword">function</span> (<span class="params">xhr</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(xhr.status);</div><div class="line">&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -228,363 +260,51 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-10/" class="archive-article-date">
-  	<time datetime="2017-07-10T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-10/">WebGL系列教程--贴图</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ajax</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">302</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-09/" class="archive-article-date">
-  	<time datetime="2017-07-09T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-09/">WebGL系列教程--视点与视线</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
+        			<a href="/categories/javascript/" class="article-tag-list-link color1">javascript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/ajax/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-08/" class="archive-article-date">
-  	<time datetime="2017-07-08T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-08/">WebGL系列教程--着色器技术</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-06/" class="archive-article-date">
-  	<time datetime="2017-07-06T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-06/">WebGL系列教程--图形的变换</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-04/" class="archive-article-date">
-  	<time datetime="2017-07-04T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-04/">WebGL系列教程--基本图形绘制</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-03/" class="archive-article-date">
-  	<time datetime="2017-07-03T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-03/">WebGL系列教程--缓冲区对象</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-02/" class="archive-article-date">
-  	<time datetime="2017-07-02T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-02/">WebGL系列教程--基本概述</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/webgl-2017-07-01/" class="archive-article-date">
-  	<time datetime="2017-07-01T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/webgl-2017-07-01/">WebGL系列教程--3D图形学入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
-  
-
-    
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/tags/javascript/page/2/">2</a><a class="page-number" href="/tags/javascript/page/3/">3</a><a class="extend next" rel="next" href="/tags/javascript/page/2/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
     </nav>
   
 
@@ -607,10 +327,10 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
+		isHome: true,
 		isPost: false,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
