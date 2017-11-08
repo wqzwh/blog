@@ -24,7 +24,8 @@
 <meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-11/6.jpeg">
 <meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-11/7.jpeg">
 <meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-11/8.jpeg">
-<meta property="og:updated_time" content="2017-11-05T09:38:18.000Z">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-11/9.jpeg">
+<meta property="og:updated_time" content="2017-11-05T09:40:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WebGL系列教程--可视范围">
 <meta name="twitter:description" content="可视范围基础盒状空间 长方体可是空间，也叫盒状空间，是由正射投影产生。 可视锥体空间，由透视投影产生。  在透视投影下，产生的三维场景看上去更是有深度感，更加自然，因为我们平时观察真实世界用的也是透视投影。在大多数情况下，比如三维射击类游戏中，我们都应该采用透视投影。相比之下，正射投影的好处是用户可以方便的比较场景中物体的大小，这是因为物体看上去的大小与其所在的位置没有关系。在建筑平面图等技术绘图">
@@ -275,6 +276,8 @@
 <h4 id="深度冲突"><a href="#深度冲突" class="headerlink" title="深度冲突"></a>深度冲突</h4><p>隐藏面消除是WebGL的一项复杂而又强大的特效，在绝大多数情况下，它都能很好地完成任务。然而，当几何图形或物体的两个表面极为接近时，就会出现新的问题，使得表面看上去斑斑驳驳的，这种现象被称为深度冲突（Z fighting）</p>
 <p>当所有的三角形一起绘画的时候，似乎不会出现这种情况，但是如果分开画三角形，可能会出现深度冲突的问题，通过以下代码可以解决：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">gl.enable(gl.POLYGON_OFFSET_FILL);</div><div class="line">gl.drawArrays(gl.TRIANGLES, <span class="number">0</span>, <span class="number">3</span>);</div><div class="line">gl.polygonOffset(<span class="number">1.0</span>, <span class="number">1.0</span>);   </div><div class="line">gl.drawArrays(gl.TRIANGLES, <span class="number">3</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure>
+<p>最终效果如下：</p>
+<p><img width="400" src="/webgl-2017-07-11/9.jpeg"></p>
 <p>源码链接请访问 <a href="https://github.com/wqzwh/webgl-code/tree/master/11" target="_blank" rel="external">https://github.com/wqzwh/webgl-code/tree/master/11</a></p>
 
       
