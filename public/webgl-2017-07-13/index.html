@@ -6,25 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.iwangqi.com">
-  <title>WebGL系列教程--基本图形绘制 | 王奇技术博客</title>
+  <title>WebGL系列教程--绘制立方体 | 王奇技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="点的绘制单点绘制 gl.drawArrays( gl.POINTS, start , count ) gl.POINTS，标示绘制点的 start 起始位置 count 绘制数量，绘制点的个数不能超过在buffer中存在点的个数  多点绘制 采用 javascript 循环，实现多点绘制 采用 WebGL 缓冲区对象，实现多点绘制  上一节代码示例中分别采用了循环绘制点和使用缓冲区对象绘制点，详细">
+  <meta name="description" content="顶点索引绘制立方体 正方体只有8个顶点。 压缩36个顶点到8个顶点。 顶点索引是减少顶点的解决之道。 使用 new Uint8Array( … ) 创建顶点索引数据。  运用到的绘制方法  gl.drawElements(mode , count , type , offset) mode 绘制方式。 count 绘制顶点的数量。 type 索引数据类型。 offset 指定索引数组中开始绘制的位">
 <meta name="keywords" content="javascript,webgl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WebGL系列教程--基本图形绘制">
-<meta property="og:url" content="http://www.iwangqi.com/webgl-2017-07-04/index.html">
+<meta property="og:title" content="WebGL系列教程--绘制立方体">
+<meta property="og:url" content="http://www.iwangqi.com/webgl-2017-07-13/index.html">
 <meta property="og:site_name" content="王奇技术博客">
-<meta property="og:description" content="点的绘制单点绘制 gl.drawArrays( gl.POINTS, start , count ) gl.POINTS，标示绘制点的 start 起始位置 count 绘制数量，绘制点的个数不能超过在buffer中存在点的个数  多点绘制 采用 javascript 循环，实现多点绘制 采用 WebGL 缓冲区对象，实现多点绘制  上一节代码示例中分别采用了循环绘制点和使用缓冲区对象绘制点，详细">
+<meta property="og:description" content="顶点索引绘制立方体 正方体只有8个顶点。 压缩36个顶点到8个顶点。 顶点索引是减少顶点的解决之道。 使用 new Uint8Array( … ) 创建顶点索引数据。  运用到的绘制方法  gl.drawElements(mode , count , type , offset) mode 绘制方式。 count 绘制顶点的数量。 type 索引数据类型。 offset 指定索引数组中开始绘制的位">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-04/01.jpeg">
-<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-04/02.jpeg">
-<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-04/03.jpeg">
-<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-04/04.jpeg">
-<meta property="og:updated_time" content="2017-09-05T13:47:51.000Z">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-13/1.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-13/2.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-13/3.jpeg">
+<meta property="og:image" content="http://www.iwangqi.com/webgl-2017-07-13/4.jpeg">
+<meta property="og:updated_time" content="2017-11-09T10:24:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WebGL系列教程--基本图形绘制">
-<meta name="twitter:description" content="点的绘制单点绘制 gl.drawArrays( gl.POINTS, start , count ) gl.POINTS，标示绘制点的 start 起始位置 count 绘制数量，绘制点的个数不能超过在buffer中存在点的个数  多点绘制 采用 javascript 循环，实现多点绘制 采用 WebGL 缓冲区对象，实现多点绘制  上一节代码示例中分别采用了循环绘制点和使用缓冲区对象绘制点，详细">
-<meta name="twitter:image" content="http://www.iwangqi.com/webgl-2017-07-04/01.jpeg">
+<meta name="twitter:title" content="WebGL系列教程--绘制立方体">
+<meta name="twitter:description" content="顶点索引绘制立方体 正方体只有8个顶点。 压缩36个顶点到8个顶点。 顶点索引是减少顶点的解决之道。 使用 new Uint8Array( … ) 创建顶点索引数据。  运用到的绘制方法  gl.drawElements(mode , count , type , offset) mode 绘制方式。 count 绘制顶点的数量。 type 索引数据类型。 offset 指定索引数组中开始绘制的位">
+<meta name="twitter:image" content="http://www.iwangqi.com/webgl-2017-07-13/1.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
   
@@ -154,20 +154,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-webgl-2017-07-04" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-webgl-2017-07-13" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      WebGL系列教程--基本图形绘制
+      WebGL系列教程--绘制立方体
     </h1>
   
 
         
-        <a href="/webgl-2017-07-04/" class="archive-article-date">
-  	<time datetime="2017-07-04T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-04</time>
+        <a href="/webgl-2017-07-13/" class="archive-article-date">
+  	<time datetime="2017-07-13T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-13</time>
 </a>
         
       </header>
@@ -181,7 +181,7 @@
       <div id="toc-article" class="toc-article">
           <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
           <strong class="toc-title">文章目录</strong>
-          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#点的绘制"><span class="toc-number">1.</span> <span class="toc-text">点的绘制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#单点绘制"><span class="toc-number">1.1.</span> <span class="toc-text">单点绘制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多点绘制"><span class="toc-number">1.2.</span> <span class="toc-text">多点绘制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线段绘制"><span class="toc-number">2.</span> <span class="toc-text">线段绘制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#绘制单线段"><span class="toc-number">2.1.</span> <span class="toc-text">绘制单线段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#绘制多线段"><span class="toc-number">2.2.</span> <span class="toc-text">绘制多线段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#绘制回路线段"><span class="toc-number">2.3.</span> <span class="toc-text">绘制回路线段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多边形绘制"><span class="toc-number">3.</span> <span class="toc-text">多边形绘制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#绘制三角形"><span class="toc-number">3.1.</span> <span class="toc-text">绘制三角形</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#绘制三角带"><span class="toc-number">3.2.</span> <span class="toc-text">绘制三角带</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#绘制三角扇"><span class="toc-number">3.3.</span> <span class="toc-text">绘制三角扇</span></a></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#顶点索引绘制立方体"><span class="toc-number">1.</span> <span class="toc-text">顶点索引绘制立方体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加颜色"><span class="toc-number">2.</span> <span class="toc-text">添加颜色</span></a></li></ol>
      </div>
      <script type="text/javascript">
       function showToc(){
@@ -201,64 +201,52 @@
   <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="点的绘制"><a href="#点的绘制" class="headerlink" title="点的绘制"></a>点的绘制</h3><h4 id="单点绘制"><a href="#单点绘制" class="headerlink" title="单点绘制"></a>单点绘制</h4><ul>
-<li>gl.drawArrays( gl.POINTS, start , count )</li>
-<li>gl.POINTS，标示绘制点的</li>
-<li>start 起始位置</li>
-<li>count 绘制数量，绘制点的个数不能超过在buffer中存在点的个数</li>
+        <h3 id="顶点索引绘制立方体"><a href="#顶点索引绘制立方体" class="headerlink" title="顶点索引绘制立方体"></a>顶点索引绘制立方体</h3><ul>
+<li>正方体只有8个顶点。</li>
+<li>压缩36个顶点到8个顶点。</li>
+<li>顶点索引是减少顶点的解决之道。</li>
+<li>使用 new Uint8Array( … ) 创建顶点索引数据。</li>
 </ul>
-<h4 id="多点绘制"><a href="#多点绘制" class="headerlink" title="多点绘制"></a>多点绘制</h4><ul>
-<li>采用 javascript 循环，实现多点绘制</li>
-<li>采用 WebGL 缓冲区对象，实现多点绘制</li>
+<p>运用到的绘制方法</p>
+<ul>
+<li>gl.drawElements(mode , count , type , offset)</li>
+<li>mode 绘制方式。</li>
+<li>count 绘制顶点的数量。</li>
+<li>type 索引数据类型。</li>
+<li>offset 指定索引数组中开始绘制的位置，以字节为单位。</li>
 </ul>
-<p>上一节代码示例中分别采用了循环绘制点和使用缓冲区对象绘制点，详细请查看上一节内容。</p>
 <a id="more"></a>
-<h3 id="线段绘制"><a href="#线段绘制" class="headerlink" title="线段绘制"></a>线段绘制</h3><h4 id="绘制单线段"><a href="#绘制单线段" class="headerlink" title="绘制单线段"></a>绘制单线段</h4><ul>
-<li>gl.drawArray( gl.LINES , start , count )</li>
-<li>gl.LINES，可以绘制一条线，也可以绘制多条线</li>
-<li>绘制一条线</li>
-<li>绘制多条线</li>
+<p>核心代码如下：</p>
+<p>定义8个顶点的数据，并且将数据添加到buffer对象上：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> buffer_data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">	<span class="comment">// 设置顶点和颜色（偷的顶点代码位置）</span></div><div class="line">	<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="comment">// v0 White</span></div><div class="line">	<span class="number">-1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>, <span class="comment">// v1 Magenta</span></div><div class="line">	<span class="number">-1.0</span>, <span class="number">-1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="comment">// v2 Red</span></div><div class="line">	<span class="number">1.0</span>, <span class="number">-1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>, <span class="comment">// v3 Yellow</span></div><div class="line">	<span class="number">1.0</span>, <span class="number">-1.0</span>, <span class="number">-1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>, <span class="comment">// v4 Green</span></div><div class="line">	<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">-1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="comment">// v5 Cyan</span></div><div class="line">	<span class="number">-1.0</span>, <span class="number">1.0</span>, <span class="number">-1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>, <span class="comment">// v6 Blue</span></div><div class="line">	<span class="number">-1.0</span>, <span class="number">-1.0</span>, <span class="number">-1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span> <span class="comment">// v7 Black</span></div><div class="line">]);</div><div class="line"></div><div class="line"><span class="keyword">var</span> buffer = gl.createBuffer();</div><div class="line">gl.bindBuffer(gl.ARRAY_BUFFER, buffer);</div><div class="line"></div><div class="line">gl.bufferData(gl.ARRAY_BUFFER, buffer_data, gl.STATIC_DRAW);</div></pre></td></tr></table></figure>
+<p>同理，简历存放索引的buffer数据，并且将其添加到buffer对象上：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> indices = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>([</div><div class="line">    <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="comment">// 前</span></div><div class="line">    <span class="number">0</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="comment">// 右</span></div><div class="line">    <span class="number">0</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">6</span>, <span class="number">1</span>, <span class="comment">// 上</span></div><div class="line">    <span class="number">1</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="comment">// 左</span></div><div class="line">    <span class="number">7</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="comment">// 下</span></div><div class="line">    <span class="number">4</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">5</span> <span class="comment">// 后</span></div><div class="line">]);</div><div class="line"><span class="keyword">var</span> indexBuffer = gl.createBuffer();</div><div class="line"></div><div class="line">gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuffer);</div><div class="line">gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,indices,gl.STATIC_DRAW);</div></pre></td></tr></table></figure>
+<p>建立透视投影矩阵和视图矩阵：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 透视投影矩阵</span></div><div class="line"><span class="keyword">var</span> tsMX = getTS(<span class="number">30</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">100</span>);</div><div class="line"></div><div class="line"><span class="comment">// 视图矩阵</span></div><div class="line"><span class="keyword">var</span> vMX = getVMatrix(<span class="number">3</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> mx = multiplyMatrix(tsMX,vMX);</div><div class="line"></div><div class="line">gl.uniformMatrix4fv(mxLocation,<span class="literal">false</span>,mx);</div></pre></td></tr></table></figure>
+<p>使用gl.drawElements方法来绘制立方体：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gl.drawElements(gl.TRIANGLES, indices.length,gl.UNSIGNED_BYTE,<span class="number">0</span>);</div></pre></td></tr></table></figure>
+<p>最终效果如下：</p>
+<p><img width="500" src="/webgl-2017-07-13/1.jpeg"></p>
+<h3 id="添加颜色"><a href="#添加颜色" class="headerlink" title="添加颜色"></a>添加颜色</h3><ul>
+<li>顶点着色器进行的是逐顶点运算。</li>
+<li>创建多个具有相同顶点坐标的原点。</li>
+<li>为立方体每个面设置不同颜色。</li>
 </ul>
-<p>最重要的画线代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cxt.drawArrays(cxt.LINES,<span class="number">0</span>,<span class="number">4</span>);</div></pre></td></tr></table></figure>
-<h4 id="绘制多线段"><a href="#绘制多线段" class="headerlink" title="绘制多线段"></a>绘制多线段</h4><ul>
-<li>gl.drawArray( gl.LINE_STRIP , start , count )</li>
-<li>gl.LINE_STRIP 绘制线段带</li>
-<li>例如绘制一个矩形框需要定义五个点才能绘制出来，线段带是没有绘路的概念</li>
-</ul>
-<p>绘制一个矩形重要的相关代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//类型化数组定义五个点</span></div><div class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">    <span class="number">-.5</span>,<span class="number">.5</span>,</div><div class="line">    <span class="number">.5</span>,<span class="number">.5</span> ,</div><div class="line">    <span class="number">.5</span>, <span class="number">-.5</span>,</div><div class="line">    <span class="number">-.5</span>, <span class="number">-.5</span>,</div><div class="line">    <span class="number">-.5</span>,<span class="number">.5</span></div><div class="line">]);</div><div class="line"></div><div class="line"><span class="comment">// 最终绘制也是绘制5个点</span></div><div class="line">cxt.drawArrays(cxt.LINE_STRIP,<span class="number">0</span>,<span class="number">5</span>);</div></pre></td></tr></table></figure>
-<h4 id="绘制回路线段"><a href="#绘制回路线段" class="headerlink" title="绘制回路线段"></a>绘制回路线段</h4><ul>
-<li>gl.drawArray( gl.LINE_LOOP , start , count )</li>
-<li>gl.LINE_LOOP 自动闭合线段，例如绘制矩形只需要4个点即可，默认会将最后一个点和第一个开始的点连接起来</li>
-</ul>
-<p>绘制一个矩形重要的相关代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//类型化数组定义4个点</span></div><div class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">    <span class="number">-.5</span>,<span class="number">.5</span>,</div><div class="line">    <span class="number">.5</span>,<span class="number">.5</span> ,</div><div class="line">    <span class="number">.5</span>, <span class="number">-.5</span>,</div><div class="line">    <span class="number">-.5</span>, <span class="number">-.5</span>,</div><div class="line">    <span class="number">-.5</span>,<span class="number">.5</span></div><div class="line">]);</div><div class="line"></div><div class="line"><span class="comment">// 最终绘制也是绘制5个点</span></div><div class="line">cxt.drawArrays(cxt.LINE_LOOP,<span class="number">0</span>,<span class="number">4</span>);</div></pre></td></tr></table></figure>
-<p>使用gl.LINE_LOOP绘制一个领结形状的图形，其实只是利用了LINE_LOOP自动闭合线段绘制出来的，核心片段代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//类型化数组定义4个点</span></div><div class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">    <span class="number">-.5</span>, <span class="number">.5</span>,</div><div class="line">    <span class="number">.5</span>, <span class="number">.5</span>,</div><div class="line">    <span class="number">-.5</span>, <span class="number">-.5</span>,</div><div class="line">    <span class="number">.5</span>, <span class="number">-.5</span></div><div class="line">]);</div><div class="line"></div><div class="line"><span class="comment">// 最终绘制也是绘制5个点</span></div><div class="line">cxt.drawArrays(cxt.LINE_LOOP,<span class="number">0</span>,<span class="number">4</span>);</div></pre></td></tr></table></figure></p>
-<p>运行效果图如下：</p>
-<p><img width="300" src="/webgl-2017-07-04/01.jpeg"></p>
-<h3 id="多边形绘制"><a href="#多边形绘制" class="headerlink" title="多边形绘制"></a>多边形绘制</h3><h4 id="绘制三角形"><a href="#绘制三角形" class="headerlink" title="绘制三角形"></a>绘制三角形</h4><ul>
-<li>gl.drawArray( gl.TRIANGLES , start , count )</li>
-<li>gl. TRIANGLES</li>
-</ul>
-<p>核心代码片段如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">    <span class="number">0</span>,<span class="number">0</span>,</div><div class="line">    <span class="number">-.5</span>,<span class="number">-.5</span> ,</div><div class="line">    <span class="number">.5</span>, <span class="number">-.5</span></div><div class="line">]);</div><div class="line"></div><div class="line">cxt.drawArrays(cxt.TRIANGLES,<span class="number">0</span>,<span class="number">3</span>);</div></pre></td></tr></table></figure></p>
-<p>运行效果图如下：</p>
-<p><img width="300" src="/webgl-2017-07-04/02.jpeg"></p>
-<h4 id="绘制三角带"><a href="#绘制三角带" class="headerlink" title="绘制三角带"></a>绘制三角带</h4><ul>
-<li>gl.drawArray( gl.TRIANGLE_STRIP , start , count )</li>
-<li>gl.TRIANGLE_STRIP</li>
-</ul>
-<p>绘制一个平行四边形的核心代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">        <span class="number">-.3</span>,<span class="number">.3</span>,</div><div class="line">        <span class="number">.5</span>,<span class="number">.3</span>,</div><div class="line">    <span class="number">-.5</span>, <span class="number">-.3</span>,</div><div class="line">        <span class="number">.3</span>, <span class="number">-.3</span></div><div class="line">    ]);</div><div class="line"></div><div class="line">cxt.drawArrays(cxt.TRIANGLE_STRIP,<span class="number">0</span>,<span class="number">4</span>);</div></pre></td></tr></table></figure></p>
-<p>运行效果图如下：</p>
-<p><img width="300" src="/webgl-2017-07-04/03.jpeg"></p>
-<h4 id="绘制三角扇"><a href="#绘制三角扇" class="headerlink" title="绘制三角扇"></a>绘制三角扇</h4><ul>
-<li>gl.drawArray( gl.TRIANGLE_FAN , start , count )</li>
-<li>gl.TRIANGLE_FAN</li>
-</ul>
-<p>绘制一个六边形的核心代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">      <span class="number">.0</span>,<span class="number">0</span>,</div><div class="line">      <span class="number">-.3</span>,<span class="number">.5</span>,</div><div class="line">      <span class="number">-.6</span>,<span class="number">.3</span>,</div><div class="line">      <span class="number">-.3</span>, <span class="number">-.3</span>,</div><div class="line">      <span class="number">.3</span>, <span class="number">-.3</span>,</div><div class="line">      <span class="number">.6</span>, <span class="number">.3</span>,</div><div class="line">          <span class="number">.4</span>,<span class="number">.5</span>,</div><div class="line">      <span class="number">-.3</span>,<span class="number">.5</span></div><div class="line">    ]);</div><div class="line"></div><div class="line">cxt.drawArrays(cxt.TRIANGLE_FAN,<span class="number">0</span>,<span class="number">8</span>);</div></pre></td></tr></table></figure></p>
-<p>运行效果图如下：</p>
-<p><img width="300" src="/webgl-2017-07-04/04.jpeg"></p>
-<p>源码链接请访问 <a href="https://github.com/wqzwh/webgl-code/tree/master/04" target="_blank" rel="external">https://github.com/wqzwh/webgl-code/tree/master/04</a></p>
+<p>立方体如下图：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// Create a cube</span></div><div class="line"><span class="comment">//    v6----- v5</span></div><div class="line"><span class="comment">//   /|      /|</span></div><div class="line"><span class="comment">//  v1------v0|</span></div><div class="line"><span class="comment">//  | |     | |</span></div><div class="line"><span class="comment">//  | |v7---|-|v4</span></div><div class="line"><span class="comment">//  |/      |/</span></div><div class="line"><span class="comment">//  v2------v3</span></div><div class="line"></div></pre></td></tr></table></figure>
+<p>基本实现原理如下图：</p>
+<p><img width="500" src="/webgl-2017-07-13/2.jpeg"></p>
+<p>定义顶点的数据有所更改：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> buffer_data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">	<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,  <span class="number">-1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,  <span class="number">-1.0</span>,<span class="number">-1.0</span>, <span class="number">1.0</span>,   <span class="number">1.0</span>,<span class="number">-1.0</span>, <span class="number">1.0</span>,  <span class="comment">// v0-v1-v2-v3 front</span></div><div class="line">	 <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,   <span class="number">1.0</span>,<span class="number">-1.0</span>, <span class="number">1.0</span>,   <span class="number">1.0</span>,<span class="number">-1.0</span>,<span class="number">-1.0</span>,   <span class="number">1.0</span>, <span class="number">1.0</span>,<span class="number">-1.0</span>,  <span class="comment">// v0-v3-v4-v5 right</span></div><div class="line">	 <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,   <span class="number">1.0</span>, <span class="number">1.0</span>,<span class="number">-1.0</span>,  <span class="number">-1.0</span>, <span class="number">1.0</span>,<span class="number">-1.0</span>,  <span class="number">-1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,  <span class="comment">// v0-v5-v6-v1 up</span></div><div class="line">	<span class="number">-1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,  <span class="number">-1.0</span>, <span class="number">1.0</span>,<span class="number">-1.0</span>,  <span class="number">-1.0</span>,<span class="number">-1.0</span>,<span class="number">-1.0</span>,  <span class="number">-1.0</span>,<span class="number">-1.0</span>, <span class="number">1.0</span>,  <span class="comment">// v1-v6-v7-v2 left</span></div><div class="line">	<span class="number">-1.0</span>,<span class="number">-1.0</span>,<span class="number">-1.0</span>,   <span class="number">1.0</span>,<span class="number">-1.0</span>,<span class="number">-1.0</span>,   <span class="number">1.0</span>,<span class="number">-1.0</span>, <span class="number">1.0</span>,  <span class="number">-1.0</span>,<span class="number">-1.0</span>, <span class="number">1.0</span>,  <span class="comment">// v7-v4-v3-v2 down</span></div><div class="line">	 <span class="number">1.0</span>,<span class="number">-1.0</span>,<span class="number">-1.0</span>,  <span class="number">-1.0</span>,<span class="number">-1.0</span>,<span class="number">-1.0</span>,  <span class="number">-1.0</span>, <span class="number">1.0</span>,<span class="number">-1.0</span>,   <span class="number">1.0</span>, <span class="number">1.0</span>,<span class="number">-1.0</span>   <span class="comment">// v4-v7-v6-v5 back</span></div><div class="line">]);</div></pre></td></tr></table></figure>
+<p>单独定义颜色数据：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> color_data = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([</div><div class="line">    <span class="number">0.4</span>, <span class="number">0.4</span>, <span class="number">1.0</span>,  <span class="number">0.4</span>, <span class="number">0.4</span>, <span class="number">1.0</span>,  <span class="number">0.4</span>, <span class="number">0.4</span>, <span class="number">1.0</span>,  <span class="number">0.4</span>, <span class="number">0.4</span>, <span class="number">1.0</span>,  <span class="comment">// v0-v1-v2-v3 front(blue)</span></div><div class="line">    <span class="number">0.4</span>, <span class="number">1.0</span>, <span class="number">0.4</span>,  <span class="number">0.4</span>, <span class="number">1.0</span>, <span class="number">0.4</span>,  <span class="number">0.4</span>, <span class="number">1.0</span>, <span class="number">0.4</span>,  <span class="number">0.4</span>, <span class="number">1.0</span>, <span class="number">0.4</span>,  <span class="comment">// v0-v3-v4-v5 right(green)</span></div><div class="line">    <span class="number">1.0</span>, <span class="number">0.4</span>, <span class="number">0.4</span>,  <span class="number">1.0</span>, <span class="number">0.4</span>, <span class="number">0.4</span>,  <span class="number">1.0</span>, <span class="number">0.4</span>, <span class="number">0.4</span>,  <span class="number">1.0</span>, <span class="number">0.4</span>, <span class="number">0.4</span>,  <span class="comment">// v0-v5-v6-v1 up(red)</span></div><div class="line">    <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.4</span>,  <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.4</span>,  <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.4</span>,  <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.4</span>,  <span class="comment">// v1-v6-v7-v2 left</span></div><div class="line">    <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,  <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,  <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,  <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,  <span class="comment">// v7-v4-v3-v2 down</span></div><div class="line">    <span class="number">0.4</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,  <span class="number">0.4</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,  <span class="number">0.4</span>, <span class="number">1.0</span>, <span class="number">1.0</span>,  <span class="number">0.4</span>, <span class="number">1.0</span>, <span class="number">1.0</span>   <span class="comment">// v4-v7-v6-v5 back</span></div><div class="line">]);</div></pre></td></tr></table></figure>
+<p>在绘制前需要开启深度测试代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 开启深度测试</span></div><div class="line">gl.enable(gl.DEPTH_TEST);</div></pre></td></tr></table></figure>
+<p>如果不开启则效果如下图：</p>
+<p><img width="500" src="/webgl-2017-07-13/3.jpeg"></p>
+<p>开启后效果如下图：</p>
+<p><img width="500" src="/webgl-2017-07-13/4.jpeg"></p>
+<p>源码链接请访问 <a href="https://github.com/wqzwh/webgl-code/tree/master/12" target="_blank" rel="external">https://github.com/wqzwh/webgl-code/tree/master/12</a></p>
 
       
 
@@ -332,7 +320,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/webgl-2017-07-04/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/webgl-2017-07-13/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -346,18 +334,9 @@
   
 <nav id="article-nav">
   
-    <a href="/webgl-2017-07-06/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          WebGL系列教程--图形的变换
-        
-      </div>
-    </a>
   
-  
-    <a href="/webgl-2017-07-03/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">WebGL系列教程--缓冲区对象</div>
+    <a href="/webgl-2017-07-12/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">WebGL系列教程--着色器语言</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -374,7 +353,7 @@
 
 
   <section id="comments">
-<div id="SOHUCS" sid="WebGL系列教程--基本图形绘制" style="padding: 0px 30px 0px 46px;"></div>
+<div id="SOHUCS" sid="WebGL系列教程--绘制立方体" style="padding: 0px 30px 0px 46px;"></div>
 <script>
   (function(){
     var appid = 'cytaIcbYU',
