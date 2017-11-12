@@ -58,7 +58,13 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/">主页</a></li>
+				<li><a href="/">首页</a></li>
+	        
+				<li><a href="/tags/webgl/">3D</a></li>
+	        
+				<li><a href="/tags/react/">react</a></li>
+	        
+				<li><a href="/tags/vue/">vue</a></li>
 	        
 			</ul>
 		</nav>
@@ -114,6 +120,12 @@
 			
 				
 			
+				
+			
+				
+			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -129,10 +141,16 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 100%"><a href="/">主页</a></li>
+					<li style="width: 25%"><a href="/">首页</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/webgl/">3D</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/react/">react</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/vue/">vue</a></li>
 		        
 				</ul>
 			</nav>
@@ -148,6 +166,172 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-webgl-2017-07-15" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/webgl-2017-07-15/">Three.js系列教程--光源</a>
+    </h1>
+  
+
+        
+        <a href="/webgl-2017-07-15/" class="archive-article-date">
+  	<time datetime="2017-07-15T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-15</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+         
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><h4 id="光源分类"><a href="#光源分类" class="headerlink" title="光源分类"></a>光源分类</h4><ul>
+<li>AmbientLight 环境光源 </li>
+<li>PointLight 点光源</li>
+<li>SpotLight 聚光灯光源</li>
+<li>DirectionalLight 方向光</li>
+<li>HemisphereLight 半球光</li>
+<li>AreaLight 面光源</li>
+<li>LensFlare 镜头眩光</li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">three.js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/webgl-2017-07-15/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-webgl-2017-07-14" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/webgl-2017-07-14/">Three.js系列教程--基础组件</a>
+    </h1>
+  
+
+        
+        <a href="/webgl-2017-07-14/" class="archive-article-date">
+  	<time datetime="2017-07-14T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-14</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+         
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><h4 id="必备组件"><a href="#必备组件" class="headerlink" title="必备组件"></a>必备组件</h4><ul>
+<li>相机：决定哪些东西将被显示在屏幕上。</li>
+<li>光源：生成阴影与改变物体表面显示效果。</li>
+<li>物体：相机透视图里主要的渲染对象。</li>
+</ul>
+<h4 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h4><ul>
+<li>scene.add()  在场景中添加物体。</li>
+<li>scene.remove()  从场景中移除物体。</li>
+<li>scene.getChildByName()  获得场景中所有对象的列表。</li>
+</ul>
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><ul>
+<li>fog  通过该属性可以设置场景的雾化效果。</li>
+<li>overrideMaterial  通过这个属性可以让场景中的所有物体都使用相同材质。</li>
+<li>children 返回所有对象的列表，包括相机和光源对象。</li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">three.js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/webgl-2017-07-14/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
   
     <article id="post-webgl-2017-07-13" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -757,158 +941,6 @@
 
 
   
-    <article id="post-webgl-2017-07-03" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/webgl-2017-07-03/">WebGL系列教程--缓冲区对象</a>
-    </h1>
-  
-
-        
-        <a href="/webgl-2017-07-03/" class="archive-article-date">
-  	<time datetime="2017-07-03T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-03</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-         
-  <!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="attribute-变量的使用"><a href="#attribute-变量的使用" class="headerlink" title="attribute 变量的使用"></a>attribute 变量的使用</h3><p>主要职能是在顶点着色器当中使用的，只能被申明为全局变量，用来表示顶点的信息，比如一个图形中包含多个顶点，顶点着色器是针对逐顶点进行运算的，都会传导到attribute变量中，然而，两个顶点之间的部分是不会被传导到顶点着色器中的。</p>
-<p>这个变量只能支持矢量和矩阵两种类型，attribute变量的个数限制和设备有关系，最小支持8个attribute变量。</p>
-<p><img width="600" src="/webgl-2017-07-03/01.jpeg"></p>
-<ul>
-<li>在顶点着色器中，声明 attribute 变量</li>
-<li>将 attribute 变量赋值给 gl_Position 变量</li>
-<li>向 attribute 变量传递数据</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/webgl-2017-07-03/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-webgl-2017-07-02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/webgl-2017-07-02/">WebGL系列教程--基本概述</a>
-    </h1>
-  
-
-        
-        <a href="/webgl-2017-07-02/" class="archive-article-date">
-  	<time datetime="2017-07-02T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-02</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-         
-  <!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="WebGL是什么"><a href="#WebGL是什么" class="headerlink" title="WebGL是什么"></a>WebGL是什么</h3><p>在浏览器绘制3D图形的的一门技术，是内嵌在浏览器中，目前支持高版本浏览器，因此不需要安装任何插件，同样也支持多平台运行，它是基于OpenGL ES 2.0技术。</p>
-<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><ul>
-<li>快速传播</li>
-<li>维护简单</li>
-<li>跨平台性</li>
-<li>开放的标准</li>
-<li>硬件加速</li>
-<li>无需安装插件</li>
-<li>充分利用浏览器功能</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/webgl-2017-07-02/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1009,15 +1041,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">react</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ajax</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">react</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1030,6 +1062,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">webgl</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">three.js</a>
               </li>
             
             <div class="clearfix"></div>

@@ -58,7 +58,13 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/">主页</a></li>
+				<li><a href="/">首页</a></li>
+	        
+				<li><a href="/tags/webgl/">3D</a></li>
+	        
+				<li><a href="/tags/react/">react</a></li>
+	        
+				<li><a href="/tags/vue/">vue</a></li>
 	        
 			</ul>
 		</nav>
@@ -114,6 +120,12 @@
 			
 				
 			
+				
+			
+				
+			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -129,10 +141,16 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 100%"><a href="/">主页</a></li>
+					<li style="width: 25%"><a href="/">首页</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/webgl/">3D</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/react/">react</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/vue/">vue</a></li>
 		        
 				</ul>
 			</nav>
@@ -148,6 +166,155 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-2017-05-02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017-05-02/">axios基本使用介绍</a>
+    </h1>
+  
+
+        
+        <a href="/2017-05-02/" class="archive-article-date">
+  	<time datetime="2017-05-02T10:56:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-02</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+         
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>axios建议使用高版本浏览器，目前在手机端使用频繁，但是在低版本的安卓上其实是有兼容性问题的，安卓4.2就开始出问题了，主要是由于Promise不支持，需要额外引入兼容包来处理。并且axios也是vue官方推荐使用的库。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>(<span class="string">'es6-promise'</span>).polyfill();</div></pre></td></tr></table></figure>
+<blockquote>
+<p>发送一个GET请求，代码示例如下：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//通过给定的ID来发送请求</span></div><div class="line">axios.get(<span class="string">'/user?ID=12345'</span>)</div><div class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(response);</div><div class="line">  &#125;)</div><div class="line">  .catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(err);</div><div class="line">  &#125;);</div><div class="line"><span class="comment">//以上请求也可以通过这种方式来发送</span></div><div class="line">axios.get(<span class="string">'/user'</span>,&#123;</div><div class="line">  params:&#123;</div><div class="line">    ID:<span class="number">12345</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(response);</div><div class="line">&#125;)</div><div class="line">.catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(err);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ajax</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017-05-02/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-2017-04-11" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017-04-11/">详解javascript对象方法Object.assign()痛点</a>
+    </h1>
+  
+
+        
+        <a href="/2017-04-11/" class="archive-article-date">
+  	<time datetime="2017-04-11T13:55:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-11</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+         
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h2><p>首先看一下函数的定义：<br>函数参数为一个目标对象（该对象作为最终的返回值）,源对象(此处可以为任意多个)。通过调用该函数可以拷贝所有可被枚举的自有属性值到目标对象中。</p>
+<p>Object.assign(target, …sources)</p>
+<p>这里我们需要强调的三点是：</p>
+<ol>
+<li>可被枚举的属性</li>
+<li>自有属性</li>
+<li>string或者Symbol类型是可以被直接分配的</li>
+</ol>
+<p>拷贝过程中将调用源对象的getter方法，并在target对象上使用setter方法实现目标对象的拷贝。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">es6</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017-04-11/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
   
     <article id="post-2017-04-10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -468,15 +635,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">react</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ajax</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">react</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,6 +656,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">webgl</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">three.js</a>
               </li>
             
             <div class="clearfix"></div>
