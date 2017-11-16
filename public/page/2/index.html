@@ -167,6 +167,76 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-webgl-2017-07-08" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/webgl-2017-07-08/">WebGL系列教程--着色器技术</a>
+    </h1>
+  
+
+        
+        <a href="/webgl-2017-07-08/" class="archive-article-date">
+  	<time datetime="2017-07-08T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-08</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+         
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="数据传入顶点着色器"><a href="#数据传入顶点着色器" class="headerlink" title="数据传入顶点着色器"></a>数据传入顶点着色器</h3><h4 id="创建多个缓冲区"><a href="#创建多个缓冲区" class="headerlink" title="创建多个缓冲区"></a>创建多个缓冲区</h4><p><img width="300" src="/webgl-2017-07-08/1.jpeg"></p>
+<p>例如上图显示的，创建点的坐标和创建点的大小两个缓冲区，就要在顶点着色器中创建两个attribute变量</p>
+<p>在顶点着色器中定义两个attribute变量，分别是点和点的大小，基本代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 顶点着色器程序</span></div><div class="line">    <span class="keyword">const</span> vertexShaderSource =</div><div class="line">        <span class="string">`</span></div><div class="line"><span class="string">    attribute vec4 pos;</span></div><div class="line"><span class="string">    attribute float size;</span></div><div class="line"><span class="string">    void main() &#123;</span></div><div class="line"><span class="string">      gl_Position = pos;</span></div><div class="line"><span class="string">      gl_PointSize = size;</span></div><div class="line"><span class="string">&#125;`</span></div></pre></td></tr></table></figure></p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/webgl-2017-07-08/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-webgl-2017-07-06" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -800,76 +870,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/vue-ssr3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-vue-ssr2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/vue-ssr2/">如何使用vue-ssr做服务端渲染初体验(二)</a>
-    </h1>
-  
-
-        
-        <a href="/vue-ssr2/" class="archive-article-date">
-  	<time datetime="2017-06-02T12:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-02</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-         
-  <!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h3><p>上一节我们大致讲了为什么需要使用vue后端渲染，以及vue后端渲染的基本原理，这节内容我们将从零开始搭建属于自己的vue后端渲染脚手架，当然不能不参考官方页面响应的实例<font color="#0078d8">vue-hackernews-2.0</font>，从零开始搭建项目,源码在将在下节与大家共享。</p>
-<h3 id="2、前期准备"><a href="#2、前期准备" class="headerlink" title="2、前期准备"></a>2、前期准备</h3><p>基本环境要求：node版本6.10.1以上，npm版本3.10.10以上，本机环境是这样的，建议升级到官方最新版本。</p>
-<p>使用的技术栈：</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/vue-ssr2/">展开全文 >></a>
         </p>
       
 

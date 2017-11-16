@@ -167,6 +167,87 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-webgl-2017-07-18" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/webgl-2017-07-18/">Three.js系列教程--粒子</a>
+    </h1>
+  
+
+        
+        <a href="/webgl-2017-07-18/" class="archive-article-date">
+  	<time datetime="2017-07-18T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-18</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+         
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="粒子与粒子系统"><a href="#粒子与粒子系统" class="headerlink" title="粒子与粒子系统"></a>粒子与粒子系统</h3><h4 id="创建基本粒子"><a href="#创建基本粒子" class="headerlink" title="创建基本粒子"></a>创建基本粒子</h4><ul>
+<li>使用 THREE.Particle 构建粒子</li>
+<li>使用 CanvasRenderer 渲染器</li>
+<li>WebGLRenderer 需要 THREE.ParticleSystem 配合</li>
+</ul>
+<h4 id="常用属性"><a href="#常用属性" class="headerlink" title="常用属性"></a>常用属性</h4><ul>
+<li>color 粒子的颜色</li>
+<li>map 粒子的材质</li>
+<li>size 粒子的大小</li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">three.js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/webgl-2017-07-18/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-webgl-2017-07-17" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -874,76 +955,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/webgl-2017-07-09/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-webgl-2017-07-08" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/webgl-2017-07-08/">WebGL系列教程--着色器技术</a>
-    </h1>
-  
-
-        
-        <a href="/webgl-2017-07-08/" class="archive-article-date">
-  	<time datetime="2017-07-08T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-08</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-         
-  <!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="数据传入顶点着色器"><a href="#数据传入顶点着色器" class="headerlink" title="数据传入顶点着色器"></a>数据传入顶点着色器</h3><h4 id="创建多个缓冲区"><a href="#创建多个缓冲区" class="headerlink" title="创建多个缓冲区"></a>创建多个缓冲区</h4><p><img width="300" src="/webgl-2017-07-08/1.jpeg"></p>
-<p>例如上图显示的，创建点的坐标和创建点的大小两个缓冲区，就要在顶点着色器中创建两个attribute变量</p>
-<p>在顶点着色器中定义两个attribute变量，分别是点和点的大小，基本代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 顶点着色器程序</span></div><div class="line">    <span class="keyword">const</span> vertexShaderSource =</div><div class="line">        <span class="string">`</span></div><div class="line"><span class="string">    attribute vec4 pos;</span></div><div class="line"><span class="string">    attribute float size;</span></div><div class="line"><span class="string">    void main() &#123;</span></div><div class="line"><span class="string">      gl_Position = pos;</span></div><div class="line"><span class="string">      gl_PointSize = size;</span></div><div class="line"><span class="string">&#125;`</span></div></pre></td></tr></table></figure></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/webgl-2017-07-08/">展开全文 >></a>
         </p>
       
 
