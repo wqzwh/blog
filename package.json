@@ -5,6 +5,10 @@
   "hexo": {
     "version": "3.3.8"
   },
+  "scripts": {
+    "server": "hexo server",
+    "build": "hexo generate"
+  },
   "dependencies": {
     "hexo": "^3.2.0",
     "hexo-asset-image": "git+https://github.com/CodeFalling/hexo-asset-image.git",

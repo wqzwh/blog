@@ -167,6 +167,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-babelrc-2017-12-23" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/babelrc-2017-12-23/">babel之配置文件.babelrc入门详解</a>
+    </h1>
+  
+
+        
+        <a href="/babelrc-2017-12-23/" class="archive-article-date">
+  	<time datetime="2017-12-23T09:06:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-23</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+         
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是Babel"><a href="#什么是Babel" class="headerlink" title="什么是Babel"></a>什么是Babel</h2><p>官方解释,是下一代JavaScript 语法的编译器。</p>
+<p>既然是下一代Javascript的标准，浏览器因版本的不同对此会有兼容性问题，JavaScript的新的方法都不能使用，但是目前我们在项目开发一直提倡使用最新的语法糖编写，不但能减少代码量，而且async,await等新特性还解决了回调的编写机制，减轻了代码维护成本。</p>
+<p>Babel就因此而生，它可以让你放心使用大部分的JavaScript的新的标准的方法，然后编译成兼容绝大多数的主流浏览器的代码。在项目工程脚手架中，一般会使用.babelrc文件，通过配置一些参数配合webpack进行打包压缩。也通过网上了解，写法各有不同，参数也大不相同，因此，我重新整理一份资料，详细的介绍下各个配置项的意义所在，以便清晰了解如果使用。</p>
+<blockquote>
+<p>以下配置主要正对webpack3+写法。</p>
+</blockquote>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">webpack</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">babel</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/babelrc-2017-12-23/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-webgl-2017-07-19" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -898,84 +975,6 @@
 
 
   
-    <article id="post-webgl-2017-07-10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/webgl-2017-07-10/">WebGL系列教程--贴图</a>
-    </h1>
-  
-
-        
-        <a href="/webgl-2017-07-10/" class="archive-article-date">
-  	<time datetime="2017-07-10T13:09:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-10</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-         
-  <!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="贴图概述"><a href="#贴图概述" class="headerlink" title="贴图概述"></a>贴图概述</h3><h4 id="图片类别"><a href="#图片类别" class="headerlink" title="图片类别"></a>图片类别</h4><ul>
-<li>JPG 格式，24位的颜色储存单个的绘图，是有损的压缩，牺牲图像质量可以控制文件大小</li>
-<li>GIF 格式，压缩比例能够达到40%到50%，无损压缩技术（必须保证256颜色的）</li>
-<li>PNG 格式，无损压缩</li>
-</ul>
-<h4 id="贴图开发流程"><a href="#贴图开发流程" class="headerlink" title="贴图开发流程"></a>贴图开发流程</h4><ul>
-<li>准备纹理图像</li>
-<li>配置图像映射方式</li>
-<li>加载纹理图像</li>
-<li>纹理贴图</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">webgl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/webgl-2017-07-10/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1080,11 +1079,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ajax</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">react</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ajax</a>
+                <a href="javascript:void(0)" class="js-tag color3">webpack</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1101,6 +1104,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">three.js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">babel</a>
               </li>
             
             <div class="clearfix"></div>
