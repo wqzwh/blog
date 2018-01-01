@@ -1,7 +1,7 @@
 ## 王奇技术博客
 
 ### vue-ssr初体验
-- [如何使用vue-ssr做服务端渲染初体验(-)](http://www.iwangqi.com/vue-ssr/)
+- <a href="http://www.iwangqi.com/vue-ssr/" target="_blank">[如何使用vue-ssr做服务端渲染初体验(-)]</a>
 - [如何使用vue-ssr做服务端渲染初体验(二)](http://www.iwangqi.com/vue-ssr2/)
 - [如何使用vue-ssr做服务端渲染初体验(三)](http://www.iwangqi.com/vue-ssr3/)
 
