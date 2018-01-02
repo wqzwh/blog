@@ -5,3 +5,6 @@ npm-debug.log
 yarn-error.log
 .idea
 *.iml
+themes/
+source/
+scaffolds/
