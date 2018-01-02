@@ -31,6 +31,12 @@
 - [Three.js系列教程--粒子](http://www.iwangqi.com/webgl-2017-07-18/)
 - [Three.js系列教程--动画和相机](http://www.iwangqi.com/webgl-2017-07-19/)
 
+### Bable学习
+- [babel之配置文件.babelrc入门详解](http://www.iwangqi.com/babelrc-2017-12-23/)
+
+### webpack相关
+- [webpack优化入门详解](http://www.iwangqi.com/webpack-2017-12-30/)
+
 ### 其他内容
 - [ajax如何截取302响应](http://www.iwangqi.com/ajax/)
 - [nodejs的process.nextTick方法理解和使用](http://www.iwangqi.com/2017-04-04/)
