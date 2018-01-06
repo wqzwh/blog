@@ -1,6 +1,7 @@
 ---
 title: 如何使用vue-ssr做服务端渲染初体验(三)
 comments: true
+toc: true
 date: 2017-06-05 20:09:11
 tags: 
     - 'javascript'
@@ -41,93 +42,118 @@ axios.patch(url[,data[,config]])
 api.js完整代码如下：
 
 {% codeblock lang:javascript %}
+import axios from 'axios'
+import qs from 'qs'
+import Q from 'q'
+/**
+ * 兼容 不支持promise 的低版本浏览器
+ */
+require('es6-promise').polyfill();
+import C from '../conf'
+
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
+axios.defaults.withCredentials = true
+
 function ajax(url, type, options) {
-    return Q.Promise((resolve, reject) => {
-        axios({
-            method : type,
-            url : url,
-            // responseType:'stream',
-            data : options
-        })
-        .then((result) => {
-            if (result && result.status === 401) {
-                location.href = '/views/401.html'
-            }
-            if (result && result.status === 200) {
-                resolve(result.data);
-            } else {
-                reject({
-                    errno: result.errno,
-                    msg: result.msg
-                });
-            }
-        })
-        .catch(function(error) {
-            console.log(error,url);
-        });
-    })
+
+  return Q.Promise((resolve, reject) => {
+    axios({
+        method: type,
+        url: C.HOST + url,
+        params: type === 'get' ? options : null,
+        data: type !== 'get' ? qs.stringify(options) : null
+      })
+      .then((result) => {
+        if (result && result.status === 401) {
+          // location.href = '/views/401.html'
+        }
+        if (result && result.status === 200) {
+          if (result.data.code === 200) {
+            resolve(result.data.data);
+          } else if (result.data.code === 401) {
+            reject({
+              nopms: true,
+              msg: result.data.msg
+            });
+          } else {
+            reject({
+              error: true,
+              msg: result.data.msg
+            });
+          }
+        } else {
+          reject({
+            errno: result.errno,
+            msg: result.msg
+          });
+        }
+      })
+      .catch(function(error) {
+        console.log(error, url);
+      });
+  })
 }
 
 const config = {
-    get(url, options) {
-        const _self = this;
-        return Q.Promise((resolve, reject) => {
-            ajax(url, 'get', options)
-            .then((data) => {
-                resolve(data);
-            }, (error) => {
-                reject(error);
-            });
-        })
-    },
+  get(url, options) {
+    const _self = this;
+    return Q.Promise((resolve, reject) => {
+      ajax(url, 'get', options)
+        .then((data) => {
+          resolve(data);
+        }, (error) => {
+          reject(error);
+        });
+    })
+  },
 
-    post(url, options) {
-        const _self = this;
-        return Q.Promise((resolve, reject) => {
-            ajax(url, 'post', options)
-            .then((data) => {
-                resolve(data);
-            }, (error) => {
-                reject(error);
-            });
-        })
-    },
+  post(url, options) {
+    const _self = this;
+    return Q.Promise((resolve, reject) => {
+      ajax(url, 'post', options)
+        .then((data) => {
+          resolve(data);
+        }, (error) => {
+          reject(error);
+        });
+    })
+  },
 
-    put(url, options) {
-        const _self = this;
-        return Q.Promise((resolve, reject) => {
-            ajax(url, 'put', options)
-            .then((data) => {
-                resolve(data);
-            }, (error) => {
-                reject(error);
-            });
-        })
-    },
+  put(url, options) {
+    const _self = this;
+    return Q.Promise((resolve, reject) => {
+      ajax(url, 'put', options)
+        .then((data) => {
+          resolve(data);
+        }, (error) => {
+          reject(error);
+        });
+    })
+  },
 
-    delete(url, options) {
-        const _self = this;
-        return Q.Promise((resolve, reject) => {
-            ajax(url, 'delete', options)
-            .then((data) => {
-                resolve(data);
-            }, (error) => {
-                reject(error);
-            });
-        })
-    },
+  delete(url, options) {
+    const _self = this;
+    return Q.Promise((resolve, reject) => {
+      ajax(url, 'delete', options)
+        .then((data) => {
+          resolve(data);
+        }, (error) => {
+          reject(error);
+        });
+    })
+  },
 
-    jsonp(url, options) {
-        const _self = this;
-        return Q.Promise((resolve, reject) => {
-            ajax(url, 'jsonp', options)
-            .then((data) => {
-                resolve(data);
-            }, (error) => {
-                reject(error);
-            });
-        })
-    }
+  jsonp(url, options) {
+    const _self = this;
+    return Q.Promise((resolve, reject) => {
+      ajax(url, 'jsonp', options)
+        .then((data) => {
+          resolve(data);
+        }, (error) => {
+          reject(error);
+        });
+    })
+  }
 };
 
 export default config;
@@ -144,58 +170,36 @@ module.exports = {
 };
 {% endcodeblock %}
 
-2、在component根目录下新建conf.js，定义组件mock的请求路径，并且定义是否开始单个组件使用mock数据还是线上接口数据，代码如下：
+2、在views/index根目录下新建conf.js，定义组件mock的请求路径，并且定义是否开始单个组件使用mock数据还是线上接口数据，代码如下：
 {% codeblock lang:javascript %}
-const PUBCONF = require('../public/conf.js');
-
-export const DEMO = {
-  DEBUGMOCK : PUBCONF.DEBUGMOCK,
-
-  INDEX_URL : PUBCONF.HOST + '/demo',
-  INDEX_URL_MOCK : true && PUBCONF.DEBUGMOCK
-}
-
-export const ANOTHER_DEMO = {
-
-}
-export default {
-    DEMO,
-    ANOTHER_DEMO
-}
-{% endcodeblock %}
-
-3、在组件内部定义conf.js文件，主要编写单个组件的基本配置信息，请求路径，mock数据对应的url地址，代码如下：
-{% codeblock lang:javascript %}
-import {DEMO} from '../conf.js';
+const PAGEMOCK = true;
 const MODULECONF = {
-  'demo': {
-    NAME: 'demo',
-    ICON: '',
-    MOCK: DEMO.INDEX_URL_MOCK,
+  index: {
+    NAME: '首页',
+    MOCK: true,
     API: {
-      GET: DEMO.INDEX_URL,
+      GET: '/api/home',
     }
-  },
+  }
 };
-export default MODULECONF;
 {% endcodeblock %}
 
-4、在组件内部定义mockjs来编写mock假数据，代码如下：
+3、在组件内部定义mockjs来编写mock假数据，代码如下：
 {% codeblock lang:javascript %}
 import Mock from 'mockjs';
-export default Mock.mock('http://www.xxx.com/demo', {
-    errno: 0,
-    msg: "成功",
-    data: [{
-        'name': '@name',
-        'age|1-100': 100,
-        'color': '@color'
-    }]
-});
+const mData = {
+  index: {
+    API: {
+      GET: {
+        "code": 200,
+        "data": {
+          "pin": 'wangqi',
+          "name": '王奇'
+        }
+      }
+    }
+  }
+}
 {% endcodeblock %}
 
->查看数据返回效果，数据在控制台打印出来
-
-![查看数据返回](vue-ssr3/11.jpeg)
-
-以上就是基本的流程，如果有更好更灵活的使用方案，希望能够参与沟通并且分享，这里会有个问题，就是目前mockjs未能跟业务代码隔离，webpack如果单纯加上externals配置，项目打包后,直接本地运行会报错，找不到mockjs，不知道是不是自己配置的原因，但是基本的思想就是最终上线代码不要把工具类的函数打包进去。项目脚手架已经在github上分享，<a href="https://github.com/wqzwh/wq-vue-ssr" target="_blank">点击查看详情</a>
+以上就是基本的流程，如果有更好更灵活的使用方案，希望能够参与沟通并且分享，项目工作流已经在github上分享，<a href="https://github.com/wqzwh/wq-vue-ssr" target="_blank">点击查看详情</a>

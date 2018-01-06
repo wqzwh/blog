@@ -1,6 +1,7 @@
 ---
 title: 如何使用vue-ssr做服务端渲染初体验(二)
 comments: true
+toc: true
 date: 2017-06-02 20:09:11
 tags: 
     - 'javascript'
@@ -25,32 +26,135 @@ tags:
 4、vue-server-renderer 2.4.2
 5、express 4.15.4
 6、axios 0.16.2
-7、q https://github.com/kriskowal/q.git
-8、webpack 3.5.0
-9、mockjs 1.0.1-beta3
-10、babel 
+7、qs 6.5.0
+8、q https://github.com/kriskowal/q.git
+9、webpack 3.5.0
+10、mockjs 1.0.1-beta3
+11、babel 相关插件
 
 以上是主要是用的技术栈，在构建过程中会是用相应的插件依赖包来配合进行压缩打包，以下是npm init后package.json文件所要添加的依赖包。
 
-![文件依赖](vue-ssr2/1.jpeg)	
+{% codeblock lang:javascript %}
+"dependencies": {
+    "axios": "^0.16.2",
+    "es6-promise": "^4.1.1",
+    "express": "^4.15.4",
+    "lodash": "^4.17.4",
+    "q": "git+https://github.com/kriskowal/q.git",
+    "qs": "^6.5.0",
+    "vue": "^2.4.2",
+    "vue-router": "^2.7.0",
+    "vue-server-renderer": "^2.4.2",
+    "vuex": "^2.3.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.2",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.22.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "compression": "^1.7.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "glob": "^7.1.2",
+    "less": "^2.7.2",
+    "less-loader": "^2.2.3",
+    "lru-cache": "^4.1.1",
+    "mockjs": "^1.0.1-beta3",
+    "style-loader": "^0.19.0",
+    "sw-precache-webpack-plugin": "^0.11.4",
+    "url-loader": "^0.5.9",
+    "vue-loader": "^13.0.4",
+    "vue-style-loader": "^3.0.3",
+    "vue-template-compiler": "^2.4.2",
+    "vuex-router-sync": "^4.2.0",
+    "webpack": "^3.5.0",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.18.2",
+    "webpack-merge": "^4.1.0",
+    "webpack-node-externals": "^1.6.0"
+  }	
+{% endcodeblock %}
 
 ### 3、项目主目录搭建
 
 基本目录结构如下：
 
-![项目主目录结构](vue-ssr2/2.jpeg)
+├── LICENSE
+├── README.md
+├── build
+│   ├── setup-dev-server.js
+│   ├── vue-loader.config.js
+│   ├── webpack.base.config.js
+│   ├── webpack.client.config.js
+│   └── webpack.server.config.js
+├── log
+│   ├── err.log
+│   └── out.log
+├── package.json
+├── pmlog.json
+├── server.js
+└── src
+    ├── App.vue
+    ├── app.js
+    ├── assets
+    │   ├── images
+    │   ├── style
+    │   │   └── css.less
+    │   └── views
+    │       └── index.css
+    ├── components
+    │   ├── Banner.vue
+    │   ├── BottomNav.vue
+    │   ├── FloorOne.vue
+    │   └── Header.vue
+    ├── entry-client.js
+    ├── entry-server.js
+    ├── index.template.html
+    ├── public
+    │   ├── conf.js
+    │   └── utils
+    │       ├── api.js
+    │       └── confUtils.js
+    ├── router
+    │   └── index.js
+    ├── static
+    │   ├── img
+    │   │   └── favicon.ico
+    │   └── js
+    │       └── flexible.js
+    ├── store
+    │   ├── actions.js
+    │   ├── getters.js
+    │   ├── index.js
+    │   ├── modules
+    │   │   └── Home.js
+    │   ├── mutationtypes.js
+    │   └── state.js
+    └── views
+        └── index
+            ├── conf.js
+            ├── index.vue
+            ├── mock.js
+            └── service.js  
 
 > 文件目录基本介绍：
 	
-components 主要存放组件代码，里面可以根据业务场景再次细分模块组件等。
-lib 主要存放第三方库文件，方便用户直接引入使用
-public 主要存放公共组件代码和项目使用的公共文件代码，例如后期我们将axios封装成公共的api库文件等等。
-router 主要存放前端路由配置文件，写法规范按照vue-router官方例子即可。
-store 主要是存放共享状态文件，里面包含action.js,getter.js,mutationtype.js,state.js等，后期会根据模块再细分这些。
-app.js 是项目入口文件
-App.vue 是项目入口文件
-entry-client和entry-server分别是客户端入口文件和服务端的入口文件
-index.template.html是整个项目的模版文件
+- views文件夹下分模块文件，模块文件下下又分模块本身的.vue文件（模版文件），index.js文件（后台数据交互文件），mock.js（本模块的mock假数据），conf.js（配置本模块一些参数，请求路径，模块名称等信息）
+- components 公共组件文件夹
+- router 主要存放前端路由配置文件，写法规范按照vue-router官方例子即可。
+- store 主要是存放共享状态文件，里面包含action.js,getter.js,mutationtype.js等，后期会根据模块再细分这些。
+- public 主要存放公共组件代码和项目使用的公共文件代码，例如后期我们将axios封装成公共的api库文件等等
+- static文件夹代表静态文件，不会被webpack打包的
+- app.js 是项目入口文件
+- App.vue 是项目入口文件
+- entry-client和entry-server分别是客户端入口文件和服务端的入口文件
+- index.template.html是整个项目的模版文件
 
 #### 开始编写app.js项目入口代码
 
@@ -76,9 +180,9 @@ new Vue({
 为了配合webpack动态加载路由配置，这里会改写常规路由引入写法，这样可以根据路由路径来判断加载相应的组件代码：
 
 {% codeblock lang:javascript %}
-import Home from '../components/Home.vue'
+import Home from '../views/index/index.vue'
 // 改写成
-component: () => ('../components/Home.vue')
+component: () => ('../views/index/index.vue')
 {% endcodeblock %} 
 
 
@@ -92,10 +196,10 @@ export function createRouter() {
     return new Router({
         mode: 'history',
         routes: [{
-            name:'home',
+            name:'Home',
             path: '/',
             component: () =>
-                import ('../components/Home.vue')
+                import ('../views/index/index.vue')
         }]
     })
 }
@@ -104,22 +208,22 @@ export function createRouter() {
 以下是store状态管理的基本写法，对外暴露了一个createStore方法，方便每次访问创建一个新的实例：
 
 {% codeblock lang:javascript %}
+// store.js
 import Vue from 'vue'
 import Vuex from 'vuex'
-import actions from './actions'
+import * as actions from './actions'
 import getters from './getters'
-// 按照组件的复杂度是否使用modules
-import Home from './modules/Home'
+import modules from './modules/index'
 Vue.use(Vuex)
 export function createStore() {
   return new Vuex.Store({
     actions,
     getters,
-    modules:{
-      Home
-    },
+    modules,
+    strict: false
   })
 }
+
 {% endcodeblock %} 
 
 
@@ -132,6 +236,7 @@ import App from './App.vue'
 import { createRouter } from './router'
 import { createStore } from './store'
 import { sync } from 'vuex-router-sync'
+require('./assets/style/css.less');
 export function createApp () {
   // 创建 router 和 store 实例
   const router = createRouter()
@@ -191,8 +296,30 @@ if (window.__INITIAL_STATE__) {
 接下来贴出来完整的客户端代码，这里的Q也可以不用引入，直接使用babel就能编译es6自带的Promise，因为本人使用习惯了，这里可以根据自身的需求是否安装：
 {% codeblock lang:javascript %}
 import { createApp } from './app'
-import Q from 'q';
+import Q from 'q'
+import Vue from 'vue'
+
+Vue.mixin({
+  beforeRouteUpdate (to, from, next) {
+    const { asyncData } = this.$options
+    if (asyncData) {
+      asyncData({
+        store: this.$store,
+        route: to
+      }).then(next).catch(next)
+    } else {
+      next()
+    }
+  }
+})
+
 const { app, router, store } = createApp()
+
+// 将服务端渲染时候的状态写入vuex中
+if (window.__INITIAL_STATE__) {
+  store.replaceState(window.__INITIAL_STATE__)
+}
+
 router.onReady(() => {
   router.beforeResolve((to, from, next) => {
       const matched = router.getMatchedComponents(to)
@@ -218,10 +345,7 @@ router.onReady(() => {
     })
     app.$mount('#app')
 })
-// 将服务端渲染时候的状态写入vuex中
-if (window.__INITIAL_STATE__) {
-  store.replaceState(window.__INITIAL_STATE__)
-}
+
 {% endcodeblock %}
 
 #### entry-server.js代码编写：
@@ -279,11 +403,11 @@ export default context => {
 ![整个目录结构](vue-ssr2/3.jpeg)
 
 主要几个文件介绍如下：
-build 主要存放webpack打包配置文件
-dist webpack打包后生成的目录
-log 使用pm2监控进程存放的日志文件目录
-server.js node服务器启动文件
-pmlog.json pm2配置文件
+- build 主要存放webpack打包配置文件
+- dist webpack打包后生成的目录
+- log 使用pm2监控进程存放的日志文件目录
+- server.js node服务器启动文件
+- pmlog.json pm2配置文件
 
 #### server.js入口文件编写
 
@@ -424,7 +548,7 @@ checkPortPromise.then(data => {
 });
 {% endcodeblock %}
 
-到这里，基本的代码已经编写完成，webpack打包配置文件基本和官方保持不变，接下来可以尝试启动本地的项目服务，查看基本的demo展示。
+到这里，基本的代码已经编写完成，webpack打包配置文件基本和官方保持不变，接下来可以尝试启动本地的项目服务，这里简要的使用网易严选首页作为demo示例，结果如下：
 ![demo](vue-ssr2/4.jpeg)
 
 >下节，我将介绍下mockjs，axios怎么封装成公共函数便于使用

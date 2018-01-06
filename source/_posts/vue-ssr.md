@@ -1,6 +1,7 @@
 ---
 title: 如何使用vue-ssr做服务端渲染初体验(-)
 comments: true
+toc: true
 date: 2017-06-01 21:09:11
 tags: 
     - 'javascript'
@@ -57,9 +58,5 @@ renderer接收一个vue对象 ，然后进行渲染，这种对于简单的vue�
 
 bundleRenderer是较为复杂项目进行服务端渲染官方推荐的方式，通过webpack以server entry按照一定的要求打包生成一个 server-bundle,它相当于一个可以给服务端用的app的打包压缩文件，每一次调用都会重新初始化 vue对象，保证了每次请求都是独立的，对于开发者来说，只需要专注于当前业务就可以，不用为服务端渲染开发更多的逻辑代码。
 renderer生成完成之后，都存在两个接口，分别是renderToString和renderToStream，一个是一次性将页面渲染成字符串文件，另外一个是流式渲染，适用于支持流的web服务器，可以是请求服务的速度更快。
-
-### 5、项目基本结构如下
-
-![项目结构图](vue-ssr/22.jpeg)
 
 > 如何从零开始搭建适合自己的vue后端渲染框架？

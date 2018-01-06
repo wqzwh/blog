@@ -17,8 +17,7 @@
 <meta property="og:description" content="1、前言服务端渲染实现原理机制：在服务端拿数据进行解析渲染，直接生成html片段返回给前端。然后前端可以通过解析后端返回的html片段到前端页面，大致有以下两种形式： 1、服务器通过模版引擎直接渲染整个页面，例如java后端的vm模版引擎，php后端的smarty模版引擎。2、服务渲染生成html代码块, 前端通过AJAX获取然后使用js动态添加。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.iwangqi.com/vue-ssr/11.png">
-<meta property="og:image" content="http://www.iwangqi.com/vue-ssr/22.jpeg">
-<meta property="og:updated_time" content="2017-08-26T12:58:33.000Z">
+<meta property="og:updated_time" content="2018-01-06T14:47:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何使用vue-ssr做服务端渲染初体验(-)">
 <meta name="twitter:description" content="1、前言服务端渲染实现原理机制：在服务端拿数据进行解析渲染，直接生成html片段返回给前端。然后前端可以通过解析后端返回的html片段到前端页面，大致有以下两种形式： 1、服务器通过模版引擎直接渲染整个页面，例如java后端的vm模版引擎，php后端的smarty模版引擎。2、服务渲染生成html代码块, 前端通过AJAX获取然后使用js动态添加。">
@@ -189,7 +188,31 @@
       </header>
     
     <!-- 目录内容 -->
-         
+    
+      <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+      <span class="btn-bg"></span>
+      <span class="btn-text">文章导航</span>
+      </p>
+      <div id="toc-article" class="toc-article">
+          <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+          <strong class="toc-title">文章目录</strong>
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、前言"><span class="toc-number">1.</span> <span class="toc-text">1、前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、服务端渲染的优劣"><span class="toc-number">2.</span> <span class="toc-text">2、服务端渲染的优劣</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、SSR的实现原理"><span class="toc-number">3.</span> <span class="toc-text">3、SSR的实现原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、vue后端渲染主要插件：vue-server-renderer"><span class="toc-number">4.</span> <span class="toc-text">4、vue后端渲染主要插件：vue-server-renderer</span></a></li></ol>
+     </div>
+     <script type="text/javascript">
+      function showToc(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:block");
+          show_toc_btn.setAttribute("style","display:none");
+          };
+      function showBtn(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:none");
+          show_toc_btn.setAttribute("style","display:block");
+          };
+     </script>
+       
   <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
@@ -211,7 +234,6 @@
 <p>前面的source部分就是业务开发的代码，开发完成之后通过 webpack 进行构建，生成对应的bundle，这里不再赘述client bundle,就是一个可在浏览器端执行的打包文件；这里说下server bundle, vue2提供 vue-server-renderer模块，模块可以提供两种render: rendererer/bundleRenderer ,下面分别介绍下这两种render。</p>
 <p>renderer接收一个vue对象 ，然后进行渲染，这种对于简单的vue对象,可以这么去做，但是对于复杂的项目，如果使用这种直接require一个vue对象，这个对于服务端代码的结构和逻辑都不太友好，首先模块的状态会一直延续在每个请求渲染请求，我们需要去管理和避免这次渲染请求的状态影响到后面的请求,因此vue-server-renderer提供了另外一种渲染模式，通过一个 bundleRenderer去做渲染。</p>
 <p>bundleRenderer是较为复杂项目进行服务端渲染官方推荐的方式，通过webpack以server entry按照一定的要求打包生成一个 server-bundle,它相当于一个可以给服务端用的app的打包压缩文件，每一次调用都会重新初始化 vue对象，保证了每次请求都是独立的，对于开发者来说，只需要专注于当前业务就可以，不用为服务端渲染开发更多的逻辑代码。<br>renderer生成完成之后，都存在两个接口，分别是renderToString和renderToStream，一个是一次性将页面渲染成字符串文件，另外一个是流式渲染，适用于支持流的web服务器，可以是请求服务的速度更快。</p>
-<h3 id="5、项目基本结构如下"><a href="#5、项目基本结构如下" class="headerlink" title="5、项目基本结构如下"></a>5、项目基本结构如下</h3><p><img src="/vue-ssr/22.jpeg" alt="项目结构图"></p>
 <blockquote>
 <p>如何从零开始搭建适合自己的vue后端渲染框架？</p>
 </blockquote>
