@@ -8,3 +8,4 @@ yarn-error.log
 themes/
 public/
 scaffolds/
+source/categories/*

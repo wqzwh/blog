@@ -32,9 +32,9 @@ tags:
 
 客户端请求服务器，服务器根据请求地址获得匹配的组件，在调用匹配到的组件返回 Promise (官方是preFetch方法)来将需要的数据拿到。最后再通过
 
-{% codeblock lang:javascript %}
+``` html
 <script>window.__initial_state=data</script>
-{% endcodeblock %} 
+```
 
 将其写入网页，最后将服务端渲染好的网页返回回去。
 

@@ -34,7 +34,7 @@ tags:
 
 以上是主要是用的技术栈，在构建过程中会是用相应的插件依赖包来配合进行压缩打包，以下是npm init后package.json文件所要添加的依赖包。
 
-{% codeblock lang:javascript %}
+``` javascript
 "dependencies": {
     "axios": "^0.16.2",
     "es6-promise": "^4.1.1",
@@ -79,7 +79,7 @@ tags:
     "webpack-merge": "^4.1.0",
     "webpack-node-externals": "^1.6.0"
   }	
-{% endcodeblock %}
+```
 
 ### 3、项目主目录搭建
 
@@ -159,7 +159,7 @@ tags:
 #### 开始编写app.js项目入口代码
 
 使用vue开发项目入口文件一般都会如下写法：
-{% codeblock lang:javascript %}
+``` javascript
 import Vue from 'vue';
 import App from './index.vue';
 import router from './router'
@@ -171,7 +171,7 @@ new Vue({
 	router,
 	render: (h) => h(App)
 });
-{% endcodeblock %} 
+``` 
 
 这种写法是程序共享一个vue实例，但是在后端渲染中很容易导致交叉请求状态污染，导致数据流被污染了。
 
@@ -179,16 +179,16 @@ new Vue({
 
 为了配合webpack动态加载路由配置，这里会改写常规路由引入写法，这样可以根据路由路径来判断加载相应的组件代码：
 
-{% codeblock lang:javascript %}
+``` javascript
 import Home from '../views/index/index.vue'
 // 改写成
 component: () => ('../views/index/index.vue')
-{% endcodeblock %} 
+``` 
 
 
 以下是路由的基本写法router，对外会抛出一个createRouter方法来创建一个新的路由实例：
 
-{% codeblock lang:javascript %}
+``` javascript
 import Vue from 'vue'
 import Router from 'vue-router';
 Vue.use(Router)
@@ -203,11 +203,11 @@ export function createRouter() {
         }]
     })
 }
-{% endcodeblock %} 
+``` 
 
 以下是store状态管理的基本写法，对外暴露了一个createStore方法，方便每次访问创建一个新的实例：
 
-{% codeblock lang:javascript %}
+``` javascript
 // store.js
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -224,13 +224,13 @@ export function createStore() {
   })
 }
 
-{% endcodeblock %} 
+``` 
 
 
 
 结合写好的router和store入口文件代码来编写整个项目的入口文件app.js代码内容，同样最终也会对外暴露一个createApp方法，在每次创建app的时候保证router，store，app都是新创建的实例，这里还引入了一个vue路由插件vuex-router-sync，主要作用是同步路由状态(route state)到 store，以下是app.js完整代码：
 
-{% codeblock lang:javascript %}
+``` javascript
 import Vue from 'vue'
 import App from './App.vue'
 import { createRouter } from './router'
@@ -252,49 +252,49 @@ export function createApp () {
   // 暴露 app, router 和 store。
   return { app, router, store }
 }
-{% endcodeblock %} 
+``` 
 
 #### entry-client.js代码编写：
 
 首页引入从app文件中暴露出来的createApp方法，在每次调用客户端的时候，重新创建一个新的app，router，store，部分代码如下：
 
-{% codeblock lang:javascript %}
+``` javascript
 import { createApp } from './app'
 const { app, router, store } = createApp()
-{% endcodeblock %}
+```
 
 这里我们会使用到onReady方法，此方法通常用于等待异步的导航钩子完成，比如在进行服务端渲染的时候，例子代码如下：
 
-{% codeblock lang:javascript %}
+``` javascript
 import { createApp } from './app'
 const { app, router, store } = createApp()
 router.onReady(() => {
   app.$mount('#app')
 })
-{% endcodeblock %}
+```
 
 
 我们会调用一个新方法beforeResolve，只有在router2.5.0以上的版本才会有的方法，注册一个类似于全局路由保护router.beforeEach()，除了在导航确认之后，在所有其他保护和异步组件已解决之后调用。基本写法如下：
 
-{% codeblock lang:javascript %}
+``` javascript
 router.beforeResolve((to, from, next) => {
 	// to 和 from 都是 路由信息对象
 	// 返回目标位置或是当前路由匹配的组件数组（是数组的定义/构造类，不是实例）。通常在服务端渲染的数据预加载时时候。
 	const matched = router.getMatchedComponents(to)
     const prevMatched = router.getMatchedComponents(from)
 })
-{% endcodeblock %}
+```
 
 服务端把要给客户端的 state 放在了 window.__INITIAL_STATE__ 这个全局变量上面。前后端的 HTML 结构应该是一致的。然后要把 store 的状态树写入一个全局变量（__INITIAL_STATE__），这样客户端初始化 render 的时候能够校验服务器生成的 HTML 结构，并且同步到初始化状态，然后整个页面被客户端接管。基本代码如下：
-{% codeblock lang:javascript %}
+``` javascript
 // 将服务端渲染时候的状态写入vuex中
 if (window.__INITIAL_STATE__) {
   store.replaceState(window.__INITIAL_STATE__)
 }
-{% endcodeblock %}
+```
 
 接下来贴出来完整的客户端代码，这里的Q也可以不用引入，直接使用babel就能编译es6自带的Promise，因为本人使用习惯了，这里可以根据自身的需求是否安装：
-{% codeblock lang:javascript %}
+``` javascript
 import { createApp } from './app'
 import Q from 'q'
 import Vue from 'vue'
@@ -346,12 +346,12 @@ router.onReady(() => {
     app.$mount('#app')
 })
 
-{% endcodeblock %}
+```
 
 #### entry-server.js代码编写：
 
 基本编写和客户端的差不多，因为这是服务端渲染，涉及到与后端数据交互定义的问题，我们需要在这里定义好各组件与后端交互使用的方法名称，这样方便在组件内部直接使用，这里根我们常规在组件直接使用ajax获取数据有些不一样，代码片段如下：
-{% codeblock lang:javascript %}
+``` javascript
 //直接定义组件内部asyncData方法来触发相应的ajax获取数据
 if (Component.asyncData) {
   return Component.asyncData({
@@ -359,10 +359,10 @@ if (Component.asyncData) {
     route: router.currentRoute
   })
 }
-{% endcodeblock %}
+```
 
 以下是完整的服务端代码：
-{% codeblock lang:javascript %}
+``` javascript
 import { createApp } from './app'
 import Q from 'q'
 export default context => {
@@ -394,7 +394,7 @@ export default context => {
     }, reject)
   })
 }
-{% endcodeblock %}
+```
 
 ### 4、脚手架其他目录介绍：
 
@@ -412,7 +412,7 @@ export default context => {
 #### server.js入口文件编写
 
 我们还需要编写在服务端启动服务的代码server.js，我们会使用到部分node原生提供的api，片段代码如下：
-{% codeblock lang:javascript %}
+``` javascript
 const Vue = require('vue')
 const express = require('express')
 const path = require('path')
@@ -420,18 +420,18 @@ const LRU = require('lru-cache')
 const { createBundleRenderer } = require('vue-server-renderer')
 const fs = require('fs')
 const net = require('net')
-{% endcodeblock %}
+```
 
 大致思路是，引入前端模版页面index.template.html，使用express启动服务，引入webpack打包项目代码的dist文件，引入缓存模块（这里不做深入介绍，后期会单独详细介绍），判断端口是否被占用，自动启动其他接口服务。
 
 引入前端模版文件并且设置环境变量为production，片段代码如下：
-{% codeblock lang:javascript %}
+``` javascript
 const template = fs.readFileSync('./src/index.template.html', 'utf-8')
 const isProd = process.env.NODE_ENV === 'production'
-{% endcodeblock %}
+```
 
 vue-server-renderer插件的具体使用，通过读取dist文件夹下的目录文件，来创建createBundleRenderer函数，并且使用LRU来设置缓存的时间，通过判断是生产环境还是开发环境，调用不同的方法，代码片段如下：
-{% codeblock lang:javascript %}
+``` javascript
 const resolve = file => path.resolve(__dirname, file)
 function createRenderer (bundle, options) {
   return createBundleRenderer(bundle, Object.assign(options, {
@@ -457,10 +457,10 @@ if (isProd) {
     renderer = createRenderer(bundle, options)
   })
 }
-{% endcodeblock %}
+```
 
 使用express启动服务，代码片段如下：
-{% codeblock lang:javascript %}
+``` javascript
 const server = express()；
 
 //定义在启动服务钱先判断中间件中的缓存是否过期，是否直接调用dist文件。
@@ -481,10 +481,10 @@ server.get('*', (req, res) => {
     res.end(html)
   })
 })
-{% endcodeblock %}
+```
 
 判断端口是否被占用，片段代码如下：
-{% codeblock lang:javascript %}
+``` javascript
 function probe(port, callback) {
     let servers = net.createServer().listen(port)
     let calledOnce = false
@@ -539,7 +539,7 @@ checkPortPromise.then(data => {
     console.log('启动服务路径'+uri)
     server.listen(data);
 });
-{% endcodeblock %}
+```
 
 到这里，基本的代码已经编写完成，webpack打包配置文件基本和官方保持不变，接下来可以尝试启动本地的项目服务，这里简要的使用网易严选首页作为demo示例，结果如下：
 ![demo](vue-ssr2/4.jpeg)
