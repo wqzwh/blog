@@ -9,3 +9,6 @@ themes/
 public/
 scaffolds/
 source/categories/*
+_config.yml
+db.json
+package.json
