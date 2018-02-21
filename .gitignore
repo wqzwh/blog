@@ -8,7 +8,7 @@ yarn-error.log
 themes/
 public/
 scaffolds/
-source/categories/*
+source/categories
 _config.yml
 db.json
 package.json
