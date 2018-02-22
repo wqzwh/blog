@@ -1,12 +1,13 @@
 ## 王奇技术博客
 
 ## 2018
-- [再剖析数据结构与算法javascript描述--列表](http://www.iwangqi.com/list-2018-2-21/)
+- [再剖析数据结构与算法javascript描述--列表(List)](http://www.iwangqi.com/list-2018-2-21/)
+- [再剖析数据结构与算法javascript描述--栈(Stack)](http://www.iwangqi.com/stack-2018-2-22/)
 
 ## 2017
 
 ### vue-ssr初体验
-- [如何使用vue-ssr做服务端渲染初体验(-)](http://www.iwangqi.com/vue-ssr/)
+- [如何使用vue-ssr做服务端渲染初体验(一)](http://www.iwangqi.com/vue-ssr/)
 - [如何使用vue-ssr做服务端渲染初体验(二)](http://www.iwangqi.com/vue-ssr2/)
 - [如何使用vue-ssr做服务端渲染初体验(三)](http://www.iwangqi.com/vue-ssr3/)
 
