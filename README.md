@@ -5,7 +5,7 @@
 - [再剖析数据结构与算法javascript描述--栈(Stack)](http://www.iwangqi.com/stack-2018-2-22/)
 - [再剖析数据结构与算法javascript描述--队列(Queue)](http://www.iwangqi.com/queue-2018-2-23/)
 - [再剖析数据结构与算法javascript描述--链表(LList)](http://www.iwangqi.com/LList-2018-2-24/)
-- [再剖析数据结构与算法javascript描述--链表(HashTable)](http://www.iwangqi.com/HashTable-2018-2-25/)
+- [再剖析数据结构与算法javascript描述--散列(HashTable)](http://www.iwangqi.com/HashTable-2018-2-25/)
 
 
 ## 2017

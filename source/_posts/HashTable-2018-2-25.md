@@ -1,5 +1,5 @@
 ---
-title: 再剖析数据结构与算法javascript描述--链表（HashTable）
+title: 再剖析数据结构与算法javascript描述--散列（HashTable）
 comments: true
 toc: true
 date: 2018-02-25 20:00:30
