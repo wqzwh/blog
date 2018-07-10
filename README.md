@@ -4,7 +4,7 @@
 
 ### vue源码学习
 
-- [Vue源码阅读前必须知道javascript的基础内容（上）](http://www.iwangqi.com/2018-06-30-vue/)
+- [Vue源码阅读前必须知道javascript的基础内容](http://www.iwangqi.com/2018-06-30-vue/)
 
 ### 数据结构与算法javascript描述
 - [再剖析数据结构与算法javascript描述--列表(List)](http://www.iwangqi.com/list-2018-2-21/)
