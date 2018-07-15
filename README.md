@@ -2,6 +2,10 @@
 
 ## 2018
 
+### webpack升级
+
+- [vue-cli中的webpack4一步到位填坑记](http://www.iwangqi.com/2018-07-14-wpk/)
+
 ### vue源码学习
 
 - [Vue源码阅读前必须知道javascript的基础内容](http://www.iwangqi.com/2018-06-30-vue/)
