@@ -2,6 +2,10 @@
 
 ## 2018
 
+### canvasAPI总结
+
+- [canvas学习API总结](http://www.iwangqi.com/2018-09-22-canvasAPI/)
+
 ### webpack升级
 
 - [vue-cli中的webpack4一步到位填坑记](http://www.iwangqi.com/2018-07-14-wpk/)
