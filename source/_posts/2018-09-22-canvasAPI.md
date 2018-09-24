@@ -10,6 +10,6 @@ tags:
 
 ## Canvas学习API总结如下
 
-  <!-- more -->
+<!-- more -->
 
-  <img width="600" src="2018-09-22-canvasAPI/doc.png"/>
+<img width="600" src="2018-09-22-canvasAPI/doc.png"/>
