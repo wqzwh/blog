@@ -2,16 +2,11 @@
 
 ## 2018
 
-### canvasAPI总结
+### 学习总结
 
+- [Web前端开发工程师必须了解的HTTP知识](http://www.iwangqi.com/2018-09-23-HTTP/)
 - [canvas学习API总结](http://www.iwangqi.com/2018-09-22-canvasAPI/)
-
-### webpack升级
-
 - [vue-cli中的webpack4一步到位填坑记](http://www.iwangqi.com/2018-07-14-wpk/)
-
-### vue源码学习
-
 - [Vue源码阅读前必须知道javascript的基础内容](http://www.iwangqi.com/2018-06-30-vue/)
 
 ### 数据结构与算法javascript描述
