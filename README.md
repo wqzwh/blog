@@ -4,6 +4,7 @@
 
 ### 学习总结
 
+- [深入理解javascript事件循环机制（浏览器与nodejs环境）](http://www.iwangqi.com/2018-11-20-EventLoop/)
 - [Web前端开发工程师必须了解的HTTP知识](http://www.iwangqi.com/2018-09-23-HTTP/)
 - [canvas学习API总结](http://www.iwangqi.com/2018-09-22-canvasAPI/)
 - [vue-cli中的webpack4一步到位填坑记](http://www.iwangqi.com/2018-07-14-wpk/)
