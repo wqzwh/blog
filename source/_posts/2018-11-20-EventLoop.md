@@ -648,6 +648,10 @@ handler()
 * 如果有，继续下一轮循环。
 * 如果没有，结束事件循环，退出程序。
 
+### 最后
+
+以上内容大部分是参考其他文章和自己理解的内容，可以作为自身的学习积累，如果有什么不对的地方，欢迎提[issues](https://github.com/wqzwh/blog/blob/master/source/_posts/2018-11-20-EventLoop.md)
+
 ### 参考文献
 
 http://lynnelv.github.io/js-event-loop-nodejs
