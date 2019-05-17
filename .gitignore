@@ -1,17 +1,4 @@
 .DS_Store
-node_modules/
-dist/
 npm-debug.log
 yarn-error.log
 .idea
-*.iml
-themes/
-public/
-scaffolds/
-source/categories
-_config.yml
-db.json
-package.json
-db.json
-keynode/
-package-lock.json
