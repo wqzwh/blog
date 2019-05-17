@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://www.iwangqi.com">
+  <title>深入理解javascript事件循环机制（浏览器与nodejs环境） | 王奇技术博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="浏览器端的事件循环了解js的同学都应该知道，说的最多的就是js是单线程，但是单线程的js同样能实现异步，通俗的讲，异步其实就是再另外开辟一个进程去执行相关操作，或许对于多线程来讲更能实现异步。那么js单线程是如何实现异步的呢？  js同步异步也是面试中常常被问到的。  js其实分同步异步，它们的处理方式也不同，同步任务是在主线程上排队执行，异步任务则会被放到异步任务队列中，若有多个任务（异步任务）">
+<meta name="keywords" content="javascript,node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解javascript事件循环机制（浏览器与nodejs环境）">
+<meta property="og:url" content="http://www.iwangqi.com/2018-11-20-EventLoop/index.html">
+<meta property="og:site_name" content="王奇技术博客">
+<meta property="og:description" content="浏览器端的事件循环了解js的同学都应该知道，说的最多的就是js是单线程，但是单线程的js同样能实现异步，通俗的讲，异步其实就是再另外开辟一个进程去执行相关操作，或许对于多线程来讲更能实现异步。那么js单线程是如何实现异步的呢？  js同步异步也是面试中常常被问到的。  js其实分同步异步，它们的处理方式也不同，同步任务是在主线程上排队执行，异步任务则会被放到异步任务队列中，若有多个任务（异步任务）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.iwangqi.com/2018-11-20-EventLoop/11.png">
+<meta property="og:image" content="http://www.iwangqi.com/2018-11-20-EventLoop/22.jpg">
+<meta property="og:image" content="http://www.iwangqi.com/2018-11-20-EventLoop/33.gif">
+<meta property="og:image" content="http://www.iwangqi.com/2018-11-20-EventLoop/huohu.jpg">
+<meta property="og:image" content="http://www.iwangqi.com/2018-11-20-EventLoop/guge.jpg">
+<meta property="og:image" content="http://www.iwangqi.com/2018-11-20-EventLoop/node1.png">
+<meta property="og:image" content="http://www.iwangqi.com/2018-11-20-EventLoop/1.png">
+<meta property="og:image" content="http://www.iwangqi.com/2018-11-20-EventLoop/2.png">
+<meta property="og:updated_time" content="2018-11-23T02:25:25.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解javascript事件循环机制（浏览器与nodejs环境）">
+<meta name="twitter:description" content="浏览器端的事件循环了解js的同学都应该知道，说的最多的就是js是单线程，但是单线程的js同样能实现异步，通俗的讲，异步其实就是再另外开辟一个进程去执行相关操作，或许对于多线程来讲更能实现异步。那么js单线程是如何实现异步的呢？  js同步异步也是面试中常常被问到的。  js其实分同步异步，它们的处理方式也不同，同步任务是在主线程上排队执行，异步任务则会被放到异步任务队列中，若有多个任务（异步任务）">
+<meta name="twitter:image" content="http://www.iwangqi.com/2018-11-20-EventLoop/11.png">
+  
+    <link rel="alternative" href="/atom.xml" title="王奇技术博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" type="text/css" href="/./main.234bc0.css">
+  <style type="text/css">
+  
+    #container.show {
+      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+    }
+  </style>
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      
+<div class="overlay" style="background: #4d4d4d"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="../../../../img/logo.jpg" class="js-avatar">
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">王奇</a></h1>
+		</hgroup>
+		
+		<p class="header-subtitle">专注前端开发／全栈开发</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">首页</a></li>
+	        
+				<li><a href="/tags/webgl/">3D</a></li>
+	        
+				<li><a href="/tags/react/">react</a></li>
+	        
+				<li><a href="/tags/vue/">vue</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+    		
+    			
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/wqzwh" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="juejin" target="_blank" href="https://juejin.im/user/5854fd5eb123db00656a4824" title="juejin"><i class="icon-juejin"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:litten1424195010@qq.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      
+<nav id="mobile-nav">
+  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+	<div class="btnctn js-mobile-btnctn">
+  		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
+	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="../../../../img/logo.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author js-header-author">王奇</h1>
+			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>专注前端开发／全栈开发<i class="icon icon-quo-right"></i></p>
+			
+			
+			
+				
+			
+				
+			
+				
+			
+				
+			
+			
+			
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wqzwh" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="juejin" target="_blank" href="https://juejin.im/user/5854fd5eb123db00656a4824" title="juejin"><i class="icon-juejin"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:litten1424195010@qq.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+
+			<nav class="header-menu js-header-menu">
+				<ul style="width: 70%">
+				
+				
+					<li style="width: 25%"><a href="/">首页</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/webgl/">3D</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/react/">react</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/vue/">vue</a></li>
+		        
+				</ul>
+			</nav>
+		</header>				
+	</div>
+	<div class="mobile-mask" style="display:none" q-show="isShow"></div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-2018-11-20-EventLoop" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入理解javascript事件循环机制（浏览器与nodejs环境）
+    </h1>
+  
+
+        
+        <a href="/2018-11-20-EventLoop/" class="archive-article-date">
+  	<time datetime="2018-11-20T06:01:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-20</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+    
+      <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();" style="display:none">
+      <span class="btn-bg"></span>
+      <span class="btn-text">文章导航</span>
+      </p>
+      <div id="toc-article" class="toc-article">
+          <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+          <strong class="toc-title">文章目录</strong>
+          <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#浏览器端的事件循环"><span class="toc-number">1.</span> <span class="toc-text">浏览器端的事件循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#宏任务和微任务"><span class="toc-number">1.1.</span> <span class="toc-text">宏任务和微任务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UI视图渲染何时发生"><span class="toc-number">1.2.</span> <span class="toc-text">UI视图渲染何时发生</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#主动可控的"><span class="toc-number">1.2.1.</span> <span class="toc-text">主动可控的</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#不可控的"><span class="toc-number">1.2.2.</span> <span class="toc-text">不可控的</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node环境下的事件循环"><span class="toc-number">2.</span> <span class="toc-text">Node环境下的事件循环</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#timer阶段"><span class="toc-number">2.1.</span> <span class="toc-text">timer阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#I-O-callbacks阶段"><span class="toc-number">2.2.</span> <span class="toc-text">I/O callbacks阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#poll阶段"><span class="toc-number">2.3.</span> <span class="toc-text">poll阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#check阶段"><span class="toc-number">2.4.</span> <span class="toc-text">check阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#close-callbacks"><span class="toc-number">2.5.</span> <span class="toc-text">close callbacks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#process-nextTick"><span class="toc-number">2.6.</span> <span class="toc-text">process.nextTick()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后"><span class="toc-number">4.</span> <span class="toc-text">最后</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol>
+     </div>
+     <script type="text/javascript">
+      function showToc(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:block");
+          show_toc_btn.setAttribute("style","display:none");
+          };
+      function showBtn(){
+          var toc_article = document.getElementById("toc-article");
+          var show_toc_btn = document.getElementById("show-toc-btn");
+          toc_article.setAttribute("style","display:none");
+          show_toc_btn.setAttribute("style","display:block");
+          };
+     </script>
+       
+  <!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="浏览器端的事件循环"><a href="#浏览器端的事件循环" class="headerlink" title="浏览器端的事件循环"></a>浏览器端的事件循环</h3><p>了解js的同学都应该知道，说的最多的就是js是单线程，但是单线程的js同样能实现异步，通俗的讲，异步其实就是再另外开辟一个进程去执行相关操作，或许对于多线程来讲更能实现异步。那么js单线程是如何实现异步的呢？</p>
+<blockquote>
+<p>js同步异步也是面试中常常被问到的。</p>
+</blockquote>
+<p>js其实分同步异步，它们的处理方式也不同，同步任务是在主线程上排队执行，异步任务则会被放到异步任务队列中，若有多个任务（异步任务）则要在任务队列中排队等待，任务队列类似一个缓冲区，任务下一步会被移到调用栈（call stack），然后主线程执行调用栈的任务。</p>
+<a id="more"></a>
+<p>单线程是指js引擎中负责解析执行js代码的线程只有一个（主线程），即每次只能做一件事，例如我们最常用的ajax请求，主线程在等待响应返回结果的同时依然会去执行其他的方法，主要是因为浏览器先在事件表注册ajax的回调函数，响应回来后回调函数被添加到任务队列中等待执行，不会造成线程阻塞，也就是ajax其实是个异步的。</p>
+<blockquote>
+<p>这里说的ajax是浏览器原生的，而任何二次封装其实有配置项使得该ajax为同步。</p>
+</blockquote>
+<p>在上面的概念中提到了两个词，栈（stack）、任务队列，js在执行主线程代码过程中，会去不断的检查栈中是否有事件需要去执行，哪些事件会被放入任务队列中以及什么时候会去执行任务队列中的事件。这其实就是事件循环需要去做的事情。</p>
+<p>下图就是调用栈和任务队列的关系图（截图来自Philip Roberts的演讲<a href="https://vimeo.com/96425312" target="_blank" rel="external">《Help, I’m stuck in an event-loop》</a>）</p>
+<p><img width="600" src="/2018-11-20-EventLoop/11.png"></p>
+<p>上图中，主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要主栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。</p>
+<h4 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h4><p>根据上面的说明，可以确认一点，任务队列和栈是两个不同“线程”，例如上面讲的原生ajax异步请求，它就会被先放在任务队列中，等待响应之后，再被调用到栈中去执行。</p>
+<blockquote>
+<p>事件循环至少包含两个队列，macrotask队列和microtask队列。</p>
+</blockquote>
+<p>其实任务队列中包含两种类型：<strong>宏任务（macrotask）</strong> 、 <strong>微任务（microtask）</strong>。</p>
+<blockquote>
+<p>浏览器端和node端对宏任务和微任务具体的分类还有所区别，后面会介绍到。</p>
+</blockquote>
+<p>浏览器端：</p>
+<p><strong>宏任务（macrotask）</strong>：执行主线程js代码，事件回调，XHR回调，setTimeout，setInterval，requestAnimationFrame，I/O，UI render</p>
+<p><strong>微任务（microtask）</strong>：promise回调，Object.observe，async await，MutationObserver</p>
+<p>再贴一张牛逼闪闪的解释图（截图来自<a href="https://zhuanlan.zhihu.com/p/24460769" target="_blank" rel="external">《HTML系列：macrotask和microtask》</a>）</p>
+<p><img width="600" src="/2018-11-20-EventLoop/22.jpg"></p>
+<blockquote>
+<p>事件循环有两个基本原则：1、同一时间只能执行一个任务。2、任务一直执行到完成，不能被其他任务抢断。</p>
+</blockquote>
+<p>根据上图可以得出一次事件循环基本分以下几个步骤：</p>
+<ol>
+<li>事件循环检查macrotask队列是否为空，非空则到2，为空则到3</li>
+<li>执行macrotask中的一个任务</li>
+<li>事件循环继续检查microtask队列是否为空，若有则到4，否则到5</li>
+<li>取出microtask中的任务执行，执行完成返回到步骤3</li>
+<li>执行视图更新，再次到1</li>
+</ol>
+<p>根据上面5个步骤以及图示可以看出，</p>
+<p>1、js在执行任何一个任务的时候是不会被中断的。<br>2、单次事件循环中，只会执行一次宏任务，而会执行全部的微任务。<br>3、当微任务为空时，事件循环检查是否需要执行UI重渲染，如果需要则重渲染UI。这样就结束了当次循环，继续从头开始检查宏任务。<br>4、所有的微任务都应该在下次UI渲染前执行完，因为其目的就是在渲染前更新应用状态。</p>
+<p>贴上一段代码再来一张牛逼闪闪的动图，这样就能更清楚的理解了：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="string">'start'</span>)</div><div class="line"></div><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>)</div><div class="line">&#125;, <span class="number">0</span>)</div><div class="line"></div><div class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</div><div class="line">&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'end'</span>)</div><div class="line"></div><div class="line"><span class="comment">// 浏览器执行顺序是：start end promise1 promise2 setTimeout</span></div></pre></td></tr></table></figure></p>
+<p><img width="600" src="/2018-11-20-EventLoop/33.gif"></p>
+<p>先输出<code>start</code>和<code>end</code>没啥问题，根据上面的分析，执行主线程js属于宏任务，因此接下来会执行微任务，所以会输出<code>promise1</code>和<code>promise2</code>，然后做是否UI更新操作，到此完成了一次事件循环，然后再次进行检测是否有宏任务，也就是输出了<code>setTimeout</code>，然后再次做是否UI更新操作，最终结束。</p>
+<p>这里有一点需要注意下，<code>promise</code>中的<code>then</code>才是异步代码，下面代码在浏览器端运行结果可以证明这一点：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">4</span>))</div><div class="line"></div><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</div><div class="line">  resolve()</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">1</span>)</div><div class="line">&#125;).then(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">3</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="number">2</span>)</div><div class="line"></div><div class="line"><span class="comment">// 浏览器执行顺序是：1 2 3 4</span></div></pre></td></tr></table></figure></p>
+<h4 id="UI视图渲染何时发生"><a href="#UI视图渲染何时发生" class="headerlink" title="UI视图渲染何时发生"></a>UI视图渲染何时发生</h4><p>在上面的介绍中，一直都在说，判断是否需要进行UI视图渲染，那么到底这个东西什么时候会发生呢？根据之前定义的一次事件循环的5个步骤中解释到：UI视图渲染将会在所有微任务执行完之后执行。</p>
+<h5 id="主动可控的"><a href="#主动可控的" class="headerlink" title="主动可控的"></a>主动可控的</h5><p>我们在使用vue开发过程中，肯定会使用<code>nextTick</code>这个API，这个就是使用这可以主动去更新视图，通常会在数据变化之后主动去更新视图。其实内部机制是通过原生<code>Promise.then</code>和<code>MessageChannel</code>（没听过）去实现的，对于低版本的浏览器会降级到使用<code>setTimeout(fn, 0)</code>去替代。具体可以查看vue中的<a href="https://cn.vuejs.org/v2/guide/reactivity.html" target="_blank" rel="external">异步更新队列介绍</a></p>
+<blockquote>
+<p>小程序开发中也会有nextTick这个API，效果其实是一样的。</p>
+</blockquote>
+<h5 id="不可控的"><a href="#不可控的" class="headerlink" title="不可控的"></a>不可控的</h5><p>对于不可控的视图更新会想到使用这个<code>requestAnimationFrame</code>API，因为这是浏览器来判断是否需要进行视图更新操作，通过下面的示例代码可以验证这一点：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;<span class="built_in">console</span>.log(<span class="string">'setTimeout1'</span>)&#125;, <span class="number">0</span>)</div><div class="line"></div><div class="line">requestAnimationFrame(<span class="function"><span class="params">()</span> =&gt;</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'requestAnimationFrame'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;<span class="built_in">console</span>.log(<span class="string">'setTimeout2'</span>)&#125;, <span class="number">0</span>)</div><div class="line"></div><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'promise 1'</span>)</div><div class="line">  resolve()</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'promise 2'</span>)</div><div class="line">&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'promise then'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'end'</span>)</div><div class="line"></div><div class="line"><span class="comment">// 谷歌浏览器端执行顺序： promise 1 promise 2 end promise then requestAnimationFrame setTimeout1 setTimeout2</span></div><div class="line"><span class="comment">// 火狐浏览器执行顺序：promise 1 promise 2 end promise then setTimeout1 setTimeout2 requestAnimationFrame</span></div></pre></td></tr></table></figure></p>
+<p><img width="600" src="/2018-11-20-EventLoop/huohu.jpg"><br><img width="600" src="/2018-11-20-EventLoop/guge.jpg"><br>不同的浏览器执行的结果不一样，如上图所示，<code>requestAnimationFrame</code>的执行时机与浏览器的渲染策略有关。</p>
+<h3 id="Node环境下的事件循环"><a href="#Node环境下的事件循环" class="headerlink" title="Node环境下的事件循环"></a>Node环境下的事件循环</h3><p>先运行下面的示例代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'timer1'</span>)</div><div class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</div><div class="line">  &#125;)</div><div class="line">&#125;, <span class="number">0</span>)</div><div class="line"></div><div class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'timer2'</span>)</div><div class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</div><div class="line">  &#125;)</div><div class="line">&#125;, <span class="number">0</span>)</div><div class="line"></div><div class="line"><span class="comment">// 浏览器端执行顺序：timer1 promise1 timer2 promise2</span></div><div class="line"><span class="comment">// node环境执行顺序：timer1 timer2 promise1 promise2</span></div></pre></td></tr></table></figure></p>
+<p>根据上面的示例代码运行结果可以看出，node环境下的事件循环和浏览器端的运行机制还是有所不同的，先贴一张图（截图来自阮老师的<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">《JavaScript 运行机制详解：再谈Event Loop》</a>）</p>
+<p><img width="600" src="/2018-11-20-EventLoop/node1.png"></p>
+<p>引用阮老师的解释，Node.js的运行机制如下：</p>
+<p>（1）V8引擎解析JavaScript脚本。</p>
+<p>（2）解析后的代码，调用Node API。</p>
+<p>（3）libuv库负责Node API的执行。它将不同的任务分配给不同的线程，形成一个Event Loop（事件循环），以异步的方式将任务的执行结果返回给V8引擎。</p>
+<p>（4）V8引擎再将结果返回给用户。</p>
+<p>再说事件循环之前，先列出node环境下的宏任务和微任务有哪些：</p>
+<p><strong>宏任务（macrotask）</strong>：执行主线程js代码，事件回调，XHR回调，setTimeout，setInterval，I/O， setImmediate</p>
+<p><strong>微任务（microtask）</strong>：promise回调，async await，process.nextTick</p>
+<p>libuv库是实现事件循环的关键，贴一段<a href="https://github.com/libuv/libuv/blob/v1.x/src/unix/core.c#L348-L397" target="_blank" rel="external">源码</a>，片段如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">uv_run</span><span class="params">(<span class="keyword">uv_loop_t</span>* loop, uv_run_mode mode)</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> timeout;</div><div class="line">  <span class="keyword">int</span> r;</div><div class="line">  <span class="keyword">int</span> ran_pending;</div><div class="line">  <span class="comment">//判断事件循环是否存活。</span></div><div class="line">  r = uv__loop_alive(loop);</div><div class="line">  <span class="comment">//如果没有存活，更新时间戳</span></div><div class="line">  <span class="keyword">if</span> (!r)</div><div class="line">    uv__update_time(loop);</div><div class="line">  <span class="comment">//如果事件循环存活，并且事件循环没有停止。</span></div><div class="line">  <span class="keyword">while</span> (r != <span class="number">0</span> &amp;&amp; loop-&gt;stop_flag == <span class="number">0</span>) &#123;</div><div class="line">    <span class="comment">//更新当前时间戳</span></div><div class="line">    uv__update_time(loop);</div><div class="line">    <span class="comment">// timers阶段</span></div><div class="line">    uv__run_timers(loop);</div><div class="line">    <span class="comment">// 执行由于上个循环未执行完，并被延迟到这个循环的I/O 回调</span></div><div class="line">    ran_pending = uv__run_pending(loop);</div><div class="line">    <span class="comment">// idle阶段 内部调用</span></div><div class="line">    uv__run_idle(loop);</div><div class="line">    <span class="comment">// prepare阶段 内部调用</span></div><div class="line">    uv__run_prepare(loop);</div><div class="line"></div><div class="line">    timeout = <span class="number">0</span>;</div><div class="line">    <span class="keyword">if</span> ((mode == UV_RUN_ONCE &amp;&amp; !ran_pending) || mode == UV_RUN_DEFAULT)</div><div class="line">      <span class="comment">// 计算距离下一个timer到来的时间差。</span></div><div class="line">      timeout = uv_backend_timeout(loop);</div><div class="line"></div><div class="line">    <span class="comment">// poll阶段，该阶段轮询I/O事件，有则执行，无则阻塞，直到超出timeout的时间。</span></div><div class="line">    uv__io_poll(loop, timeout);</div><div class="line">    <span class="comment">// check阶段 主要执行 setImmediate 回调。</span></div><div class="line">    uv__run_check(loop);</div><div class="line">    <span class="comment">// close callbacks阶段</span></div><div class="line">    uv__run_closing_handles(loop);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (mode == UV_RUN_ONCE) &#123;</div><div class="line">      <span class="comment">//更新当前时间戳</span></div><div class="line">      uv__update_time(loop);</div><div class="line">      <span class="comment">//再次执行timers回调。</span></div><div class="line">      uv__run_timers(loop);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    r = uv__loop_alive(loop);</div><div class="line">    <span class="keyword">if</span> (mode == UV_RUN_ONCE || mode == UV_RUN_NOWAIT)</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/* The if statement lets gcc compile it to a conditional store. Avoids</span></div><div class="line"><span class="comment">   * dirtying a cache line.</span></div><div class="line"><span class="comment">   */</span></div><div class="line">  <span class="keyword">if</span> (loop-&gt;stop_flag != <span class="number">0</span>)</div><div class="line">    loop-&gt;stop_flag = <span class="number">0</span>;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> r;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Node.js启动时会初始化事件循环, 每一个事件循环都会包含按如下顺序六个循环阶段：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">   ┌───────────────────────────┐</div><div class="line">┌─&gt;│           timers          │ uv__run_timers(loop)</div><div class="line">│  └─────────────┬─────────────┘</div><div class="line">│  ┌─────────────┴─────────────┐</div><div class="line">│  │       I/O callbacks       │ uv__run_pending(loop)</div><div class="line">│  └─────────────┬─────────────┘</div><div class="line">│  ┌─────────────┴─────────────┐</div><div class="line">│  │       idle, prepare       │ uv__run_idle(loop)</div><div class="line">│  └─────────────┬─────────────┘      ┌───────────────┐</div><div class="line">│  ┌─────────────┴─────────────┐      │   incoming:   │</div><div class="line">│  │           poll            │&lt;─────┤  connections, │ uv__io_poll()</div><div class="line">│  └─────────────┬─────────────┘      │   data, etc.  │</div><div class="line">│  ┌─────────────┴─────────────┐      └───────────────┘</div><div class="line">│  │           check           │ uv__run_check(loop)</div><div class="line">│  └─────────────┬─────────────┘</div><div class="line">│  ┌─────────────┴─────────────┐</div><div class="line">└──┤      close callbacks      │ uv__run_prepare(loop)</div><div class="line">   └───────────────────────────┘</div></pre></td></tr></table></figure>
+<ul>
+<li>timers 阶段: 这个阶段执行setTimeout(callback) and setInterval(callback)预定的callback;</li>
+<li>I/O callbacks 阶段: 执行除了close事件的callbacks、被timers(定时器，setTimeout、setInterval等)设定的callbacks、setImmediate()设定的callbacks之外的callbacks; 执行一些系统调用错误，比如网络通信的错误回调(目前这个阶段)</li>
+<li>idle, prepare 阶段: 仅node内部使用;</li>
+<li>poll 阶段: 获取新的I/O事件, 适当的条件下node将阻塞在这里;</li>
+<li>check 阶段: 执行setImmediate() 设定的callbacks;</li>
+<li>close callbacks 阶段: 比如socket.on(‘close’, callback)的callback会在这个阶段执行。</li>
+</ul>
+<p>首先确定下，这个事件循环中涉及到的方法全是异步的，通过这个示意图可以确定在<code>check</code>阶段会去执行<code>setImmediate</code>中的callback函数，再之后就是内部调用<code>uv__run_prepare</code>，关闭callback函数，然后再次回到<code>timers</code>阶段，那么我们可以暂时把<code>setImmediate</code>作为下一次循环开始的标记，这个对后面理解运行顺序有很大的帮助。</p>
+<h4 id="timer阶段"><a href="#timer阶段" class="headerlink" title="timer阶段"></a>timer阶段</h4><p>贴一段timer相关的<a href="https://github.com/libuv/libuv/blob/v1.x/src/timer.c#L159-L176" target="_blank" rel="external">源码片段</a><br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> struct heap *<span class="title">timer_heap</span><span class="params">(<span class="keyword">const</span> <span class="keyword">uv_loop_t</span>* loop)</span> </span>&#123;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _WIN32</span></div><div class="line">  <span class="keyword">return</span> (struct heap*) loop-&gt;timer_heap;</div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line">  <span class="keyword">return</span> (struct heap*) &amp;loop-&gt;timer_heap;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">uv_timer_again</span><span class="params">(<span class="keyword">uv_timer_t</span>* handle)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span> (handle-&gt;timer_cb == <span class="literal">NULL</span>)</div><div class="line">    <span class="keyword">return</span> UV_EINVAL;</div><div class="line"></div><div class="line">  <span class="comment">// 如果是repeat则重新创建定时器</span></div><div class="line">  <span class="keyword">if</span> (handle-&gt;repeat) &#123;</div><div class="line">    uv_timer_stop(handle);</div><div class="line">    uv_timer_start(handle, handle-&gt;timer_cb, handle-&gt;repeat, handle-&gt;repeat);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">uv__run_timers</span><span class="params">(<span class="keyword">uv_loop_t</span>* loop)</span> </span>&#123;</div><div class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">heap_node</span>* <span class="title">heap_node</span>;</span></div><div class="line">  <span class="keyword">uv_timer_t</span>* handle;</div><div class="line"></div><div class="line">  <span class="keyword">for</span> (;;) &#123;</div><div class="line">    <span class="comment">// 取出定时器堆中时间最近的定时器代码（setTimeout/setInterval）</span></div><div class="line">    heap_node = heap_min(timer_heap(loop));</div><div class="line">    <span class="keyword">if</span> (heap_node == <span class="literal">NULL</span>)</div><div class="line">      <span class="keyword">break</span>;</div><div class="line"></div><div class="line">    handle = container_of(heap_node, <span class="keyword">uv_timer_t</span>, heap_node);</div><div class="line">    <span class="comment">// 判断最近的定时器的时间是否大于当前时间，如果大于当前时间，说明还未超时，跳出循环。</span></div><div class="line">    <span class="keyword">if</span> (handle-&gt;timeout &gt; loop-&gt;time)</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    <span class="comment">// 停止定时器</span></div><div class="line">    uv_timer_stop(handle);</div><div class="line">    <span class="comment">// 判断定时器句柄类型是否是repeat类型，如果是，重新创建一个定时器。</span></div><div class="line">    uv_timer_again(handle);</div><div class="line">    <span class="comment">// 执行定时器绑定的回调函数</span></div><div class="line">    handle-&gt;timer_cb(handle);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>首先判断是否存在未超时的定时器，如果存在就会跳出，执行事件循环的下一个环节，这里会有个问题，就是判断是否未超时，在实际场景中，node是无法准确的根据定时器设定的时间来精准确定该定时器何时运行回调函数，也就是如果将setTimeout和setImmediate放在如下的代码示例中，就很难确定，setTimeout是在第一次循环中执行还是第二次循环中执行。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'timeout'</span>)</div><div class="line">&#125;, <span class="number">0</span>)</div><div class="line"></div><div class="line">setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'immediate'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// node 环境运行结果 timeout immediate 或者 immediate timeout</span></div></pre></td></tr></table></figure></p>
+<p>如果在主线程代码中再加入其他同步代码，可以保证<code>setTimeout</code>先执行，主要是因为在运行其他主线程代码时，给<code>setTimeout</code>预留的时间，示例代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'timeout'</span>)</div><div class="line">&#125;, <span class="number">0</span>)</div><div class="line"></div><div class="line">setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'immediate'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'主线程代码'</span>)</div><div class="line"></div><div class="line"><span class="comment">// node 环境运行结果 主线程代码 timeout immediate</span></div></pre></td></tr></table></figure></p>
+<h4 id="I-O-callbacks阶段"><a href="#I-O-callbacks阶段" class="headerlink" title="I/O callbacks阶段"></a>I/O callbacks阶段</h4><p>这个阶段执行一些系统操作的回调。比如TCP错误，如一个TCP socket在想要连接时收到ECONNREFUSED,<br>类unix系统会等待以报告错误，这就会放到 I/O callbacks 阶段的队列执行。</p>
+<blockquote>
+<p>idle, prepare为内部调用，不去关注它。</p>
+</blockquote>
+<h4 id="poll阶段"><a href="#poll阶段" class="headerlink" title="poll阶段"></a>poll阶段</h4><p>贴一段<a href="https://github.com/libuv/libuv/blob/e4087dedf837f415056a45a838f639a3d9dc3ced/src/unix/kqueue.c#L112-L381" target="_blank" rel="external">源码片段</a>：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">uv__io_poll</span><span class="params">(<span class="keyword">uv_loop_t</span>* loop, <span class="keyword">int</span> timeout)</span> </span>&#123;</div><div class="line">  <span class="comment">// 省略变量初始化代码</span></div><div class="line">  <span class="keyword">if</span> (loop-&gt;nfds == <span class="number">0</span>) &#123;</div><div class="line">    <span class="comment">// 判断观察者队列是否为空，如果为空，则返回</span></div><div class="line">    assert(QUEUE_EMPTY(&amp;loop-&gt;watcher_queue));</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  nevents = <span class="number">0</span>;</div><div class="line">  <span class="comment">// 观察者队列不为空</span></div><div class="line">  <span class="keyword">while</span> (!QUEUE_EMPTY(&amp;loop-&gt;watcher_queue)) &#123;</div><div class="line">    <span class="comment">/*</span></div><div class="line"><span class="comment">    取出队列头的观察者对象</span></div><div class="line"><span class="comment">    取出观察者对象感兴趣的事件并监听。</span></div><div class="line"><span class="comment">    */</span></div><div class="line">    w-&gt;events = w-&gt;pevents;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  pset = <span class="literal">NULL</span>;</div><div class="line">  <span class="keyword">if</span> (loop-&gt;flags &amp; UV_LOOP_BLOCK_SIGPROF) &#123;</div><div class="line">    pset = &amp;<span class="built_in">set</span>;</div><div class="line">    sigemptyset(pset);</div><div class="line">    sigaddset(pset, SIGPROF);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  assert(timeout &gt;= <span class="number">-1</span>);</div><div class="line">  <span class="comment">// 如果有超时时间，将当前时间赋给base变量</span></div><div class="line">  base = loop-&gt;time;</div><div class="line">  <span class="comment">// 本轮执行监听事件的最大数量</span></div><div class="line">  count = <span class="number">48</span>; <span class="comment">/* Benchmarks suggest this gives the best throughput. */</span></div><div class="line">  <span class="comment">// 进入监听循环</span></div><div class="line">  <span class="keyword">for</span> (;; nevents = <span class="number">0</span>) &#123;</div><div class="line">    <span class="comment">// 有超时时间的话，初始化spec</span></div><div class="line">    <span class="keyword">if</span> (timeout != <span class="number">-1</span>) &#123;</div><div class="line">      spec.tv_sec = timeout / <span class="number">1000</span>;</div><div class="line">      spec.tv_nsec = (timeout % <span class="number">1000</span>) * <span class="number">1000000</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (pset != <span class="literal">NULL</span>)</div><div class="line">      pthread_sigmask(SIG_BLOCK, pset, <span class="literal">NULL</span>);</div><div class="line">    <span class="comment">// 监听内核事件，当有事件到来时，即返回事件的数量。</span></div><div class="line">    <span class="comment">// timeout 为监听的超时时间，超时时间一到即返回。</span></div><div class="line">    <span class="comment">// 我们知道，timeout是传进来得下一个timers到来的时间差，所以，在timeout时间内，event-loop会一直阻塞在此处，直到超时时间到来或者有内核事件触发。</span></div><div class="line">    nfds = kevent(loop-&gt;backend_fd,</div><div class="line">                  events,</div><div class="line">                  nevents,</div><div class="line">                  events,</div><div class="line">                  ARRAY_SIZE(events),</div><div class="line">                  timeout == <span class="number">-1</span> ? <span class="literal">NULL</span> : &amp;spec);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (pset != <span class="literal">NULL</span>)</div><div class="line">      pthread_sigmask(SIG_UNBLOCK, pset, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line">    <span class="comment">/* Update loop-&gt;time unconditionally. It's tempting to skip the update when</span></div><div class="line"><span class="comment">     * timeout == 0 (i.e. non-blocking poll) but there is no guarantee that the</span></div><div class="line"><span class="comment">     * operating system didn't reschedule our process while in the syscall.</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    SAVE_ERRNO(uv__update_time(loop));</div><div class="line">    <span class="comment">//如果内核没有监听到可用事件，且本次监听有超时时间，则返回。</span></div><div class="line">    <span class="keyword">if</span> (nfds == <span class="number">0</span>) &#123;</div><div class="line">      assert(timeout != <span class="number">-1</span>);</div><div class="line">      <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (nfds == <span class="number">-1</span>) &#123;</div><div class="line">      <span class="keyword">if</span> (errno != EINTR)</div><div class="line">        <span class="built_in">abort</span>();</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (timeout == <span class="number">0</span>)</div><div class="line">        <span class="keyword">return</span>;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (timeout == <span class="number">-1</span>)</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line"></div><div class="line">      <span class="comment">/* Interrupted by a signal. Update timeout and poll again. */</span></div><div class="line">      <span class="keyword">goto</span> update_timeout;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    have_signals = <span class="number">0</span>;</div><div class="line">    nevents = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="comment">//判断事件循环的观察者队列是否为空</span></div><div class="line">    assert(loop-&gt;watchers != <span class="literal">NULL</span>);</div><div class="line">    loop-&gt;watchers[loop-&gt;nwatchers] = (<span class="keyword">void</span>*) events;</div><div class="line">    loop-&gt;watchers[loop-&gt;nwatchers + <span class="number">1</span>] = (<span class="keyword">void</span>*) (<span class="keyword">uintptr_t</span>) nfds;</div><div class="line">    <span class="comment">// 循环处理内核返回的事件，执行事件绑定的回调函数</span></div><div class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; nfds; i++) &#123;</div><div class="line">      <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (have_signals != <span class="number">0</span>)</div><div class="line">      loop-&gt;signal_io_watcher.cb(loop, &amp;loop-&gt;signal_io_watcher, POLLIN);</div><div class="line"></div><div class="line">    loop-&gt;watchers[loop-&gt;nwatchers] = <span class="literal">NULL</span>;</div><div class="line">    loop-&gt;watchers[loop-&gt;nwatchers + <span class="number">1</span>] = <span class="literal">NULL</span>;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (have_signals != <span class="number">0</span>)</div><div class="line">      <span class="keyword">return</span>;  <span class="comment">/* Event loop should cycle now so don't poll again. */</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> (nevents != <span class="number">0</span>) &#123;</div><div class="line">      <span class="keyword">if</span> (nfds == ARRAY_SIZE(events) &amp;&amp; --count != <span class="number">0</span>) &#123;</div><div class="line">        <span class="comment">/* Poll for more events but don't block this time. */</span></div><div class="line">        timeout = <span class="number">0</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (timeout == <span class="number">0</span>)</div><div class="line">      <span class="keyword">return</span>;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (timeout == <span class="number">-1</span>)</div><div class="line">      <span class="keyword">continue</span>;</div><div class="line"></div><div class="line">update_timeout:</div><div class="line">    assert(timeout &gt; <span class="number">0</span>);</div><div class="line"></div><div class="line">    diff = loop-&gt;time - base;</div><div class="line">    <span class="keyword">if</span> (diff &gt;= (<span class="keyword">uint64_t</span>) timeout)</div><div class="line">      <span class="keyword">return</span>;</div><div class="line"></div><div class="line">    timeout -= diff;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>poll 阶段有两个主要功能：</p>
+<p>1、执行下限时间已经达到的<code>timers</code>的回调<br>2、处理<code>poll</code>队列里的事件。</p>
+<p>当event loop进入<code>poll</code>阶段，并且没有设定的<code>timers</code>，会发生下面两件事之一：<br>  1、如果<code>poll</code>队列不空，event loop会遍历队列并同步执行回调，直到队列清空或执行的回调数到达系统上限；<br>  2、如果<code>poll</code>队列为空，则发生以下两件事之一：<br>    1、如果代码已经被<code>setImmediate()</code>设定了回调, event loop将结束<code>poll</code>阶段进入<code>check</code>阶段来执行<code>check</code>队列（里的回调）。<br>    2、如果代码没有被<code>setImmediate()</code>设定回调，event loop将阻塞在该阶段等待回调被加入<code>poll</code>队列，并立即执行。</p>
+<p>但是，当event loop进入<code>poll</code>阶段，并且有设定的timers，一旦<code>poll</code>队列为空（poll 阶段空闲状态）：</p>
+<p>event loop将检查<code>timers</code>,如果有1个或多个<code>timers</code>的下限时间已经到达，event loop将绕回 <strong>timers</strong> 阶段，并执行 <strong>timer</strong> 队列。</p>
+<h4 id="check阶段"><a href="#check阶段" class="headerlink" title="check阶段"></a>check阶段</h4><p><code>setImmediate()</code>的回调会被加入<code>check</code>队列中， 从event loop的阶段图可以知道，<code>check</code>阶段的执行顺序在<code>poll</code>阶段之后，只要有被<code>setImmediate()</code>设定了回调，一旦<code>poll</code>阶段空闲，那么程序将结束<code>poll</code>阶段并进入<code>check</code>阶段，而不是继续等待<code>poll</code>事件。</p>
+<h4 id="close-callbacks"><a href="#close-callbacks" class="headerlink" title="close callbacks"></a>close callbacks</h4><p>如果一个socket或handle被突然关掉（比如 socket.destroy()），close事件将在这个阶段被触发，否则将通过process.nextTick()触发。</p>
+<p>根据上面介绍，这是说明了宏任务的执行过程，那么对于node环境下的微任务呢？是不是跟在浏览器端一样，在一个宏任务执行完成之后会去执行所有的微任务，实际运行机制还是有区别的，<strong>node环境下在每次切换事件循环阶段的时候都会去清空微任务队列里面的任务</strong>。</p>
+<p>浏览器端是这样的，如下图：</p>
+<p><img width="600" src="/2018-11-20-EventLoop/1.png"></p>
+<p>node环境中时这样的，如下图：</p>
+<p><img width="600" src="/2018-11-20-EventLoop/2.png"></p>
+<p>这就能解释，为什么在最开始的示例中，浏览器和node环境执行结果不一样，这里解释下node环境下的结果：</p>
+<blockquote>
+<p>首先进入timers阶段，执行timer1的回调函数，打印timer1，并将promise1.then回调放入microtask队列，同样的步骤执行timer2，打印timer2；至此，timer阶段执行结束，event loop进入下一个阶段之前，执行microtask队列的所有任务，依次打印promise1、promise2。</p>
+</blockquote>
+<h4 id="process-nextTick"><a href="#process-nextTick" class="headerlink" title="process.nextTick()"></a>process.nextTick()</h4><p>首先<code>process.nextTick()</code>属于微任务，因此它只会在事件循环切换的过程才会运行，nextTick必须传入一个函数，当调用这个方法的时候，在node环境中，会将传入的事件塞入<code>nextTickQueue</code>中，并且立即会清空本阶段的所有<code>nextTickQueue</code>之后再次进入事件循环的下一个阶段。<code>setImmediate()</code>则是标志当前循环结束，进入下一次事件循环中。所以如果<code>process.nextTick()</code>使用不当会造成阻塞，示例代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</div><div class="line"><span class="keyword">const</span> starttime = <span class="built_in">Date</span>.now()</div><div class="line"><span class="keyword">let</span> endtime</div><div class="line"></div><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  endtime = <span class="built_in">Date</span>.now()</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'finish reading time: '</span>, endtime - starttime)</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="keyword">let</span> index = <span class="number">0</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handler</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (index++ &gt;= <span class="number">1000</span>) <span class="keyword">return</span></div><div class="line">  <span class="built_in">console</span>.log(<span class="string">`nextTick <span class="subst">$&#123;index&#125;</span>`</span>)</div><div class="line">  process.nextTick(handler)</div><div class="line">&#125;</div><div class="line">handler()</div><div class="line"></div><div class="line"><span class="comment">// 运行结果如下：</span></div><div class="line"><span class="comment">// nextTick 1</span></div><div class="line"><span class="comment">// nextTick 2</span></div><div class="line"><span class="comment">// ......</span></div><div class="line"><span class="comment">// nextTick 999</span></div><div class="line"><span class="comment">// nextTick 1000</span></div><div class="line"><span class="comment">// finish reading time: 58</span></div></pre></td></tr></table></figure></p>
+<p>如果该用<code>setImmediate()</code>就不会造成阻塞，示例代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</div><div class="line"><span class="keyword">const</span> starttime = <span class="built_in">Date</span>.now()</div><div class="line"><span class="keyword">let</span> endtime</div><div class="line"></div><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  endtime = <span class="built_in">Date</span>.now()</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'finish reading time: '</span>, endtime - starttime)</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="keyword">let</span> index = <span class="number">0</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handler</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (index++ &gt;= <span class="number">1000</span>) <span class="keyword">return</span></div><div class="line">  <span class="built_in">console</span>.log(<span class="string">`setImmediate <span class="subst">$&#123;index&#125;</span>`</span>)</div><div class="line">  setImmediate(handler)</div><div class="line">&#125;</div><div class="line">handler()</div><div class="line"></div><div class="line"><span class="comment">// 运行结构如下：</span></div><div class="line"><span class="comment">// setImmediate 1</span></div><div class="line"><span class="comment">// finish reading time:  4</span></div><div class="line"><span class="comment">// setImmediate 2</span></div><div class="line"><span class="comment">// ......</span></div><div class="line"><span class="comment">// nextTick 1000</span></div></pre></td></tr></table></figure></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>以上就是全部关于事件循环的介绍，能看到这里其实还是很蒙的感觉，所以最后总结一下：</p>
+<p><strong>浏览器端事件循环步骤</strong></p>
+<ul>
+<li><ol>
+<li>事件循环检查macrotask队列是否为空，非空则到2，为空则到3</li>
+</ol>
+</li>
+<li><ol>
+<li>执行macrotask中的一个任务</li>
+</ol>
+</li>
+<li><ol>
+<li>事件循环继续检查microtask队列是否为空，若有则到4，否则到5</li>
+</ol>
+</li>
+<li><ol>
+<li>取出microtask中的任务执行，执行完成返回到步骤3</li>
+</ol>
+</li>
+<li><ol>
+<li>执行视图更新，再次到1</li>
+</ol>
+</li>
+</ul>
+<p>几点注意：</p>
+<ul>
+<li>js在执行任何一个任务的时候是不会被中断的。</li>
+<li>单次事件循环中，只会执行一次宏任务，而会执行全部的微任务。</li>
+<li>当微任务为空时，事件循环检查是否需要执行UI重渲染，如果需要则重渲染UI。这样就结束了当次循环，继续从头开始检查宏任务。</li>
+<li>所有的微任务都应该在下次UI渲染前执行完，因为其目的就是在渲染前更新应用状态。</li>
+<li>UI视图更新分可控和非可控</li>
+</ul>
+<p><strong>node环境下的事件循环步骤</strong></p>
+<p>1、timer阶段</p>
+<ul>
+<li>检查 timer 队列是否有到期的 timer 回调，如果有，将到期的 timer 回调按照 timerId 升序执行。</li>
+<li>检查是否有 process.nextTick 任务，如果有，全部执行。</li>
+<li>检查是否有microtask，如果有，全部执行。</li>
+<li>退出该阶段。<blockquote>
+<p>这个阶段主要环境会去判断当前的定时器是否到了该执行时候了，具体判定的时间跟定时器中的代码耗时长短有关，有可能这个阶段的定时器会在多个事件循环中运行。</p>
+</blockquote>
+</li>
+</ul>
+<p>2、IO callbacks阶段</p>
+<ul>
+<li>检查是否有 pending 的 I/O 回调。如果有，执行回调。如果没有，退出该阶段。</li>
+<li>检查是否有 process.nextTick 任务，如果有，全部执行。</li>
+<li>检查是否有microtask，如果有，全部执行。</li>
+<li>退出该阶段。</li>
+</ul>
+<p>3、idle，prepare阶段</p>
+<ul>
+<li>内部运行，可以忽略</li>
+</ul>
+<p>4、poll阶段</p>
+<p>首先检查是否存在尚未完成的回调，如果存在，那么分两种情况。<br>  <strong>第一种情况：</strong></p>
+<ul>
+<li>如果有可用回调（可用回调包含到期的定时器还有一些IO事件等），执行所有可用回调。</li>
+<li>检查是否有 process.nextTick 回调，如果有，全部执行。</li>
+<li>检查是否有 microtaks，如果有，全部执行。</li>
+<li>退出该阶段。<br><strong>第二种情况：</strong></li>
+<li>如果没有可用回调。</li>
+<li>检查是否有immediate回调，如果有，退出poll阶段。如果没有，阻塞在此阶段，等待新的事件通知。<br>如果不存在尚未完成的回调，退出poll阶段</li>
+</ul>
+<p>5、check阶段</p>
+<ul>
+<li>如果有immediate回调，则执行所有immediate回调。</li>
+<li>检查是否有 process.nextTick 回调，如果有，全部执行。</li>
+<li>检查是否有 microtaks，如果有，全部执行。</li>
+<li>退出check阶段<blockquote>
+<p>该阶段会执行immediate()回调，因此这也是事件循环进入下一次的一个标记</p>
+</blockquote>
+</li>
+</ul>
+<p>6、closing阶段</p>
+<ul>
+<li>如果有socket或handle被突然关掉，close事件将在这个阶段被触发。</li>
+<li>检查是否有 process.nextTick 回调，如果有，全部执行。</li>
+<li>检查是否有 microtaks，如果有，全部执行。</li>
+<li>退出 closing 阶段</li>
+</ul>
+<p>7、检查是否有活跃的handles（定时器、IO等事件句柄）。</p>
+<ul>
+<li>如果有，继续下一轮循环。</li>
+<li>如果没有，结束事件循环，退出程序。</li>
+</ul>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>以上内容大部分是参考其他文章和自己理解的内容，可以作为自身的学习积累，如果有什么不对的地方，欢迎提<a href="https://github.com/wqzwh/blog/blob/master/source/_posts/2018-11-20-EventLoop.md" target="_blank" rel="external">issues</a></p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a href="http://lynnelv.github.io/js-event-loop-nodejs" target="_blank" rel="external">http://lynnelv.github.io/js-event-loop-nodejs</a><br><a href="https://juejin.im/post/5b73d7a6518825610072b42b" target="_blank" rel="external">https://juejin.im/post/5b73d7a6518825610072b42b</a><br><a href="http://javascript.ruanyifeng.com/dom/mutationobserver.html" target="_blank" rel="external">http://javascript.ruanyifeng.com/dom/mutationobserver.html</a><br><a href="https://github.com/creeperyang/blog/issues/26" target="_blank" rel="external">https://github.com/creeperyang/blog/issues/26</a><br><a href="https://juejin.im/post/5af1413ef265da0b851cce80" target="_blank" rel="external">https://juejin.im/post/5af1413ef265da0b851cce80</a><br><a href="https://cnodejs.org/topic/57d68794cb6f605d360105bf" target="_blank" rel="external">https://cnodejs.org/topic/57d68794cb6f605d360105bf</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">node</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://www.iwangqi.com/2018-11-20-EventLoop/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018-11-24-koa2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          通过开发精简版的koa2了解其原理实现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018-09-23-HTTP/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Web前端开发工程师必须了解的HTTP知识</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
+  
+
+
+  <section id="comments">
+<div id="SOHUCS" sid="深入理解javascript事件循环机制（浏览器与nodejs环境）" style="padding: 0px 30px 0px 46px;"></div>
+<script>
+  (function(){
+    var appid = 'cytaIcbYU',
+    conf = 'ebd898f01c4500525d43d880c4075984';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script>
+  </section>
+  
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 王奇
+    	</div>
+      	<div class="footer-right">
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true,
+		showTags: false
+	}
+</script>
+
+<script>!function(t){function n(r){if(e[r])return e[r].exports;var o=e[r]={exports:{},id:r,loaded:!1};return t[r].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var e={};return n.m=t,n.c=e,n.p="./",n(0)}([function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}function o(t,n){var e=/\/|index.html/g;return t.replace(e,"")===n.replace(e,"")}function i(){for(var t=document.querySelectorAll(".js-header-menu li a"),n=window.location.pathname,e=0,r=t.length;e<r;e++){var i=t[e];o(n,i.getAttribute("href"))&&(0,d.default)(i,"active")}}function u(t){for(var n=t.offsetLeft,e=t.offsetParent;null!==e;)n+=e.offsetLeft,e=e.offsetParent;return n}function f(t){for(var n=t.offsetTop,e=t.offsetParent;null!==e;)n+=e.offsetTop,e=e.offsetParent;return n}function c(t,n,e,r,o){var i=u(t),c=f(t)-n;if(c-e<=o){var a=t.$newDom;a||(a=t.cloneNode(!0),(0,h.default)(t,a),t.$newDom=a,a.style.position="fixed",a.style.top=(e||c)+"px",a.style.left=i+"px",a.style.zIndex=r||2,a.style.width="100%",a.style.color="#fff"),a.style.visibility="visible",t.style.visibility="hidden"}else{t.style.visibility="visible";var s=t.$newDom;s&&(s.style.visibility="hidden")}}function a(){var t=document.querySelector(".js-overlay"),n=document.querySelector(".js-header-menu");c(t,document.body.scrollTop,-63,2,0),c(n,document.body.scrollTop,1,3,0)}function s(){document.querySelector("#container").addEventListener("scroll",function(t){a()}),window.addEventListener("scroll",function(t){a()}),a()}function l(){x.default.versions.mobile&&window.screen.width<800&&(i(),s())}var p=e(71),d=r(p),v=e(72),y=(r(v),e(84)),h=r(y),b=e(69),x=r(b),m=e(75),g=r(m),w=e(70);l(),(0,w.addLoadEvent)(function(){g.default.init()}),t.exports={}},function(t,n){var e=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=e)},function(t,n){var e={}.hasOwnProperty;t.exports=function(t,n){return e.call(t,n)}},function(t,n,e){var r=e(49),o=e(15);t.exports=function(t){return r(o(t))}},function(t,n,e){t.exports=!e(8)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n,e){var r=e(6),o=e(12);t.exports=e(4)?function(t,n,e){return r.f(t,n,o(1,e))}:function(t,n,e){return t[n]=e,t}},function(t,n,e){var r=e(10),o=e(30),i=e(24),u=Object.defineProperty;n.f=e(4)?Object.defineProperty:function(t,n,e){if(r(t),n=i(n,!0),r(e),o)try{return u(t,n,e)}catch(t){}if("get"in e||"set"in e)throw TypeError("Accessors not supported!");return"value"in e&&(t[n]=e.value),t}},function(t,n,e){var r=e(22)("wks"),o=e(13),i=e(1).Symbol,u="function"==typeof i,f=t.exports=function(t){return r[t]||(r[t]=u&&i[t]||(u?i:o)("Symbol."+t))};f.store=r},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n,e){var r=e(35),o=e(16);t.exports=Object.keys||function(t){return r(t,o)}},function(t,n,e){var r=e(11);t.exports=function(t){if(!r(t))throw TypeError(t+" is not an object!");return t}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n){var e=0,r=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++e+r).toString(36))}},function(t,n){var e=t.exports={version:"2.4.0"};"number"==typeof __e&&(__e=e)},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n){t.exports={}},function(t,n){t.exports=!0},function(t,n){n.f={}.propertyIsEnumerable},function(t,n,e){var r=e(6).f,o=e(2),i=e(7)("toStringTag");t.exports=function(t,n,e){t&&!o(t=e?t:t.prototype,i)&&r(t,i,{configurable:!0,value:n})}},function(t,n,e){var r=e(22)("keys"),o=e(13);t.exports=function(t){return r[t]||(r[t]=o(t))}},function(t,n,e){var r=e(1),o="__core-js_shared__",i=r[o]||(r[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n){var e=Math.ceil,r=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?r:e)(t)}},function(t,n,e){var r=e(11);t.exports=function(t,n){if(!r(t))return t;var e,o;if(n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;if("function"==typeof(e=t.valueOf)&&!r(o=e.call(t)))return o;if(!n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;throw TypeError("Can't convert object to primitive value")}},function(t,n,e){var r=e(1),o=e(14),i=e(18),u=e(26),f=e(6).f;t.exports=function(t){var n=o.Symbol||(o.Symbol=i?{}:r.Symbol||{});"_"==t.charAt(0)||t in n||f(n,t,{value:u.f(t)})}},function(t,n,e){n.f=e(7)},function(t,n,e){var r=e(1),o=e(14),i=e(46),u=e(5),f="prototype",c=function(t,n,e){var a,s,l,p=t&c.F,d=t&c.G,v=t&c.S,y=t&c.P,h=t&c.B,b=t&c.W,x=d?o:o[n]||(o[n]={}),m=x[f],g=d?r:v?r[n]:(r[n]||{})[f];d&&(e=n);for(a in e)s=!p&&g&&void 0!==g[a],s&&a in x||(l=s?g[a]:e[a],x[a]=d&&"function"!=typeof g[a]?e[a]:h&&s?i(l,r):b&&g[a]==l?function(t){var n=function(n,e,r){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(n);case 2:return new t(n,e)}return new t(n,e,r)}return t.apply(this,arguments)};return n[f]=t[f],n}(l):y&&"function"==typeof l?i(Function.call,l):l,y&&((x.virtual||(x.virtual={}))[a]=l,t&c.R&&m&&!m[a]&&u(m,a,l)))};c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,t.exports=c},function(t,n){var e={}.toString;t.exports=function(t){return e.call(t).slice(8,-1)}},function(t,n,e){var r=e(11),o=e(1).document,i=r(o)&&r(o.createElement);t.exports=function(t){return i?o.createElement(t):{}}},function(t,n,e){t.exports=!e(4)&&!e(8)(function(){return 7!=Object.defineProperty(e(29)("div"),"a",{get:function(){return 7}}).a})},function(t,n,e){"use strict";var r=e(18),o=e(27),i=e(36),u=e(5),f=e(2),c=e(17),a=e(51),s=e(20),l=e(58),p=e(7)("iterator"),d=!([].keys&&"next"in[].keys()),v="@@iterator",y="keys",h="values",b=function(){return this};t.exports=function(t,n,e,x,m,g,w){a(e,n,x);var O,S,_,j=function(t){if(!d&&t in A)return A[t];switch(t){case y:return function(){return new e(this,t)};case h:return function(){return new e(this,t)}}return function(){return new e(this,t)}},P=n+" Iterator",E=m==h,M=!1,A=t.prototype,T=A[p]||A[v]||m&&A[m],L=T||j(m),N=m?E?j("entries"):L:void 0,C="Array"==n?A.entries||T:T;if(C&&(_=l(C.call(new t)),_!==Object.prototype&&(s(_,P,!0),r||f(_,p)||u(_,p,b))),E&&T&&T.name!==h&&(M=!0,L=function(){return T.call(this)}),r&&!w||!d&&!M&&A[p]||u(A,p,L),c[n]=L,c[P]=b,m)if(O={values:E?L:j(h),keys:g?L:j(y),entries:N},w)for(S in O)S in A||i(A,S,O[S]);else o(o.P+o.F*(d||M),n,O);return O}},function(t,n,e){var r=e(10),o=e(55),i=e(16),u=e(21)("IE_PROTO"),f=function(){},c="prototype",a=function(){var t,n=e(29)("iframe"),r=i.length,o="<",u=">";for(n.style.display="none",e(48).appendChild(n),n.src="javascript:",t=n.contentWindow.document,t.open(),t.write(o+"script"+u+"document.F=Object"+o+"/script"+u),t.close(),a=t.F;r--;)delete a[c][i[r]];return a()};t.exports=Object.create||function(t,n){var e;return null!==t?(f[c]=r(t),e=new f,f[c]=null,e[u]=t):e=a(),void 0===n?e:o(e,n)}},function(t,n,e){var r=e(35),o=e(16).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return r(t,o)}},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,e){var r=e(2),o=e(3),i=e(45)(!1),u=e(21)("IE_PROTO");t.exports=function(t,n){var e,f=o(t),c=0,a=[];for(e in f)e!=u&&r(f,e)&&a.push(e);for(;n.length>c;)r(f,e=n[c++])&&(~i(a,e)||a.push(e));return a}},function(t,n,e){t.exports=e(5)},function(t,n,e){var r=e(15);t.exports=function(t){return Object(r(t))}},function(t,n,e){t.exports={default:e(41),__esModule:!0}},function(t,n,e){t.exports={default:e(42),__esModule:!0}},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}n.__esModule=!0;var o=e(39),i=r(o),u=e(38),f=r(u),c="function"==typeof f.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":typeof t};n.default="function"==typeof f.default&&"symbol"===c(i.default)?function(t){return"undefined"==typeof t?"undefined":c(t)}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":"undefined"==typeof t?"undefined":c(t)}},function(t,n,e){e(65),e(63),e(66),e(67),t.exports=e(14).Symbol},function(t,n,e){e(64),e(68),t.exports=e(26).f("iterator")},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){t.exports=function(){}},function(t,n,e){var r=e(3),o=e(61),i=e(60);t.exports=function(t){return function(n,e,u){var f,c=r(n),a=o(c.length),s=i(u,a);if(t&&e!=e){for(;a>s;)if(f=c[s++],f!=f)return!0}else for(;a>s;s++)if((t||s in c)&&c[s]===e)return t||s||0;return!t&&-1}}},function(t,n,e){var r=e(43);t.exports=function(t,n,e){if(r(t),void 0===n)return t;switch(e){case 1:return function(e){return t.call(n,e)};case 2:return function(e,r){return t.call(n,e,r)};case 3:return function(e,r,o){return t.call(n,e,r,o)}}return function(){return t.apply(n,arguments)}}},function(t,n,e){var r=e(9),o=e(34),i=e(19);t.exports=function(t){var n=r(t),e=o.f;if(e)for(var u,f=e(t),c=i.f,a=0;f.length>a;)c.call(t,u=f[a++])&&n.push(u);return n}},function(t,n,e){t.exports=e(1).document&&document.documentElement},function(t,n,e){var r=e(28);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==r(t)?t.split(""):Object(t)}},function(t,n,e){var r=e(28);t.exports=Array.isArray||function(t){return"Array"==r(t)}},function(t,n,e){"use strict";var r=e(32),o=e(12),i=e(20),u={};e(5)(u,e(7)("iterator"),function(){return this}),t.exports=function(t,n,e){t.prototype=r(u,{next:o(1,e)}),i(t,n+" Iterator")}},function(t,n){t.exports=function(t,n){return{value:n,done:!!t}}},function(t,n,e){var r=e(9),o=e(3);t.exports=function(t,n){for(var e,i=o(t),u=r(i),f=u.length,c=0;f>c;)if(i[e=u[c++]]===n)return e}},function(t,n,e){var r=e(13)("meta"),o=e(11),i=e(2),u=e(6).f,f=0,c=Object.isExtensible||function(){return!0},a=!e(8)(function(){return c(Object.preventExtensions({}))}),s=function(t){u(t,r,{value:{i:"O"+ ++f,w:{}}})},l=function(t,n){if(!o(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!i(t,r)){if(!c(t))return"F";if(!n)return"E";s(t)}return t[r].i},p=function(t,n){if(!i(t,r)){if(!c(t))return!0;if(!n)return!1;s(t)}return t[r].w},d=function(t){return a&&v.NEED&&c(t)&&!i(t,r)&&s(t),t},v=t.exports={KEY:r,NEED:!1,fastKey:l,getWeak:p,onFreeze:d}},function(t,n,e){var r=e(6),o=e(10),i=e(9);t.exports=e(4)?Object.defineProperties:function(t,n){o(t);for(var e,u=i(n),f=u.length,c=0;f>c;)r.f(t,e=u[c++],n[e]);return t}},function(t,n,e){var r=e(19),o=e(12),i=e(3),u=e(24),f=e(2),c=e(30),a=Object.getOwnPropertyDescriptor;n.f=e(4)?a:function(t,n){if(t=i(t),n=u(n,!0),c)try{return a(t,n)}catch(t){}if(f(t,n))return o(!r.f.call(t,n),t[n])}},function(t,n,e){var r=e(3),o=e(33).f,i={}.toString,u="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[],f=function(t){try{return o(t)}catch(t){return u.slice()}};t.exports.f=function(t){return u&&"[object Window]"==i.call(t)?f(t):o(r(t))}},function(t,n,e){var r=e(2),o=e(37),i=e(21)("IE_PROTO"),u=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=o(t),r(t,i)?t[i]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?u:null}},function(t,n,e){var r=e(23),o=e(15);t.exports=function(t){return function(n,e){var i,u,f=String(o(n)),c=r(e),a=f.length;return c<0||c>=a?t?"":void 0:(i=f.charCodeAt(c),i<55296||i>56319||c+1===a||(u=f.charCodeAt(c+1))<56320||u>57343?t?f.charAt(c):i:t?f.slice(c,c+2):(i-55296<<10)+(u-56320)+65536)}}},function(t,n,e){var r=e(23),o=Math.max,i=Math.min;t.exports=function(t,n){return t=r(t),t<0?o(t+n,0):i(t,n)}},function(t,n,e){var r=e(23),o=Math.min;t.exports=function(t){return t>0?o(r(t),9007199254740991):0}},function(t,n,e){"use strict";var r=e(44),o=e(52),i=e(17),u=e(3);t.exports=e(31)(Array,"Array",function(t,n){this._t=u(t),this._i=0,this._k=n},function(){var t=this._t,n=this._k,e=this._i++;return!t||e>=t.length?(this._t=void 0,o(1)):"keys"==n?o(0,e):"values"==n?o(0,t[e]):o(0,[e,t[e]])},"values"),i.Arguments=i.Array,r("keys"),r("values"),r("entries")},function(t,n){},function(t,n,e){"use strict";var r=e(59)(!0);e(31)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,n=this._t,e=this._i;return e>=n.length?{value:void 0,done:!0}:(t=r(n,e),this._i+=t.length,{value:t,done:!1})})},function(t,n,e){"use strict";var r=e(1),o=e(2),i=e(4),u=e(27),f=e(36),c=e(54).KEY,a=e(8),s=e(22),l=e(20),p=e(13),d=e(7),v=e(26),y=e(25),h=e(53),b=e(47),x=e(50),m=e(10),g=e(3),w=e(24),O=e(12),S=e(32),_=e(57),j=e(56),P=e(6),E=e(9),M=j.f,A=P.f,T=_.f,L=r.Symbol,N=r.JSON,C=N&&N.stringify,k="prototype",F=d("_hidden"),q=d("toPrimitive"),I={}.propertyIsEnumerable,B=s("symbol-registry"),D=s("symbols"),W=s("op-symbols"),H=Object[k],K="function"==typeof L,R=r.QObject,J=!R||!R[k]||!R[k].findChild,U=i&&a(function(){return 7!=S(A({},"a",{get:function(){return A(this,"a",{value:7}).a}})).a})?function(t,n,e){var r=M(H,n);r&&delete H[n],A(t,n,e),r&&t!==H&&A(H,n,r)}:A,G=function(t){var n=D[t]=S(L[k]);return n._k=t,n},$=K&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},z=function(t,n,e){return t===H&&z(W,n,e),m(t),n=w(n,!0),m(e),o(D,n)?(e.enumerable?(o(t,F)&&t[F][n]&&(t[F][n]=!1),e=S(e,{enumerable:O(0,!1)})):(o(t,F)||A(t,F,O(1,{})),t[F][n]=!0),U(t,n,e)):A(t,n,e)},Y=function(t,n){m(t);for(var e,r=b(n=g(n)),o=0,i=r.length;i>o;)z(t,e=r[o++],n[e]);return t},Q=function(t,n){return void 0===n?S(t):Y(S(t),n)},X=function(t){var n=I.call(this,t=w(t,!0));return!(this===H&&o(D,t)&&!o(W,t))&&(!(n||!o(this,t)||!o(D,t)||o(this,F)&&this[F][t])||n)},V=function(t,n){if(t=g(t),n=w(n,!0),t!==H||!o(D,n)||o(W,n)){var e=M(t,n);return!e||!o(D,n)||o(t,F)&&t[F][n]||(e.enumerable=!0),e}},Z=function(t){for(var n,e=T(g(t)),r=[],i=0;e.length>i;)o(D,n=e[i++])||n==F||n==c||r.push(n);return r},tt=function(t){for(var n,e=t===H,r=T(e?W:g(t)),i=[],u=0;r.length>u;)!o(D,n=r[u++])||e&&!o(H,n)||i.push(D[n]);return i};K||(L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var t=p(arguments.length>0?arguments[0]:void 0),n=function(e){this===H&&n.call(W,e),o(this,F)&&o(this[F],t)&&(this[F][t]=!1),U(this,t,O(1,e))};return i&&J&&U(H,t,{configurable:!0,set:n}),G(t)},f(L[k],"toString",function(){return this._k}),j.f=V,P.f=z,e(33).f=_.f=Z,e(19).f=X,e(34).f=tt,i&&!e(18)&&f(H,"propertyIsEnumerable",X,!0),v.f=function(t){return G(d(t))}),u(u.G+u.W+u.F*!K,{Symbol:L});for(var nt="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),et=0;nt.length>et;)d(nt[et++]);for(var nt=E(d.store),et=0;nt.length>et;)y(nt[et++]);u(u.S+u.F*!K,"Symbol",{for:function(t){return o(B,t+="")?B[t]:B[t]=L(t)},keyFor:function(t){if($(t))return h(B,t);throw TypeError(t+" is not a symbol!")},useSetter:function(){J=!0},useSimple:function(){J=!1}}),u(u.S+u.F*!K,"Object",{create:Q,defineProperty:z,defineProperties:Y,getOwnPropertyDescriptor:V,getOwnPropertyNames:Z,getOwnPropertySymbols:tt}),N&&u(u.S+u.F*(!K||a(function(){var t=L();return"[null]"!=C([t])||"{}"!=C({a:t})||"{}"!=C(Object(t))})),"JSON",{stringify:function(t){if(void 0!==t&&!$(t)){for(var n,e,r=[t],o=1;arguments.length>o;)r.push(arguments[o++]);return n=r[1],"function"==typeof n&&(e=n),!e&&x(n)||(n=function(t,n){if(e&&(n=e.call(this,t,n)),!$(n))return n}),r[1]=n,C.apply(N,r)}}}),L[k][q]||e(5)(L[k],q,L[k].valueOf),l(L,"Symbol"),l(Math,"Math",!0),l(r.JSON,"JSON",!0)},function(t,n,e){e(25)("asyncIterator")},function(t,n,e){e(25)("observable")},function(t,n,e){e(62);for(var r=e(1),o=e(5),i=e(17),u=e(7)("toStringTag"),f=["NodeList","DOMTokenList","MediaList","StyleSheetList","CSSRuleList"],c=0;c<5;c++){var a=f[c],s=r[a],l=s&&s.prototype;l&&!l[u]&&o(l,u,a),i[a]=i.Array}},function(t,n){"use strict";var e={versions:function(){var t=window.navigator.userAgent;return{trident:t.indexOf("Trident")>-1,presto:t.indexOf("Presto")>-1,webKit:t.indexOf("AppleWebKit")>-1,gecko:t.indexOf("Gecko")>-1&&t.indexOf("KHTML")==-1,mobile:!!t.match(/AppleWebKit.*Mobile.*/),ios:!!t.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:t.indexOf("Android")>-1||t.indexOf("Linux")>-1,iPhone:t.indexOf("iPhone")>-1||t.indexOf("Mac")>-1,iPad:t.indexOf("iPad")>-1,webApp:t.indexOf("Safari")==-1,weixin:t.indexOf("MicroMessenger")==-1}}()};t.exports=e},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}var o=e(40),i=r(o),u=function(){function t(t,n,e){return n||e?String.fromCharCode(n||e):o[t]||t}function n(t){return l[t]}var e=/&quot;|&lt;|&gt;|&amp;|&nbsp;|&apos;|&#(\d+);|&#(\d+)/g,r=/['<> "&]/g,o={"&quot;":'"',"&lt;":"<","&gt;":">","&amp;":"&","&nbsp;":" "},f=/\u00a0/g,c=/<br\s*\/?>/gi,a=/\r?\n/g,s=/\s/g,l={};for(var p in o)l[o[p]]=p;return o["&apos;"]="'",l["'"]="&#39;",{encode:function(t){return t?(""+t).replace(r,n).replace(a,"<br/>").replace(s,"&nbsp;"):""},decode:function(n){return n?(""+n).replace(c,"\n").replace(e,t).replace(f," "):""},encodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},encodeBase16forJSON:function(t){if(!t)return t;t=t.replace(/[\u4E00-\u9FBF]/gi,function(t){return escape(t).replace("%u","\\u")});for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},decodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e+=2)n.push(String.fromCharCode("0x"+t.slice(e,e+2)));return n.join("")},encodeObject:function(t){if(t instanceof Array)for(var n=0,e=t.length;e>n;n++)t[n]=u.encodeObject(t[n]);else if("object"==("undefined"==typeof t?"undefined":(0,i.default)(t)))for(var r in t)t[r]=u.encodeObject(t[r]);else if("string"==typeof t)return u.encode(t);return t},loadScript:function(t){var n=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(n),n.setAttribute("src",t)},addLoadEvent:function(t){var n=window.onload;"function"!=typeof window.onload?window.onload=t:window.onload=function(){n(),t()}}}}();t.exports=u},function(t,n){function e(t,n){t.classList?t.classList.add(n):t.className+=" "+n}t.exports=e},function(t,n){function e(t,n){if(t.classList)t.classList.remove(n);else{var e=new RegExp("(^|\\b)"+n.split(" ").join("|")+"(\\b|$)","gi");t.className=t.className.replace(e," ")}}t.exports=e},,,function(t,n){"use strict";function e(){var t=document.querySelector("#page-nav");if(t&&!document.querySelector("#page-nav .extend.prev")&&(t.innerHTML='<a class="extend prev disabled" rel="prev">&laquo; Prev</a>'+t.innerHTML),t&&!document.querySelector("#page-nav .extend.next")&&(t.innerHTML=t.innerHTML+'<a class="extend next disabled" rel="next">Next &raquo;</a>'),yiliaConfig&&yiliaConfig.open_in_new){var n=document.querySelectorAll(".article-entry a:not(.article-more-a)");n.forEach(function(t){t.setAttribute("target","_blank")})}var e=document.querySelector("#js-aboutme");e&&0!==e.length&&(e.innerHTML=e.innerText)}t.exports={init:e}},,,,,,,,,function(t,n){function e(t,n){if("string"==typeof n)return t.insertAdjacentHTML("afterend",n);var e=t.nextSibling;return e?t.parentNode.insertBefore(n,e):t.parentNode.appendChild(n)}t.exports=e}])</script><script src="/./main.234bc0.js"></script><script>!function(){var e=function(e){var t=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(t),t.setAttribute("src",e)};e("/slider.885efe.js")}()</script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-nav header-menu">
+    
+    
+      
+      
+      
+    
+      
+      
+      
+    
+      
+      
+      
+    
+    
+
+    <ul style="width: 70%">
+    
+    
+      
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      
+        
+      
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友链</a></li>
+      
+        
+      
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      
+        
+    </ul>
+  </div>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ajax</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">react</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">webpack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">canvas</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">koa2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ECMAScript 6</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">babel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">302</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">webgl</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">three.js</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://www.9hiw.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>九江论坛</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">忘记一切你自以为知道的事</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
