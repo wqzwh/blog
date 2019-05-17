@@ -66,28 +66,28 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: jekyll-theme-minimal
+theme: hexo-theme-yilia
 
 jsonContent:
-    meta: false
-    pages: false
-    posts:
-      title: true
-      date: true
-      path: true
-      text: true
-      raw: false
-      content: false
-      slug: false
-      updated: false
-      comments: false
-      link: false
-      permalink: false
-      excerpt: false
-      categories: false
-      tags: true
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: true
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: true
 
-plugin: hexo-deployer-ftpsync     
+plugin: hexo-deployer-ftpsync
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -96,11 +96,11 @@ plugin: hexo-deployer-ftpsync
 # repo: git@github.com/wqzwh/wqzwh.github.io.git
 # branch: master
 deploy:
-  type: 
-  host: 
-  user: 
-  pass: 
-  remote: ./htdocs/
+  type:
+  host:
+  user:
+  pass:
+  remote:
   port: 21
   ignore: 1
   connections: 1
