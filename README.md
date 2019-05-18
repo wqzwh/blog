@@ -4,6 +4,7 @@
 
 ### 学习总结
 
+- [react 源码分析之 ReactChildren 分析（三）](https://github.com/wqzwh/blog/blob/master/2019/2019-05-18-react-ReactChildren.md)
 - [react 源码分析之 ReactElement 分析（二）](https://github.com/wqzwh/blog/blob/master/2019/2019-05-16-react-ReactElement.md)
 - [react 源码分析之基础 API 简要分析（一）](https://github.com/wqzwh/blog/blob/master/2019/2019-05-15-react-basic.md)
 - [利用 babel 实现简易版打包工具函数](https://github.com/wqzwh/blog/blob/master/2019/2019-05-10-bundler.md)

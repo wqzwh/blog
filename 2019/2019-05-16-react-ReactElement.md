@@ -133,6 +133,8 @@ export function createElement(type, config, children) {
 
 `type && type.defaultProps`这个 if 语句代码块主要是在设置默认值使用的，比较简单。
 
+> 这里有个遗漏，就是如果React.createElement创建的是一个string或者一个number类型的，那么props.children有可能是string或者number类型
+
 最终会调用`ReactElement`函数，然后返回一个代表是`ReactElement`的对象（通过`$$typeof`属性判断）
 
 其实`createElement`和`ReactElement`只是将 props、ref、key 做了赋值操作，并没有之前想的那样会有很复杂的逻辑，解决了最开始的两个问题。
