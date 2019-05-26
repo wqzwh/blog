@@ -133,7 +133,7 @@ export function createElement(type, config, children) {
 
 `type && type.defaultProps`这个 if 语句代码块主要是在设置默认值使用的，比较简单。
 
-> 这里有个遗漏，就是如果React.createElement创建的是一个string或者一个number类型的，那么props.children有可能是string或者number类型
+> 这里有个遗漏，就是如果 React.createElement 创建的是一个 string 或者一个 number 类型的，那么 props.children 有可能是 string 或者 number 类型
 
 最终会调用`ReactElement`函数，然后返回一个代表是`ReactElement`的对象（通过`$$typeof`属性判断）
 
@@ -143,7 +143,7 @@ export function createElement(type, config, children) {
 
 通过以上分析，可以解释开篇最开始的两个疑问，但是又会有新的疑问：
 
-- 源码中`ReactCurrentOwner`是什么东东？
+- 源码中`ReactCurrentOwner`是什么东东？[跳转](https://github.com/wqzwh/blog/blob/master/2019/2019-05-16-react-ReactElement.md)
 - 在`createElement`的函数中`type`是如何判断是哪种类型的，在源码中并没有这样的逻辑？
 
 以上就是全部的内容，如果有什么不对的地方，欢迎提[issues](https://github.com/wqzwh/blog/blob/master/2019/2019-05-16-react-ReactElement.md)
