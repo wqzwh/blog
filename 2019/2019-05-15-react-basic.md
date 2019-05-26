@@ -343,8 +343,8 @@ isValidElement: isValidElement,
 - memo 如果通过第二个参数进行判断组件是否该渲染？（一般用的很少，索性先提出来）
 - forwardRef 最后返回的一个对象，里面的 render 函数如何渲染更新的？
 - lazy 通过内部定义的`_status`来判断组件是否渲染，在哪里`_status`被改变了？（一般用的很少，索性先提出来）
-- createElement 到底如何创建的？
+- createElement 到底如何创建的？[跳转](https://github.com/wqzwh/blog/blob/master/2019/2019-05-16-react-ReactElement.md)
 - Hooks 是什么？
-- ReactChildren 是如何实现的？
+- ReactChildren 是如何实现的？[跳转](https://github.com/wqzwh/blog/blob/master/2019/2019-05-18-react-ReactChildren.md)
 
 以上就是全部的内容，如果有什么不对的地方，欢迎提[issues](https://github.com/wqzwh/blog/blob/master/2019/2019-05-15-react-basic.md)
