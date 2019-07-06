@@ -306,10 +306,11 @@ export type Fiber = {|
 这里只是大致介绍了`FiberRoot`和`Fiber`在哪被创建的，以及这两个对象的对应属性的解释，依然会有很多疑问：
 
 - `Fiber`核心算法到底如何实现的？`FiberRoot`和`Fiber`对象上的属性到底是如何工作的，在哪里被使用了？
+- `Fiber`到底渲染出什么样的结构？
 - `hydrate`如果后端返回的 html 和前端不一致，该如何融合呢？
 
 ## 参考
 
-[Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.youtube.com/watch?v=ZCuYPiUIONs)
-[React Fiber Architecture](https://github.com/acdlite/react-fiber-architecture)
-[ReactDOM](https://zh-hans.reactjs.org/docs/react-dom.html)
+[- Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.youtube.com/watch?v=ZCuYPiUIONs)
+[- React Fiber Architecture](https://github.com/acdlite/react-fiber-architecture)
+[- ReactDOM](https://zh-hans.reactjs.org/docs/react-dom.html)
