@@ -4,6 +4,7 @@
 
 ### 学习总结
 
+- [react 原生构建 SSR 框架及 NSR 实践方案的思考](https://github.com/wqzwh/blog/blob/master/2019/2019-07-07-react-ssr.md)
 - [react 源码分析之 Fiber 渲染结构以及 expirationTime 剖析（五）](https://github.com/wqzwh/blog/blob/master/2019/2019-06-26-react-expirationTime.md)
 - [react 源码分析之 Fiber 对象创建介绍分析（四）](https://github.com/wqzwh/blog/blob/master/2019/2019-05-26-react-fiber.md)
 - [react 源码分析之 ReactChildren 分析（三）](https://github.com/wqzwh/blog/blob/master/2019/2019-05-18-react-ReactChildren.md)
