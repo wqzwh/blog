@@ -5,6 +5,7 @@
 ### 学习总结
 
 - [react 中的函数式组件和类组件的区别](https://github.com/wqzwh/blog/blob/master/2020/2020-02-22.md)
+- [javascrpt 中Blob对象使用总结](https://github.com/wqzwh/blog/blob/master/2020/2020-05-30.md)
 
 ## 2019
 
