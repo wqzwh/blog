@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src='f.js'></script>
+</head>
+<body>
+  <canvas id='canvas' width="800" height="800"></canvas>
+  <script>
+    showFPS(true)
+    window.onload = () => {
+      const canvas = document.getElementById('canvas')
+      const ctx = canvas.getContext('2d')
+
+      const w = canvas.width
+      const h = canvas.height
+
+      const randomColor = () => {
+        return `hsl(${Math.random() * 360}, 100%, 50%)`
+      }
+
+      const drawCircle = (ctx, r) => {
+        const x = Math.random() * w
+        const y = Math.random() * h
+        const fillColor = randomColor()
+        ctx.fillStyle = fillColor
+        ctx.beginPath()
+        ctx.arc(x, y, r, 0, Math.PI * 2)
+        ctx.fill() // 填充绘制
+      }
+
+      const draw = (ctx, n = 1000, r = 250) => {
+        for (let i = 0; i < n; i++) {
+          drawCircle(ctx, r)
+        }
+      }
+
+      requestAnimationFrame(function update() {
+        ctx.clearRect(0, 0, w, h)
+        draw(ctx)
+        requestAnimationFrame(update)
+      })
+    }
+  </script>
+</body>
+</html>

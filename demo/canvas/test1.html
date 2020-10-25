@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="f.js"></script>
+  </head>
+  <body>
+    <canvas id="canvas" width="800" height="800"></canvas>
+    <script>
+      showFPS(true);
+      window.onload = () => {
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const w = canvas.width;
+        const h = canvas.height;
+
+        const randomColor = () => {
+          return `hsl(${Math.random() * 360}, 100%, 50%)`;
+        };
+
+        const drawCircle = (ctx, r) => {
+          const x = Math.random() * w;
+          const y = Math.random() * h;
+          ctx.fillStyle = 'red';
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fill(); // 填充绘制
+        };
+
+        const shapes = createCache()
+
+        const draw = (ctx, n = 5000, r = 10) => {
+          for (let i = 0; i < n; i++) {
+            // drawCircle(ctx, r);
+            const shape = shapes[0];
+            const x = Math.random() * w; 
+            const y = Math.random() * h;
+            ctx.drawImage(shape, x, y)
+          }
+        };
+
+        requestAnimationFrame(function update() {
+          ctx.clearRect(0, 0, w, h)
+          draw(ctx)
+          requestAnimationFrame(update);
+        });
+
+        function createCache() {
+          const ret = []
+          // 创建离屏Canvas缓存图形
+          const cacheCanvas = new OffscreenCanvas(20, 20)
+          // 将图形绘制到离屏Canvas对象上
+          const context = cacheCanvas.getContext("2d")
+          context.fillStyle = 'red'
+          context.beginPath()
+          context.arc(10, 10, 10, 0, Math.PI * 2)
+          context.fill()
+          ret.push(cacheCanvas)
+          // 将离屏Canvas数组（缓存对象）返回
+          return ret
+        }
+        
+      }
+    </script>
+  </body>
+</html>
