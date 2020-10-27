@@ -4,6 +4,7 @@
 
 ### 学习总结
 
+- [最新版谷歌浏览器Frame Rate Meter说明](https://github.com/wqzwh/blog/blob/master/2020/2020-10-27.md)
 - [如何有效提升canvas绘制速度](https://github.com/wqzwh/blog/blob/master/2020/2020-10-25.md)
 - [如何正确的使用React Hook相关API](https://github.com/wqzwh/blog/blob/master/2020/2020-10-07.md)
 - [react 中的函数式组件和类组件的区别](https://github.com/wqzwh/blog/blob/master/2020/2020-02-22.md)
