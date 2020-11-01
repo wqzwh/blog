@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分层渲染</title>
+  <script src='f.js'></script>
+  <style>
+    #canvas {
+      position: absolute;
+      left: 0;
+      height: 0;
+      width: 800px;
+      height: 800px;
+      z-index: 1;
+    }
+    #canvas2 {
+      position: absolute;
+      left: 0;
+      height: 0;
+      width: 800px;
+      height: 800px;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <canvas id='canvas2' width="800" height="800"></canvas>
+  <canvas id='canvas' width="800" height="800"></canvas>
+  <script>
+    showFPS(true)
+    window.onload = () => {
+      const randomColor = () => {
+        return `hsl(${Math.random() * 360}, 100%, 50%)`
+      }
+
+      const drawCircle = (ctx, r) => {
+        const x = Math.random() * w
+        const y = Math.random() * h
+        const fillColor = randomColor()
+        ctx.fillStyle = fillColor
+        ctx.beginPath()
+        ctx.arc(x, y, r, 0, Math.PI * 2)
+        ctx.fill() // 填充绘制
+      }
+
+      const draw = (ctx, n = 1000, r = 10) => {
+        for (let i = 0; i < n; i++) {
+          drawCircle(ctx, r)
+        }
+      }
+
+      const canvas = document.getElementById('canvas')
+      const canvas2 = document.getElementById('canvas2')
+      const ctx = canvas.getContext('2d')
+      const ctx2 = canvas2.getContext('2d')
+
+      const w = canvas.width
+      const h = canvas.height
+
+      // 绘制背景
+      const backGrund = (ctx) => {
+        draw(ctx)
+      }
+
+      function loadImage(src) {
+        const img = new Image()
+        img.crossOrigin = 'anonymous'
+        return new Promise((resolve) => {
+          img.onload = resolve(img)
+          img.src = src
+        })
+      }
+
+      const frontGrund = async (ctx) => {
+        const img = await loadImage('http://p3.qhimg.com/t015b85b72445154fe0.png')
+        const {width, height} = ctx.canvas
+        function update(t) {
+          ctx.clearRect(0, 0, width, height)
+          ctx.save()
+          ctx.translate(0, 0.5 * height)
+          const p = (t % 3000) / 3000
+          const x = width * p
+          const y = 0.1 * height * Math.sin(3 * Math.PI * p)
+          ctx.drawImage(img, x, y)
+          ctx.restore()
+          requestAnimationFrame(update)
+        }
+        update(0)
+      }
+
+      backGrund(ctx)
+      frontGrund(ctx2)
+    }
+  </script>
+</body>
+</html>

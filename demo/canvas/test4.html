@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>滤镜优化</title>
+    <script src="f.js"></script>
+  </head>
+  <body>
+    <canvas id="canvas" width="800" height="800"></canvas>
+    <script>
+      showFPS(true);
+      window.onload = () => {
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const w = canvas.width;
+        const h = canvas.height;
+
+        const randomColor = () => {
+          return `hsl(${Math.random() * 360}, 100%, 50%)`;
+        };
+
+        const shapes = createCache();
+
+        const drawArc = (cctx, n = 1000) => {
+          for (let i = 0; i < n; i++) {
+            const shape = shapes[0];
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            cctx.drawImage(shape, x, y);
+          }
+        };
+
+        ctx.filter = "blur(5px)";
+
+        // 创建离屏的 Canvas
+        const cCanvas = new OffscreenCanvas(w, h);
+        const cCtx = cCanvas.getContext("2d");
+        function draw() {
+          ctx.clearRect(0, 0, w, h);
+          cCtx.clearRect(0, 0, w, h);
+          drawArc(cCtx)
+          // 再将离屏Canvas图像绘制到画布上，这一次绘制采用了滤镜
+          ctx.drawImage(cCanvas, 0, 0);
+          requestAnimationFrame(draw);
+        }
+
+        draw();
+
+        function createCache() {
+          const shapes = [];
+          // 创建离屏Canvas缓存图形
+          const cacheCanvas = new OffscreenCanvas(20, 20);
+          const context = cacheCanvas.getContext("2d");
+          context.fillStyle = "red";
+          context.beginPath();
+          context.arc(10, 10, 10, 0, Math.PI * 2);
+          context.fill();
+          shapes.push(cacheCanvas);
+          // 将离屏Canvas数组（缓存对象）返回
+          return shapes;
+        }
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>局部渲染示例</title>
+  <script src='f.js'></script>
+</head>
+<body>
+  <canvas id='canvas' width="800" height="800"></canvas>
+  <button onclick="localRender()">局部重绘</button>
+  <script>
+    showFPS(true)
+      const randomColor = () => {
+        return `hsl(${Math.random() * 360}, 100%, 50%)`
+      }
+
+      const drawCircle = (ctx, r, i) => {
+        const x = w / 2 + i * 50
+        const y = h / 2 + i * 50
+        const fillColor = randomColor()
+        ctx.fillStyle = fillColor
+        ctx.beginPath()
+        ctx.arc(x, y, r, 0, Math.PI * 2)
+        ctx.fill() // 填充绘制
+      }
+
+      const draw = (ctx, n = 3, r = 10) => {
+        for (let i = 0; i < n; i++) {
+          drawCircle(ctx, r, i)
+        }
+      }
+
+      const canvas = document.getElementById('canvas')
+      const ctx = canvas.getContext('2d')
+
+      const w = canvas.width
+      const h = canvas.height
+
+      // 绘制背景
+      const backGrund = (ctx) => {
+        draw(ctx)
+      }
+      backGrund(ctx)
+
+      // 创建剪裁区域
+      function localRender() {
+        ctx.beginPath()
+        ctx.arc(w / 2 + 50, h / 2 + 50, 20, 0, Math.PI * 2)
+        ctx.clip()
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+      }
+  </script>
+</body>
+</html>
