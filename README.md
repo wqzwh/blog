@@ -4,6 +4,7 @@
 
 ### 学习总结
 
+- [前端性能优化之传输加载优化](https://github.com/wqzwh/blog/blob/master/2020/2020-11-08.md)
 - [最新版谷歌浏览器Frame Rate Meter说明](https://github.com/wqzwh/blog/blob/master/2020/2020-10-27.md)
 - [如何有效提升canvas绘制速度](https://github.com/wqzwh/blog/blob/master/2020/2020-10-25.md)
 - [如何正确的使用React Hook相关API](https://github.com/wqzwh/blog/blob/master/2020/2020-10-07.md)
