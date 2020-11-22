@@ -4,6 +4,7 @@
 
 ### 学习总结
 
+- [如何更加合理的使用store开发高性能的react组件](https://github.com/wqzwh/blog/blob/master/2020/2020-11-22.md)
 - [前端性能优化之传输加载优化](https://github.com/wqzwh/blog/blob/master/2020/2020-11-08.md)
 - [最新版谷歌浏览器Frame Rate Meter说明](https://github.com/wqzwh/blog/blob/master/2020/2020-10-27.md)
 - [如何有效提升canvas绘制速度](https://github.com/wqzwh/blog/blob/master/2020/2020-10-25.md)
